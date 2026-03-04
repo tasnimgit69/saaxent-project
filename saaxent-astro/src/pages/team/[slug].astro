@@ -1,0 +1,46 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import TeamDetailsSection from '../../components/TeamDetailsSection.astro';
+import TeamSection from '../../components/TeamSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { teamDetailMembers } from '../../data/team-details';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return teamDetailMembers.map((member) => ({
+    params: { slug: member.slug },
+    props: { member }
+  }));
+}
+
+const { member } = Astro.props;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: member.name,
+  jobTitle: member.role,
+  description: `${member.name} - ${member.role} at ${site.name}`,
+  url: `${site.url}/team/${member.slug}`,
+  worksFor: { '@type': 'Organization', name: site.name }
+};
+---
+
+<PageLayout
+  title={`${member.name} | ${site.name}`}
+  description={`${member.name} - ${member.role} at ${site.name}`}
+  url={`${site.url}/team/${member.slug}`}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <BreadcrumbHero
+    badge="Team Details"
+    title="Get in Touch With the"
+    highlight="SaaXent"
+    titleAfter="Team"
+    titleClass="max-w-[600px] min-1280:max-w-[800px] min-1440:max-w-[900px]"
+  />
+  <TeamDetailsSection member={member} />
+  <TeamSection limit={3} bgClass="bg-surface-body" sectionClass="!pt-0" />
+  <CtaSection />
+</PageLayout>

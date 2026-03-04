@@ -1,0 +1,169 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+import FeatureCard from './FeatureCard.astro';
+import PrimaryButton from './PrimaryButton.astro';
+import { featuresSection } from '../data/home-v1';
+import { featureItems } from '../data/features';
+
+const { showCta = true, limit } = Astro.props;
+const items = limit ? featureItems.slice(0, limit) : featureItems;
+const featured = items.find((f) => f.variant === 'featured');
+const standard = items.filter((f) => f.variant !== 'featured');
+---
+
+<section class="relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="relative z-10">
+      <!-- Section title -->
+      <div class="flex flex-col items-center reveal">
+        <SectionTitle
+          badge={featuresSection.badge}
+          title={featuresSection.title}
+          highlight={featuresSection.highlight || featuresSection.titleHighlight}
+          description={featuresSection.description}
+          titleClass="max-w-580 min-1280:max-w-650 max-991:max-w-500 max-767:max-w-450"
+          descriptionClass="max-w-480"
+        />
+      </div>
+
+      <!-- Feature cards -->
+      <div class="mt-40 min-1280:mt-44 min-1440:mt-54 max-767:mt-32">
+        {featured && (
+          <div class="reveal delay-1">
+            <FeatureCard {...featured} />
+          </div>
+        )}
+
+        {standard.length > 0 && (
+          <div class="grid grid-cols-2 gap-24 max-991:grid-cols-1">
+            {standard.map((item, i) => (
+              <div class={`reveal delay-${i + 2}`}>
+                <FeatureCard {...item} standardIndex={i} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {showCta && featuresSection.cta && (
+        <div class="mt-60 min-1440:mt-80 max-991:mt-50 max-767:mt-40 max-479:mt-30 flex items-center justify-center reveal delay-4">
+          <PrimaryButton href={featuresSection.cta.href} class="text-[24px] leading-[1.33] font-normal">
+            {featuresSection.cta.label}
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none" class="ml-10">
+              <g clip-path="url(#clip_cta_arrow)">
+                <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip_cta_arrow">
+                  <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </PrimaryButton>
+        </div>
+      )}
+    </div>
+  </Container>
+
+  <!-- Section line shapes (14 vertical lines) -->
+  <div class="pointer-events-none absolute inset-0 flex justify-between" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="h-full bg-border-light" style="width: 0.5px; opacity: 0.03;"></div>
+    ))}
+  </div>
+
+  <!-- Gradient blur shapes -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="features-gradient-left absolute rounded-full bg-brand-primary"></div>
+    <div class="features-gradient-right absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<style>
+  .features-gradient-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 0;
+    bottom: 0;
+    left: -420px;
+    margin-top: 100px;
+    margin-bottom: auto;
+  }
+
+  .features-gradient-right {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: auto;
+    right: -300px;
+    bottom: -80px;
+  }
+
+  @media (min-width: 1280px) {
+    .features-gradient-left {
+      width: 750px;
+      height: 500px;
+      bottom: 100px;
+      left: -450px;
+    }
+    .features-gradient-right {
+      width: 750px;
+      height: 500px;
+      top: 80px;
+      right: -360px;
+      bottom: -100px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .features-gradient-left {
+      width: 848px;
+      height: 628px;
+      bottom: 120px;
+      left: -552px;
+      margin-top: 140px;
+    }
+    .features-gradient-right {
+      width: 848px;
+      height: 628px;
+      top: 111px;
+      right: -424px;
+      bottom: -120px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .features-gradient-left,
+    .features-gradient-right {
+      width: 500px;
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .features-gradient-left {
+      width: 500px;
+      height: 300px;
+    }
+    .features-gradient-right {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .features-gradient-left {
+      width: 400px;
+      height: 200px;
+      left: -300px;
+    }
+    .features-gradient-right {
+      width: 400px;
+      height: 200px;
+    }
+  }
+</style>

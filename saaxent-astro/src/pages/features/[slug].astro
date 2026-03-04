@@ -1,0 +1,43 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import FeatureDetailsSection from '../../components/FeatureDetailsSection.astro';
+import MoreFeaturesSection from '../../components/MoreFeaturesSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { featureDetailItems } from '../../data/features-details';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return featureDetailItems.map((feature) => ({
+    params: { slug: feature.slug },
+    props: { feature }
+  }));
+}
+
+const { feature } = Astro.props;
+
+const featureSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: feature.title,
+  description: feature.excerpt,
+  url: `${site.url}/features/${feature.slug}`,
+  provider: { '@type': 'Organization', name: site.name }
+};
+---
+
+<PageLayout
+  title={`${feature.title} | ${site.name}`}
+  description={feature.excerpt}
+  url={`${site.url}/features/${feature.slug}`}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(featureSchema)} />
+  <BreadcrumbHero
+    badge="Features Details"
+    title={feature.tag}
+    titleClass="max-w-[700px] min-1280:max-w-[900px] min-1440:max-w-[1100px] max-991:max-w-[600px]"
+  />
+  <FeatureDetailsSection feature={feature} />
+  <MoreFeaturesSection />
+  <CtaSection />
+</PageLayout>

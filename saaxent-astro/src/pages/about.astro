@@ -1,0 +1,30 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import WhatWeDoSection from '../components/WhatWeDoSection.astro';
+import OurValuesSection from '../components/OurValuesSection.astro';
+import OurMissionSection from '../components/OurMissionSection.astro';
+import OurVisionSection from '../components/OurVisionSection.astro';
+import TeamSection from '../components/TeamSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { aboutBreadcrumb } from '../data/about';
+---
+
+<PageLayout
+  title="About | SaaXent - SaaS Website Template"
+  description="Learn about SaaXent's mission, values, and the team behind our innovative SaaS solutions."
+>
+  <BreadcrumbHero
+    badge={aboutBreadcrumb.badge}
+    title={aboutBreadcrumb.title}
+    highlight={aboutBreadcrumb.highlight}
+    titleClass="max-w-[700px] min-1280:max-w-[800px] min-1440:max-w-[950px]"
+    highlightClass="bg-[size:100%]"
+  />
+  <WhatWeDoSection />
+  <OurValuesSection />
+  <OurMissionSection />
+  <OurVisionSection />
+  <TeamSection limit={3} />
+  <CtaSection />
+</PageLayout>

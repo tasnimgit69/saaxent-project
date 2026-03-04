@@ -1,0 +1,25 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import FeaturesShowcase from '../components/FeaturesShowcase.astro';
+import FeaturesPageFaq from '../components/FeaturesPageFaq.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { featuresBreadcrumb } from '../data/features-page';
+---
+
+<PageLayout
+  title="Features | SaaXent - SaaS Website Template"
+  description="Manage your business easily with SaaXent's powerful features including analytics, automation, and collaboration tools."
+>
+  <BreadcrumbHero
+    badge={featuresBreadcrumb.badge}
+    title={featuresBreadcrumb.title}
+    highlight={featuresBreadcrumb.highlight}
+    titleClass="max-w-[700px] min-1280:max-w-[900px] min-1440:max-w-[1100px] max-991:max-w-[600px]"
+    highlightImage="/images/section-title-highlight-long-shape.svg"
+    highlightClass="bg-[size:100%] max-479:!bg-none max-479:!inline"
+  />
+  <FeaturesShowcase />
+  <FeaturesPageFaq />
+  <CtaSection />
+</PageLayout>

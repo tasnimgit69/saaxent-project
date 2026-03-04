@@ -1,0 +1,303 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+
+const { item } = Astro.props;
+---
+
+<section class="integration-detail-section relative overflow-hidden pt-90 min-1280:pt-110 min-1440:pt-130 max-991:pt-70 max-767:pt-50">
+  <Container>
+    <div class="relative z-[1] pb-20">
+      <!-- Icon Header -->
+      <div class="flex flex-col justify-center items-center">
+        <div class="inline-flex justify-center items-center gap-40 max-767:gap-30 max-479:gap-20 bg-surface-navy-deep rounded-96 py-[34px] px-40 max-767:py-28 max-767:px-32 max-479:py-20 max-479:px-24 reveal">
+          <!-- Integration icon -->
+          <div class="flex justify-center items-center bg-white rounded-full w-[120px] h-[120px] max-767:w-[100px] max-767:h-[100px] max-479:w-[70px] max-479:h-[70px]">
+            {typeof item.icon !== 'string' && (
+              <Image
+                src={item.icon}
+                alt="Integration Icon"
+                class="w-[62px] max-767:w-[52px] max-479:w-[45px] h-auto"
+                width={62}
+                height={62}
+              />
+            )}
+          </div>
+
+          <!-- Plus icon -->
+          <div class="inline-flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="62" height="65" viewBox="0 0 62 65" fill="none" class="w-[62px] h-[65px] max-479:w-[50px] max-479:h-auto">
+              <path d="M0.265625 38.7499V27.1105H61.1929V38.7499H0.265625ZM24.8377 0.957764H36.7645V64.9026H24.8377V0.957764Z" fill="white"></path>
+            </svg>
+          </div>
+
+          <!-- SaaXent icon -->
+          <div class="flex justify-center items-center bg-brand-primary rounded-full w-[120px] h-[120px] max-767:w-[100px] max-767:h-[100px] max-479:w-[70px] max-479:h-[70px]">
+            <div class="flex justify-center items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64" fill="none" class="w-[63px] h-[64px] max-767:w-[50px] max-767:h-auto max-479:w-[45px]">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2985 1.63034C12.4017 0.733577 10.9478 0.733577 10.051 1.63034L1.05148 10.6299C0.154715 11.5266 0.154715 12.9806 1.05148 13.8773L7.96763 20.7935C9.116 21.9419 9.76116 23.4994 9.76116 25.1235V39.1865C9.76116 40.8106 9.116 42.3681 7.96763 43.5165L1.0515 50.4326C0.939401 50.5447 0.841315 50.6655 0.757245 50.7929C0.168731 51.6842 0.266817 52.8954 1.05148 53.6801L10.051 62.6797C10.9478 63.5764 12.4017 63.5764 13.2985 62.6797L20.2146 55.7635C21.363 54.6151 22.9206 53.97 24.5446 53.97H38.6077C40.2317 53.97 41.7893 54.6151 42.9376 55.7635L49.8538 62.6796C50.7505 63.5764 52.2045 63.5764 53.1012 62.6797L62.1008 53.6801C62.9976 52.7833 62.9976 51.3294 62.1008 50.4326L55.1846 43.5165C54.0363 42.3681 53.3911 40.8106 53.3911 39.1865V25.1235C53.3911 23.4994 54.0363 21.9419 55.1846 20.7935L62.1008 13.8773C62.9976 12.9806 62.9976 11.5266 62.1008 10.6299L53.1012 1.63034C52.2045 0.733565 50.7505 0.733577 49.8538 1.63034L42.9376 8.54647C41.7893 9.69485 40.2317 10.34 38.6077 10.34H24.5446C22.9206 10.34 21.363 9.69486 20.2146 8.54648L13.2985 1.63034ZM42.5487 15.5718C41.4009 14.4273 39.8461 13.7845 38.2249 13.7845H24.9273C23.3033 13.7845 21.7457 14.4296 20.5974 15.578L14.9992 21.1762C13.8508 22.3246 13.2056 23.8821 13.2056 25.5062V38.8038C13.2056 40.4279 13.8508 41.9854 14.9992 43.1338L20.6036 48.7382C21.7514 49.8827 23.3062 50.5255 24.9273 50.5255H38.2249C39.849 50.5255 41.4066 49.8804 42.5549 48.732L48.1531 43.1338C49.3015 41.9854 49.9466 40.4279 49.9466 38.8038V25.5062C49.9466 23.8821 49.3015 22.3246 48.1531 21.1762L42.5487 15.5718Z" fill="white"></path>
+                <path d="M33.8543 19.0193H29.298C26.3859 19.0193 23.5958 20.1892 21.5545 22.2661C19.5588 24.2966 18.4405 27.0298 18.4405 29.8769V34.4331C18.4405 37.2802 19.5588 40.0134 21.5545 42.0439C23.5958 44.1208 26.3859 45.2907 29.298 45.2907H33.8543C36.7664 45.2907 39.5565 44.1208 41.5978 42.0439C43.5935 40.0134 44.7118 37.2802 44.7118 34.4331V29.8769C44.7118 27.0298 43.5935 24.2966 41.5978 22.2661C39.5565 20.1892 36.7664 19.0193 33.8543 19.0193Z" fill="white"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title: Connect SaaXent to [Name] -->
+        <div class="text-center mt-40 min-1280:mt-44 min-1440:mt-[54px] max-767:mt-32 reveal delay-1">
+          <h2 class="font-medium">Connect SaaXent to <span class="pl-10">{item.name}</span></h2>
+        </div>
+      </div>
+
+      <!-- Rich Text Content -->
+      <div class="border-t border-l-0 border-r-0 border-b-0 border-solid border-glass-border-muted mt-40 min-1280:mt-44 min-1440:mt-[54px] max-767:mt-32 reveal delay-2">
+        <div class="id-rich-text" set:html={item.body} />
+      </div>
+    </div>
+  </Container>
+
+  <!-- Section lines (14 vertical lines) -->
+  <div class="pointer-events-none absolute inset-0 flex justify-between" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="h-full bg-border-light" style="width: 0.5px; opacity: 0.03;"></div>
+    ))}
+  </div>
+
+  <!-- Gradient blur shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="id-gradient-left absolute bg-brand-primary rounded-full"></div>
+    <div class="id-gradient-right-top absolute bg-brand-primary rounded-full"></div>
+    <div class="id-gradient-right-bottom absolute bg-brand-primary rounded-full"></div>
+  </div>
+</section>
+
+<style>
+  /* === Rich Text Styles (required for set:html content) === */
+  .id-rich-text :global(h2) {
+    color: white;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .id-rich-text :global(h3) {
+    color: white;
+    margin-top: 30px;
+    font-weight: 500;
+  }
+
+  .id-rich-text :global(p) {
+    margin-top: 20px;
+    color: gainsboro;
+  }
+
+  .id-rich-text :global(ul) {
+    gap: 20px;
+    flex-flow: column;
+    margin-top: 24px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    display: flex;
+    list-style: disc;
+  }
+
+  .id-rich-text :global(li) {
+    line-height: 1.4;
+    color: gainsboro;
+  }
+
+  .id-rich-text :global(blockquote) {
+    font-family: Outfit, sans-serif;
+    color: white;
+    text-align: left;
+    border-left: 5px solid white;
+    margin-top: 40px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.28;
+  }
+
+  .id-rich-text :global(strong) {
+    color: white;
+    font-weight: 500;
+  }
+
+  .id-rich-text :global(figure) {
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+
+  .id-rich-text :global(img) {
+    border-radius: 24px;
+    max-width: 100%;
+    display: inline-block;
+  }
+
+  /* === Gradient Shapes === */
+  .id-gradient-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 0;
+    bottom: 0;
+    left: -420px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .id-gradient-right-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 70px;
+    right: -300px;
+  }
+
+  .id-gradient-right-bottom {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: auto;
+    bottom: 60px;
+    right: -300px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .id-rich-text :global(h2) {
+      margin-top: 50px;
+    }
+
+    .id-rich-text :global(h3) {
+      margin-top: 40px;
+    }
+
+    .id-rich-text :global(p) {
+      margin-top: 28px;
+    }
+
+    .id-rich-text :global(ul) {
+      gap: 26px;
+      margin-top: 32px;
+    }
+
+    .id-rich-text :global(li) {
+      font-size: 20px;
+    }
+
+    .id-rich-text :global(blockquote) {
+      margin-top: 50px;
+      font-size: 28px;
+    }
+
+    .id-rich-text :global(figure) {
+      margin-top: 50px;
+    }
+
+    .id-gradient-left {
+      width: 750px;
+      height: 500px;
+      bottom: 100px;
+      left: -450px;
+    }
+
+    .id-gradient-right-top {
+      width: 750px;
+      height: 500px;
+      top: 80px;
+      right: -360px;
+    }
+
+    .id-gradient-right-bottom {
+      width: 750px;
+      height: 500px;
+      right: -360px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .id-rich-text :global(h2) {
+      margin-top: 54px;
+    }
+
+    .id-rich-text :global(h3) {
+      margin-top: 48px;
+    }
+
+    .id-rich-text :global(blockquote) {
+      margin-top: 54px;
+    }
+
+    .id-rich-text :global(figure) {
+      margin-top: 54px;
+    }
+
+    .id-gradient-left {
+      width: 848px;
+      height: 628px;
+      bottom: 120px;
+      left: -552px;
+    }
+
+    .id-gradient-right-top {
+      width: 848px;
+      height: 628px;
+      top: 111px;
+      right: -424px;
+    }
+
+    .id-gradient-right-bottom {
+      width: 848px;
+      height: 628px;
+      bottom: 80px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .id-rich-text :global(blockquote) {
+      margin-top: 30px;
+    }
+
+    .id-rich-text :global(p) {
+      margin-top: 16px;
+    }
+
+    .id-rich-text :global(figure) {
+      margin-top: 30px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .id-rich-text :global(h2) {
+      margin-top: 30px;
+    }
+
+    .id-rich-text :global(h3) {
+      margin-top: 24px;
+    }
+
+    .id-rich-text :global(ul) {
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .id-rich-text :global(blockquote) {
+      padding: 10px 16px;
+      font-size: 22px;
+    }
+
+    .id-rich-text :global(img) {
+      border-radius: 16px;
+    }
+  }
+</style>

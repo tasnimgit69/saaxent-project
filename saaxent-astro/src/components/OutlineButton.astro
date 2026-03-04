@@ -1,0 +1,35 @@
+---
+const {
+  href = '#',
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class={`outline-btn-block inline-flex items-center justify-center rounded-40 border border-solid border-border-light px-30 py-16 text-button font-medium max-767:text-[18px] tracking-nav text-ink-heading transition-colors duration-300 hover:bg-brand-primary hover:border-brand-primary hover:text-white ${className}`.trim()}
+  {...rest}
+>
+  <slot />
+</a>
+
+<style>
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .outline-btn-block {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .outline-btn-block {
+      padding: 12px 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .outline-btn-block {
+      padding: 12px 20px;
+    }
+  }
+</style>

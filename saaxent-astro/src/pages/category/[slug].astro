@@ -1,0 +1,47 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import BlogSection from '../../components/BlogSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { blogPosts } from '../../data/blog';
+import { site } from '../../data/site';
+
+function slugify(name: string) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
+export function getStaticPaths() {
+  const slugifyFn = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
+
+  const categoryMap = new Map<string, { name: string; posts: typeof blogPosts }>();
+
+  for (const post of blogPosts) {
+    const slug = slugifyFn(post.category.label);
+    if (!categoryMap.has(slug)) {
+      categoryMap.set(slug, { name: post.category.label, posts: [] });
+    }
+    categoryMap.get(slug)!.posts.push(post);
+  }
+
+  return [...categoryMap.entries()].map(([slug, data]) => ({
+    params: { slug },
+    props: { categoryName: data.name, posts: data.posts }
+  }));
+}
+
+const { categoryName, posts } = Astro.props;
+---
+
+<PageLayout
+  title={`${categoryName} | ${site.name} Blog Category`}
+  description={`Blog posts in the ${categoryName} category`}
+  url={`${site.url}/category/${slugify(categoryName)}`}
+>
+  <BreadcrumbHero
+    badge="Blog Category"
+    title={categoryName}
+    titleClass="max-w-[600px]"
+  />
+  <BlogSection showTitle={false} showCta={false} posts={posts} />
+  <CtaSection />
+</PageLayout>

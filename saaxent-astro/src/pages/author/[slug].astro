@@ -1,0 +1,47 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import BlogSection from '../../components/BlogSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { blogPosts } from '../../data/blog';
+import { site } from '../../data/site';
+
+function slugify(name: string) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
+export function getStaticPaths() {
+  const slugifyFn = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
+
+  const authorMap = new Map<string, { name: string; image: any; posts: typeof blogPosts }>();
+
+  for (const post of blogPosts) {
+    const slug = slugifyFn(post.author.name);
+    if (!authorMap.has(slug)) {
+      authorMap.set(slug, { name: post.author.name, image: post.author.image, posts: [] });
+    }
+    authorMap.get(slug)!.posts.push(post);
+  }
+
+  return [...authorMap.entries()].map(([slug, data]) => ({
+    params: { slug },
+    props: { authorName: data.name, authorImage: data.image, posts: data.posts }
+  }));
+}
+
+const { authorName, posts } = Astro.props;
+---
+
+<PageLayout
+  title={`${authorName} | ${site.name} Blog Author`}
+  description={`Blog posts by ${authorName}`}
+  url={`${site.url}/author/${slugify(authorName)}`}
+>
+  <BreadcrumbHero
+    badge="Blog Author"
+    title={authorName}
+    titleClass="max-w-[600px]"
+  />
+  <BlogSection showTitle={false} showCta={false} posts={posts} />
+  <CtaSection />
+</PageLayout>

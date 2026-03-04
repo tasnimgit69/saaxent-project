@@ -1,0 +1,339 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import { ourMission } from '../data/about';
+---
+
+<section class="relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="om-wrapper">
+      <!-- Left: Content Block -->
+      <div class="om-content-block">
+        <!-- Badge (outline style) -->
+        <span class="mb-20 inline-block rounded-19 border border-solid border-white px-20 py-3 text-body text-white reveal">
+          {ourMission.badge}
+        </span>
+
+        <!-- Title -->
+        <h2 class="om-title reveal delay-1">{ourMission.title}</h2>
+
+        <!-- Description -->
+        <p class="om-description mt-20 reveal delay-2">{ourMission.description}</p>
+
+        <!-- Mission Items List -->
+        <div class="om-list-wrapper relative">
+          {ourMission.items.map((item, i) => (
+            <div class={`om-list-item relative z-[1] flex items-start reveal delay-${i + 3}`}>
+              <div class="om-check-border relative z-[1] flex-none flex justify-center items-center rounded-full border border-solid border-white bg-surface-body">
+                <div class="om-check-inner rounded-10 bg-brand-primary"></div>
+              </div>
+              <div>
+                <div class="om-item-title text-white font-medium">{item.title}</div>
+                <p class="om-item-excerpt mb-0">{item.description}</p>
+              </div>
+            </div>
+          ))}
+          <!-- Vertical dashed border line -->
+          <div class="om-dashed-line absolute"></div>
+        </div>
+      </div>
+
+      <!-- Right: Banner Block -->
+      <div class="om-banner-block relative reveal-grow">
+        <!-- Chart Cards -->
+        <div class="om-chart-wrap relative z-[1] flex">
+          {typeof ourMission.images.chart1.src !== 'string' && (
+            <Image
+              src={ourMission.images.chart1.src}
+              alt={ourMission.images.chart1.alt}
+              class="om-chart-card om-chart-reveal h-auto rounded-12 reveal delay-3"
+            />
+          )}
+          {typeof ourMission.images.chart2.src !== 'string' && (
+            <Image
+              src={ourMission.images.chart2.src}
+              alt={ourMission.images.chart2.alt}
+              class="om-chart-card om-chart-reveal h-auto rounded-12 reveal delay-4"
+            />
+          )}
+          {typeof ourMission.images.chart3.src !== 'string' && (
+            <Image
+              src={ourMission.images.chart3.src}
+              alt={ourMission.images.chart3.alt}
+              class="om-chart-card om-chart-reveal h-auto rounded-12 reveal delay-5"
+            />
+          )}
+        </div>
+
+        <!-- Main Banner Image -->
+        {typeof ourMission.images.banner.src !== 'string' && (
+          <Image
+            src={ourMission.images.banner.src}
+            alt={ourMission.images.banner.alt}
+            class="om-banner-image absolute h-auto rounded-20 reveal-bottom delay-2"
+          />
+        )}
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  /* ============================================================
+     WRAPPER
+     ============================================================ */
+  .om-wrapper {
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 70px;
+    display: flex;
+  }
+
+  .om-content-block {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ============================================================
+     TITLE
+     ============================================================ */
+  .om-title {
+    max-width: 450px;
+  }
+
+  /* ============================================================
+     DESCRIPTION
+     ============================================================ */
+  .om-description {
+    max-width: 450px;
+  }
+
+  /* ============================================================
+     MISSION LIST
+     ============================================================ */
+  .om-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .om-list-item {
+    gap: 14px;
+  }
+
+  /* Check mark circle border (outer) */
+  .om-check-border {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Check mark inner box */
+  .om-check-inner {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Item title */
+  .om-item-title {
+    font-size: 24px;
+    line-height: 1.28;
+    margin-bottom: 10px;
+  }
+
+  /* Item excerpt */
+  .om-item-excerpt {
+    font-size: 16px;
+    line-height: 1.62;
+    max-width: 405px;
+  }
+
+  /* Vertical dashed line connecting checkmarks */
+  .om-dashed-line {
+    border-left: 1px dashed #ffffff;
+    height: 60%;
+    margin-top: 7px;
+    top: 0;
+    left: 16px;
+  }
+
+  /* ============================================================
+     BANNER BLOCK
+     ============================================================ */
+  .om-banner-block {
+    background-color: #162242;
+    border-radius: 18px;
+    width: 450px;
+    height: 440px;
+  }
+
+  /* Main banner image */
+  .om-banner-image {
+    max-width: 440px;
+    bottom: 30px;
+    right: 50px;
+  }
+
+  /* Chart cards wrapper */
+  .om-chart-wrap {
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 52px;
+    margin-right: 32px;
+  }
+
+  /* Chart card images */
+  .om-chart-card {
+    max-width: 115px;
+  }
+
+  /* Override reveal animation for chart cards — slide from right instead of bottom */
+  .om-chart-reveal {
+    transform: translateX(80px);
+  }
+
+  .om-chart-reveal.is-visible {
+    transform: translateX(0);
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .om-title {
+      max-width: 480px;
+    }
+
+    .om-description {
+      max-width: 557px;
+    }
+
+    .om-list-wrapper {
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .om-list-item {
+      gap: 16px;
+    }
+
+    .om-banner-block {
+      width: 500px;
+      height: 490px;
+    }
+
+    .om-banner-image {
+      max-width: 480px;
+      bottom: 40px;
+      right: 60px;
+    }
+
+    .om-chart-wrap {
+      gap: 16px;
+    }
+
+    .om-chart-card {
+      max-width: 120px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .om-banner-block {
+      width: 538px;
+      height: 509px;
+    }
+
+    .om-banner-image {
+      max-width: 100%;
+      bottom: 53px;
+      right: 83px;
+    }
+
+    .om-chart-card {
+      max-width: 128px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .om-wrapper {
+      display: block;
+      gap: 30px;
+    }
+
+    .om-description {
+      max-width: none;
+    }
+
+    .om-item-excerpt {
+      max-width: 500px;
+    }
+
+    .om-list-wrapper {
+      margin-top: 26px;
+    }
+
+    .om-banner-block {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .om-banner-block {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .om-banner-image {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+    }
+
+    .om-chart-wrap {
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      margin-right: 0;
+    }
+
+    .om-list-wrapper {
+      margin-top: 20px;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    .om-banner-block {
+      height: 290px;
+    }
+
+    .om-banner-image {
+      max-width: 260px;
+      bottom: 20px;
+    }
+
+    .om-chart-card {
+      max-width: 25%;
+    }
+
+    .om-chart-wrap {
+      margin-top: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,110 @@
+---
+import { site } from '../data/site';
+import '../styles/global.css';
+
+const {
+  title = 'SaaXent - SaaS Website Template',
+  description = site.description,
+  url = '',
+  image
+} = Astro.props;
+
+const canonicalUrl = url ? url : Astro.url?.toString?.() || '';
+const ogImage = (() => {
+  if (!image) return '';
+  const raw = typeof image === 'string' ? image : image.src;
+  if (!raw) return '';
+  return raw.startsWith('http') ? raw : `${site.url}${raw}`;
+})();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/webclip.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <link rel="preload" href="/fonts/Outfit-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Outfit-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={site.locale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": site.name,
+      "url": site.url,
+      "logo": `${site.url}/favicon.svg`,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": site.phone,
+        "contactType": "customer service"
+      }
+    })} />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      const elements = document.querySelectorAll('.reveal, .reveal-top, .reveal-grow, .reveal-bottom');
+      if (!('IntersectionObserver' in window)) {
+        elements.forEach((el) => el.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        elements.forEach((el) => observer.observe(el));
+      }
+    </script>
+    <script>
+      const counters = document.querySelectorAll('[data-counter]');
+      if (counters.length) {
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const target = parseInt(el.dataset.counter || '0', 10);
+              const suffix = el.dataset.counterSuffix || '';
+              const duration = 2000;
+              const start = performance.now();
+              const animate = (now: number) => {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.floor(target * eased) + suffix;
+                if (progress < 1) requestAnimationFrame(animate);
+              };
+              requestAnimationFrame(animate);
+              counterObserver.unobserve(el);
+            }
+          });
+        }, { threshold: 0.3 });
+        counters.forEach((el) => counterObserver.observe(el));
+      }
+    </script>
+  </body>
+</html>

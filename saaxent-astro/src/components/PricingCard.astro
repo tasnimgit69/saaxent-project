@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/resolveImage';
+
+const {
+  name,
+  tagline,
+  price,
+  period,
+  features,
+  ctaLabel,
+  ctaHref,
+  isActive = false
+} = Astro.props;
+
+const checkDark = resolveImage('/images/Pricing-Menu-Check-Mark-dark.png');
+const checkWhite = resolveImage('/images/Pricing-Menu-Check-Mark-white.png');
+---
+
+<button
+  class={`w-full rounded-18 border p-24 text-left transition-all duration-300 ${
+    isActive
+      ? 'border-brand-primary bg-surface-navy-active'
+      : 'border-glass-border-alpha bg-surface-navy-deep hover:border-brand-primary'
+  }`}
+  data-pricing-tab
+  aria-selected={isActive}
+  role="tab"
+>
+  <div class="flex items-start gap-16">
+    <div class="mt-4 flex-shrink-0">
+      {typeof checkDark !== 'string' ? (
+        <Image
+          src={isActive ? checkWhite : checkDark}
+          alt="Included"
+          class="h-auto h-24 w-24"
+          width={24}
+          height={24}
+        />
+      ) : (
+        <div class="h-24 w-24 rounded-full border-2 border-border-light"></div>
+      )}
+    </div>
+    <div class="flex-1">
+      <h3 class="mb-4 text-lg font-medium">{name}</h3>
+      <p class="mb-0 text-sm text-ink-muted">{tagline}</p>
+    </div>
+    <div class="text-right">
+      <span class="text-h3 font-semibold text-ink-heading">{price}</span>
+      <span class="text-sm text-ink-muted">{period}</span>
+    </div>
+  </div>
+</button>

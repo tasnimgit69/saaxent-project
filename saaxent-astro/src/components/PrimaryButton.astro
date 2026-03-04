@@ -1,0 +1,52 @@
+---
+const {
+  href = '#',
+  class: className = '',
+  fontClass = 'text-[24px] leading-[1.33] font-normal max-991:text-[20px] max-767:text-[18px]',
+  ...rest
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class={`primary-btn-block inline-flex items-center justify-center rounded-40 border-2 border-solid border-brand-primary bg-brand-primary px-30 py-16 ${fontClass} tracking-nav text-white no-underline relative overflow-hidden hover:text-brand-primary ${className}`.trim()}
+  {...rest}
+>
+  <span class="relative z-[2] flex items-center">
+    <slot />
+  </span>
+  <span class="primary-btn-overlay"></span>
+</a>
+
+<style>
+  .primary-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+  .primary-btn-block:hover .primary-btn-overlay {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .primary-btn-block {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .primary-btn-block {
+      padding: 12px 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .primary-btn-block {
+      padding: 12px 20px;
+    }
+  }
+</style>

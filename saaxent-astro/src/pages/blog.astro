@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import BlogSection from '../components/BlogSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<PageLayout
+  title="Blog | SaaXent - SaaS Website Template"
+  description="Explore insights, innovations, and the latest trends in SaaS with the SaaXent blog."
+>
+  <BreadcrumbHero
+    badge="Blog"
+    title="Explore Insights and"
+    highlight="Innovations"
+    titleAfter="with the SaaXent Blog"
+    titleClass="max-w-[780px] min-1280:max-w-[950px] min-1440:max-w-[1150px]"
+    highlightImage="/images/blog-title-shape.svg"
+    highlightClass="bg-[size:100%_15px] min-1280:bg-[size:100%]"
+  />
+  <BlogSection showTitle={false} showCta={false} />
+  <CtaSection />
+</PageLayout>

@@ -1,0 +1,594 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import { mainPricing } from '../data/pricing-page';
+import { resolveImage } from '../utils/resolveImage';
+
+const checkDark = resolveImage('/images/Pricing-Menu-Check-Mark-dark.png');
+const checkWhite = resolveImage('/images/Pricing-Menu-Check-Mark-white.png');
+---
+
+<section class="mps-section relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="relative z-[1]">
+      <div class="mps-tabs reveal">
+        {/* Tab Content Panes (LEFT side on desktop) */}
+        <div class="mps-tabs-content">
+          {mainPricing.plans.map((plan, i) => (
+            <div
+              class={`mps-tab-pane ${i === 0 ? '' : 'mps-pane-hidden'}`}
+              data-pricing-panel={i}
+              role="tabpanel"
+              aria-labelledby={`mps-tab-${i}`}
+            >
+              <div class="mps-pane-inner">
+                <h3 class="mps-pane-title">Included Features</h3>
+                <div class="mps-divider"></div>
+                <ul class="mps-feature-list" role="list">
+                  {plan.features.map((feature) => (
+                    <li class="mps-feature-item">{feature}</li>
+                  ))}
+                </ul>
+                <div class="mps-btn-wrapper">
+                  <a href={plan.cta.href} class="mps-cta-link inline-flex items-center rounded-40 border border-solid text-white relative overflow-hidden no-underline">
+                    <span class="relative z-[2] flex items-center gap-10">
+                      <span>{plan.cta.label}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none">
+                        <g clip-path={`url(#clip_mps_${i})`}>
+                          <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                        <defs>
+                          <clipPath id={`clip_mps_${i}`}>
+                            <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)"></rect>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                    <span class="mps-cta-overlay"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tab Menu (RIGHT side on desktop) */}
+        <div class="mps-tabs-menu reveal delay-1" role="tablist">
+          {mainPricing.plans.map((plan, i) => (
+            <button
+              class={`mps-tab-link ${i === 0 ? 'is-active' : ''}`}
+              data-pricing-tab={i}
+              id={`mps-tab-${i}`}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              type="button"
+            >
+              <div class="mps-tab-link-wrap">
+                <div class="mps-link-block">
+                  <div class="mps-check-wrap">
+                    {typeof checkDark !== 'string' && (
+                      <Image
+                        src={checkDark}
+                        alt="Included"
+                        class="mps-check-dark"
+                        width={32}
+                        height={32}
+                      />
+                    )}
+                    {typeof checkWhite !== 'string' && (
+                      <Image
+                        src={checkWhite}
+                        alt="Included"
+                        class="mps-check-white"
+                        width={32}
+                        height={32}
+                      />
+                    )}
+                  </div>
+                  <div class="mps-link-info">
+                    <h3 class="mps-link-title">{plan.name}</h3>
+                    <p class="mps-link-excerpt">{plan.description}</p>
+                  </div>
+                </div>
+                <div class="mps-price-block">
+                  <div class="mps-price-rate">{plan.price}<span class="mps-price-time">{plan.period}</span></div>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Section vertical lines -->
+  <div class="absolute inset-0 flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+
+  <!-- Gradient decorative shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="mps-gradient-left absolute rounded-full bg-brand-primary"></div>
+    <div class="mps-gradient-right absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<script>
+  const tabsContainer = document.querySelector('.mps-tabs');
+  if (tabsContainer) {
+    const tabs = tabsContainer.querySelectorAll('[data-pricing-tab]');
+    const panels = tabsContainer.querySelectorAll('[data-pricing-panel]');
+
+    function activateTab(index: number) {
+      tabs.forEach((t, i) => {
+        const isActive = i === index;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+      panels.forEach((p, i) => {
+        p.classList.toggle('mps-pane-hidden', i !== index);
+      });
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = parseInt(tab.getAttribute('data-pricing-tab') || '0', 10);
+        activateTab(index);
+      });
+
+      tab.addEventListener('keydown', (e) => {
+        const key = (e as KeyboardEvent).key;
+        const current = parseInt(tab.getAttribute('data-pricing-tab') || '0', 10);
+        let next = current;
+        if (key === 'ArrowDown' || key === 'ArrowRight') {
+          e.preventDefault();
+          next = (current + 1) % tabs.length;
+        } else if (key === 'ArrowUp' || key === 'ArrowLeft') {
+          e.preventDefault();
+          next = (current - 1 + tabs.length) % tabs.length;
+        } else if (key === 'Home') {
+          e.preventDefault();
+          next = 0;
+        } else if (key === 'End') {
+          e.preventDefault();
+          next = tabs.length - 1;
+        } else {
+          return;
+        }
+        activateTab(next);
+        (tabs[next] as HTMLElement).focus();
+      });
+    });
+  }
+</script>
+
+<style>
+  /* ============================================================
+     TAB CONTAINER
+     ============================================================ */
+  .mps-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  /* ============================================================
+     TAB CONTENT (left side on desktop)
+     ============================================================ */
+  .mps-tabs-content {
+    width: 465px;
+  }
+
+  /* Tab pane wrapper */
+  .mps-tab-pane {
+    background-color: #ffffff;
+    background-image: linear-gradient(134deg, #a69cfa66 19%, #fff0 50%, #a69cfa66 81%);
+    border-radius: 20px;
+    padding: 40px 35px;
+    position: relative;
+  }
+
+  .mps-pane-hidden {
+    display: none;
+  }
+
+  .mps-pane-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Pane title */
+  .mps-pane-title {
+    color: #031422;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  /* Divider line */
+  .mps-divider {
+    border-top: 1px solid #6b6b6b;
+    margin: 24px 0;
+  }
+
+  /* Feature list */
+  .mps-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mps-feature-item {
+    color: #031422;
+    background-image: url('/images/pricing-content-list-check-mark.svg');
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    padding-left: 30px;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  /* CTA button wrapper */
+  .mps-btn-wrapper {
+    display: flex;
+    margin-top: 40px;
+  }
+
+  /* CTA button */
+  .mps-cta-link {
+    border-color: #031422;
+    color: #031422;
+    padding: 13px 22px;
+    font-size: 24px;
+    line-height: 1.33;
+    font-weight: 400;
+    transition: border-color 0.5s, color 0.5s;
+  }
+
+  .mps-cta-link:hover {
+    border-color: #5542f6;
+    color: #ffffff;
+  }
+
+  .mps-cta-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: #5542f6;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .mps-cta-link:hover .mps-cta-overlay {
+    transform: translateX(0);
+  }
+
+  /* ============================================================
+     TAB MENU (right side on desktop)
+     ============================================================ */
+  .mps-tabs-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 465px;
+  }
+
+  .mps-tab-link {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .mps-tab-link-wrap {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 35px 20px;
+    display: inline-flex;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+
+  .mps-tab-link.is-active .mps-tab-link-wrap {
+    background-color: #5542f6;
+  }
+
+  .mps-link-block {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  /* Checkmark images */
+  .mps-check-wrap {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    position: relative;
+    margin-top: 4px;
+  }
+
+  .mps-check-dark,
+  .mps-check-white {
+    width: 32px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .mps-check-dark { display: block; }
+  .mps-check-white { display: none; }
+  .mps-tab-link.is-active .mps-check-dark { display: none; }
+  .mps-tab-link.is-active .mps-check-white { display: block; }
+
+  /* Link info text */
+  .mps-link-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mps-link-title {
+    color: #031422;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .mps-tab-link.is-active .mps-link-title {
+    color: #ffffff;
+  }
+
+  .mps-link-excerpt {
+    color: #4b5565;
+    max-width: 300px;
+    margin-top: 16px;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .mps-tab-link.is-active .mps-link-excerpt {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Price block */
+  .mps-price-block {
+    flex-shrink: 0;
+  }
+
+  .mps-price-rate {
+    color: #031422;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .mps-tab-link.is-active .mps-price-rate {
+    color: #ffffff;
+  }
+
+  .mps-price-time {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  /* ============================================================
+     GRADIENT SHAPES
+     ============================================================ */
+  .mps-gradient-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    bottom: 0;
+    left: -300px;
+  }
+
+  .mps-gradient-right {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 0;
+    right: -300px;
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .mps-tabs-content {
+      width: 570px;
+    }
+
+    .mps-tabs-menu {
+      width: 570px;
+    }
+
+    .mps-tab-pane {
+      padding: 55px;
+    }
+
+    .mps-divider {
+      margin: 34px 0;
+    }
+
+    .mps-feature-item {
+      padding-left: 40px;
+      font-size: 28px;
+      background-size: 22px;
+    }
+
+    .mps-btn-wrapper {
+      margin-top: 44px;
+    }
+
+    .mps-cta-link {
+      padding: 17px 28px;
+    }
+
+    .mps-tab-link-wrap {
+      padding: 38px 30px 37px;
+    }
+
+    .mps-price-rate {
+      font-size: 32px;
+    }
+
+    .mps-gradient-left {
+      width: 680px;
+      height: 550px;
+      left: -340px;
+    }
+
+    .mps-gradient-right {
+      width: 680px;
+      height: 550px;
+      right: -340px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .mps-tabs-content {
+      width: 630px;
+    }
+
+    .mps-tabs-menu {
+      width: 630px;
+    }
+
+    .mps-btn-wrapper {
+      margin-top: 54px;
+    }
+
+    .mps-gradient-left {
+      width: 848px;
+      height: 628px;
+      left: -424px;
+    }
+
+    .mps-gradient-right {
+      width: 848px;
+      height: 628px;
+      right: -424px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .mps-tabs {
+      flex-flow: row-reverse wrap-reverse;
+    }
+
+    .mps-tabs-content {
+      width: auto;
+      margin-top: 30px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mps-tabs-menu {
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 20px;
+    }
+
+    .mps-tab-link-wrap {
+      justify-content: flex-start;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .mps-price-block {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .mps-tab-pane {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .mps-cta-link {
+      font-size: 20px;
+    }
+
+    .mps-gradient-left {
+      width: 400px;
+      height: 300px;
+      left: -200px;
+    }
+
+    .mps-gradient-right {
+      width: 400px;
+      height: 300px;
+      right: -200px;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .mps-tabs-content {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .mps-feature-item {
+      padding-left: 24px;
+      font-size: 18px;
+      background-size: 16px;
+    }
+
+    .mps-cta-link {
+      font-size: 18px;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    .mps-feature-item {
+      padding-left: 20px;
+      background-size: 14px;
+    }
+  }
+
+  /* ============================================================
+     REDUCED MOTION
+     ============================================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .mps-cta-overlay {
+      transition: none;
+    }
+    .mps-tab-link-wrap {
+      transition: none;
+    }
+  }
+</style>

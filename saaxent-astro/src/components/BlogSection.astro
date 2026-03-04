@@ -1,0 +1,388 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+import BlogCard from './BlogCard.astro';
+import PrimaryButton from './PrimaryButton.astro';
+import { blogSection } from '../data/home-v1';
+import { blogPosts } from '../data/blog';
+
+const { showCta = true, showTitle = true, limit = 0, posts: customPosts, variant = 'default' } = Astro.props;
+const posts = customPosts ?? (limit > 0 ? blogPosts.slice(0, limit) : blogPosts);
+const isHome = variant === 'home';
+---
+
+<section class={`blog-section relative overflow-hidden ${showTitle ? 'pt-90 min-1280:pt-110 min-1440:pt-130 max-991:pt-70 max-767:pt-50' : 'py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50'}`}>
+  <Container>
+    <div class="blog-section-wrapper relative z-10">
+      {showTitle && (
+        <!-- Section title -->
+        <div class="section-title-block flex flex-col items-center reveal">
+          <SectionTitle
+            badge={blogSection.badge}
+            title={blogSection.title}
+            highlight={blogSection.titleHighlight}
+            titleAfter={blogSection.titleAfter}
+            titleClass="max-w-[660px]"
+          />
+        </div>
+      )}
+
+      <!-- Blog grid + button wrapper -->
+      <div class="blog-item-wrapper">
+        <div class={`blog-collection-list ${showTitle ? '' : 'blog-collection-list-no-title'}`}>
+          {posts.map((post) => (
+            <BlogCard {...post} />
+          ))}
+        </div>
+
+        {showCta && blogSection.cta && (
+          <div class="blog-btn-wrap flex justify-center items-center reveal delay-4">
+            <PrimaryButton href={blogSection.cta.href}>
+              {blogSection.cta.label}
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none" class="ml-10">
+                <g clip-path="url(#clip_blog_arrow)">
+                  <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip_blog_arrow">
+                    <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </PrimaryButton>
+          </div>
+        )}
+      </div>
+    </div>
+  </Container>
+
+  <!-- Background gradient shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    {isHome ? (
+      <!-- Home variant: 2 shapes (no top/bottom modifiers) -->
+      <div class="blog-gradient-home-left absolute rounded-full bg-brand-primary"></div>
+      <div class="blog-gradient-home-right absolute rounded-full bg-brand-primary"></div>
+    ) : (
+      <!-- Blog page variant: 4 shapes with top/bottom -->
+      <div class="blog-gradient-left-top absolute rounded-full bg-brand-primary"></div>
+      <div class="blog-gradient-left-bottom absolute rounded-full bg-brand-primary"></div>
+      <div class="blog-gradient-right-top absolute rounded-full bg-brand-primary"></div>
+      <div class="blog-gradient-right-bottom absolute rounded-full bg-brand-primary"></div>
+    )}
+  </div>
+
+  <!-- Section vertical lines -->
+  <div class="absolute top-0 left-0 w-full h-full flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const blogCards = document.querySelectorAll('[data-blog-card]');
+  if (blogCards.length) {
+    const blogObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target as HTMLElement;
+            const animElements = card.querySelectorAll('.blog-card-reveal, .blog-card-slide, .blog-card-divider');
+            animElements.forEach((el) => el.classList.add('is-visible'));
+            blogObserver.unobserve(card);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    blogCards.forEach((card) => blogObserver.observe(card));
+  }
+</script>
+
+<style>
+  /* === Blog Collection List (Grid) === */
+  .blog-collection-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .blog-collection-list-no-title {
+    margin-top: 0;
+  }
+
+  /* === Blog Button Wrapper === */
+  .blog-btn-wrap {
+    margin-top: 60px;
+  }
+
+  /* === Gradient Background Shapes (Blog page — 4 shapes) === */
+  .blog-gradient-left-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 300px;
+    left: -420px;
+  }
+
+  .blog-gradient-left-bottom {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: -420px;
+  }
+
+  .blog-gradient-right-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 15%;
+    right: -300px;
+  }
+
+  .blog-gradient-right-bottom {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: auto;
+    bottom: 450px;
+    right: -300px;
+  }
+
+  /* === Gradient Background Shapes (Home variant — 2 shapes) === */
+  .blog-gradient-home-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: auto;
+    bottom: 25%;
+    left: -420px;
+  }
+
+  .blog-gradient-home-right {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 15%;
+    right: -300px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .blog-collection-list {
+      margin-top: 44px;
+    }
+
+    .blog-collection-list-no-title {
+      margin-top: 0;
+    }
+
+    .blog-btn-wrap {
+      margin-top: 80px;
+    }
+
+    .blog-gradient-left-top {
+      width: 750px;
+      height: 500px;
+      top: 450px;
+      left: -450px;
+    }
+
+    .blog-gradient-left-bottom {
+      width: 750px;
+      height: 500px;
+      left: -450px;
+    }
+
+    .blog-gradient-right-top {
+      width: 750px;
+      height: 500px;
+      right: -360px;
+    }
+
+    .blog-gradient-right-bottom {
+      width: 750px;
+      height: 500px;
+      bottom: 500px;
+      right: -360px;
+    }
+
+    .blog-gradient-home-left {
+      width: 750px;
+      height: 500px;
+      left: -450px;
+    }
+
+    .blog-gradient-home-right {
+      width: 750px;
+      height: 500px;
+      right: -360px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .blog-collection-list {
+      margin-top: 54px;
+    }
+
+    .blog-collection-list-no-title {
+      margin-top: 0;
+    }
+
+    .blog-gradient-left-top {
+      width: 848px;
+      height: 628px;
+      top: 526px;
+      left: -552px;
+    }
+
+    .blog-gradient-left-bottom {
+      width: 848px;
+      height: 628px;
+      left: -552px;
+    }
+
+    .blog-gradient-right-top {
+      width: 848px;
+      height: 628px;
+      top: 111px;
+      right: -424px;
+    }
+
+    .blog-gradient-right-bottom {
+      width: 848px;
+      height: 628px;
+      bottom: 590px;
+      right: -424px;
+    }
+
+    .blog-gradient-home-left {
+      width: 848px;
+      height: 628px;
+      left: -552px;
+    }
+
+    .blog-gradient-home-right {
+      width: 848px;
+      height: 628px;
+      top: 111px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .blog-btn-wrap {
+      margin-top: 50px;
+    }
+
+    .blog-gradient-left-top,
+    .blog-gradient-left-bottom {
+      height: 400px;
+    }
+
+    .blog-gradient-right-top,
+    .blog-gradient-right-bottom {
+      width: 500px;
+      height: 400px;
+    }
+
+    .blog-gradient-home-left {
+      height: 400px;
+    }
+
+    .blog-gradient-home-right {
+      width: 500px;
+      height: 400px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .blog-collection-list {
+      gap: 40px;
+      grid-template-columns: 1fr;
+      margin-top: 32px;
+    }
+
+    .blog-collection-list-no-title {
+      margin-top: 0;
+    }
+
+    .blog-btn-wrap {
+      margin-top: 40px;
+    }
+
+    .blog-gradient-left-top,
+    .blog-gradient-left-bottom {
+      width: 520px;
+      height: 300px;
+    }
+
+    .blog-gradient-right-top,
+    .blog-gradient-right-bottom {
+      width: 420px;
+      height: 300px;
+    }
+
+    .blog-gradient-home-left {
+      width: 520px;
+      height: 300px;
+    }
+
+    .blog-gradient-home-right {
+      width: 420px;
+      height: 300px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .blog-btn-wrap {
+      margin-top: 30px;
+    }
+
+    .blog-gradient-left-top,
+    .blog-gradient-left-bottom {
+      width: 480px;
+      height: 200px;
+    }
+
+    .blog-gradient-right-top,
+    .blog-gradient-right-bottom {
+      width: 380px;
+      height: 200px;
+    }
+
+    .blog-gradient-right-top {
+      top: 5%;
+    }
+
+    .blog-gradient-home-left {
+      width: 480px;
+      height: 200px;
+    }
+
+    .blog-gradient-home-right {
+      width: 380px;
+      height: 200px;
+    }
+  }
+</style>

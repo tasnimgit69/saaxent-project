@@ -1,0 +1,177 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import Container from '../../components/Container.astro';
+import { licensesBreadcrumb, licensesIntro, licenseCards } from '../../data/template-info';
+---
+
+<PageLayout
+  title="Licenses | SaaXent - SaaS Website Template"
+  description="Licenses for all assets used in the SaaXent template."
+>
+  <BreadcrumbHero
+    badge={licensesBreadcrumb.badge}
+    title={licensesBreadcrumb.title}
+    highlight={licensesBreadcrumb.highlight}
+    titleAfter={licensesBreadcrumb.titleAfter}
+  />
+
+  <section class="licenses-section">
+    <Container>
+      <div class="licenses-block">
+        <p class="licenses-intro reveal">{licensesIntro}</p>
+
+        <div class="licenses-grid">
+          {licenseCards.map((card, i) => (
+            <div class={`license-inner reveal delay-${Math.min(i + 1, 4)}`}>
+              <div class="license-card">
+                <h2 class="license-title text-[26px] font-medium text-[#071e31] capitalize max-991:text-[24px] max-479:text-[20px] min-1440:text-[30px]">{card.title}</h2>
+                <p class="license-description text-[#071e31]">{card.description}</p>
+                <a
+                  href={card.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="license-link"
+                >
+                  <span class="font-medium">Learn more</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                    <path d="M22 12.5L14.5 5M22 12.5L14.5 20M22 12.5L8.875 12.5M2 12.5L5.125 12.5" stroke="currentColor" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>
+
+<style>
+  /* ===== Section ===== */
+  .licenses-section {
+    padding-bottom: 90px;
+  }
+
+  /* ===== Intro text ===== */
+  .licenses-intro {
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+  }
+
+  /* ===== Grid ===== */
+  .licenses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-auto-columns: 1fr;
+    gap: 30px;
+    margin-top: 54px;
+  }
+
+  /* ===== Card ===== */
+  .license-card {
+    background-color: white;
+    border: 1px solid #26262666;
+    border-radius: 10px;
+    padding: 40px 30px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .license-card:hover {
+    border-color: #0d1218;
+    box-shadow: 5px 5px #0d1218;
+  }
+
+  /* ===== Title ===== */
+  .license-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  /* ===== Description ===== */
+  .license-description {
+    margin-bottom: 10px;
+  }
+
+  /* ===== Link ===== */
+  .license-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #0d1218;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .license-link:hover {
+    color: #5b93ff;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .licenses-section {
+      padding-bottom: 110px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .licenses-section {
+      padding-bottom: 130px;
+    }
+
+    .licenses-intro {
+      max-width: 740px;
+    }
+  }
+
+  /* ============= min-1920 ============= */
+  @media (min-width: 1920px) {
+    .licenses-grid {
+      margin-top: 40px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .licenses-section {
+      padding-bottom: 70px;
+    }
+
+    .licenses-grid {
+      grid-template-columns: 1fr;
+      margin-top: 30px;
+    }
+
+    .license-inner {
+      width: 100%;
+    }
+
+    .licenses-intro {
+      max-width: 445px;
+      font-size: 16px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .licenses-section {
+      padding-bottom: 50px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .license-card {
+      padding: 20px;
+    }
+
+    .license-link {
+      font-size: 16px;
+    }
+  }
+</style>

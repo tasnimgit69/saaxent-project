@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import HeroV1 from '../components/HeroV1.astro';
+import FeaturesSection from '../components/FeaturesSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import IntegrationSection from '../components/IntegrationSection.astro';
+import BlogSection from '../components/BlogSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<PageLayout
+  title="SaaXent - SaaS Website Template"
+  description="SaaXent is a cutting-edge, modern SaaS website template designed for SaaS companies and startups."
+>
+  <HeroV1 />
+  <FeaturesSection />
+  <AboutSection />
+  <PricingSection />
+  <IntegrationSection />
+  <BlogSection limit={2} variant="home" />
+  <CtaSection />
+</PageLayout>

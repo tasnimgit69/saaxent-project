@@ -1,0 +1,21 @@
+---
+const {
+  value,
+  suffix = '',
+  label,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`flex flex-col items-center ${className}`.trim()}>
+  <div class="flex items-baseline justify-center">
+    <span
+      class="text-[38px] font-medium leading-none text-ink-heading min-1280:text-[44px] max-767:text-[34px] max-479:text-[30px]"
+      data-counter={value}
+      data-counter-suffix={suffix}
+    >
+      0{suffix}
+    </span>
+  </div>
+  <div class="mt-18 min-1280:mt-24 max-767:mt-16 text-lg leading-[1.4]">{label}</div>
+</div>

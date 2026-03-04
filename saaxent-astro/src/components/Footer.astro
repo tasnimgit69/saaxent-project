@@ -1,0 +1,439 @@
+---
+import Container from './Container.astro';
+import { footer } from '../data/footer';
+
+const {
+  paddingTop,
+  variant
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<footer class="footer-section overflow-hidden bg-surface-primary">
+  <Container>
+    <div class="footer-block-wrapper">
+      <!-- Newsletter Subscription Block -->
+      <div class="footer-newsletter-wrap flex items-center justify-between border-b border-solid border-border-footer border-t-0 border-l-0 border-r-0">
+        <div class="footer-subscribe-block flex">
+          <div class="subscribe-image-block flex items-center justify-center rounded-9 bg-glass-white-10">
+            <div class="flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20" fill="none">
+                <rect x="0.518799" width="28.6957" height="20" rx="3.47826" fill="white" fill-opacity="0.5"></rect>
+                <path d="M18.0885 11.3223L29.3929 4.36582C30.0886 0.539737 26.4943 -0.12693 24.6102 0.0179979H4.17547C0.349383 0.0179979 0.262426 3.2064 0.697209 4.80061L12.0016 11.3223C13.3929 12.7137 16.6392 11.9021 18.0885 11.3223Z" fill="white"></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="footer-subscribe-title font-sans font-medium text-white">{footer.newsletter.title}</div>
+            <div class="footer-subscribe-excerpt text-white">{footer.newsletter.excerpt}</div>
+          </div>
+        </div>
+
+        <div class="footer-newsletter-block min-w-0">
+          <div class="newsletter-input-block relative w-full">
+            <form class="newsletter-form flex items-center">
+              <label for="newsletter-email" class="sr-only">Email address</label>
+              <input
+                id="newsletter-email"
+                class="newsletter-input-field w-full box-border border border-solid border-surface-primary bg-white rounded-6 mb-0 transition-[border] duration-300 focus:border-brand-primary focus-visible:outline-none"
+                maxlength={256}
+                placeholder={footer.newsletter.placeholder}
+                type="email"
+                required
+              />
+              <input
+                type="submit"
+                class="subscribe-button shrink-0 cursor-pointer border-none bg-brand-primary text-white text-center rounded-6 font-sans transition-colors duration-300 hover:bg-white hover:text-brand-primary"
+                value="Subscribe"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Content Links -->
+      <div class="footer-content">
+        {footer.columns.map((column) => (
+          <div class="footer-block flex flex-col gap-24">
+            <div class="footer-title font-sans font-medium text-white">{column.title}</div>
+            {column.links.length > 1 ? (
+              <div class="footer-link-list-wrapper flex">
+                {column.links.map((linkGroup) => (
+                  <div class="footer-link-list-block flex flex-col">
+                    {linkGroup.map((link) => (
+                      <a
+                        href={link.href}
+                        class="footer-link-block flex items-center gap-8 text-ink-footer-link no-underline opacity-70 transition-[opacity,color] duration-300 hover:opacity-100 hover:text-white"
+                        aria-current={currentPath === link.href ? 'page' : undefined}
+                      >
+                        <div class="footer-link-text">{link.label}</div>
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div class="footer-link-list-block flex flex-col">
+                {column.links[0].map((link) => (
+                  <a
+                    href={link.href}
+                    class="footer-link-block flex items-center gap-8 text-ink-footer-link no-underline opacity-70 transition-[opacity,color] duration-300 hover:opacity-100 hover:text-white"
+                  >
+                    <div class="footer-link-text">{link.label}</div>
+                  </a>
+                ))}
+                {column.address && (
+                  <div class="footer-contact-location text-ink-footer-link opacity-70">{column.address}</div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <!-- Copyright Block -->
+      <div class="copy-right-block border-t border-solid border-border-footer border-b-0 border-l-0 border-r-0">
+        <div class="footer-copyright-center text-ink-copyright text-center">
+          {footer.copyright.text}{' '}
+          <a href={footer.copyright.brandHref} class="template-link font-medium text-white no-underline transition-colors duration-300 hover:text-brand-blue">{footer.copyright.brandName}</a>
+          {' '}| Designed by{' '}
+          <a href={footer.copyright.designedByHref} target="_blank" class="brandbes-link font-medium text-white no-underline cursor-pointer transition-colors duration-300 hover:text-brand-blue">{footer.copyright.designedBy}</a>
+          {' '}- Powered by{' '}
+          <a href={footer.copyright.poweredByHref} target="_blank" class="font-medium text-white no-underline cursor-pointer transition-colors duration-300 hover:text-brand-blue">{footer.copyright.poweredBy}</a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  /* === Footer Block Wrapper === */
+  .footer-block-wrapper {
+    padding-top: 70px;
+  }
+
+  /* === Newsletter Wrap === */
+  .footer-newsletter-wrap {
+    gap: 60px;
+    padding-bottom: 30px;
+  }
+
+  /* === Subscribe Block === */
+  .footer-subscribe-block {
+    gap: 18px;
+  }
+
+  /* === Subscribe Image Block === */
+  .subscribe-image-block {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  /* === Subscribe Title === */
+  .footer-subscribe-title {
+    font-size: 24px;
+    line-height: 1.33;
+  }
+
+  /* === Subscribe Excerpt === */
+  .footer-subscribe-excerpt {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* === Newsletter Input Block === */
+  .newsletter-input-block {
+    max-width: 420px;
+  }
+
+  /* === Newsletter Form === */
+  .newsletter-form {
+    gap: 10px;
+  }
+
+  /* === Newsletter Input Field === */
+  .newsletter-input-field {
+    color: #071e31;
+    min-height: 50px;
+    padding: 7px 20px;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  .newsletter-input-field::placeholder {
+    color: #6b6b6b;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* === Subscribe Button === */
+  .subscribe-button {
+    min-height: 50px;
+    padding: 17px 20px;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* === Footer Content === */
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* === Footer Title === */
+  .footer-title {
+    font-size: 24px;
+    line-height: 1.28;
+  }
+
+  /* === Footer Link List Wrapper === */
+  .footer-link-list-wrapper {
+    gap: 20px;
+  }
+
+  /* === Footer Link List Block === */
+  .footer-link-list-block {
+    gap: 24px;
+  }
+
+  /* === Footer Link Block === */
+  .footer-link-block {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  /* === Footer Contact Location === */
+  .footer-contact-location {
+    max-width: 250px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  /* === Copyright Block === */
+  .copy-right-block {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  /* === Copyright Center === */
+  .footer-copyright-center {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .footer-link-list-wrapper {
+      gap: 32px;
+    }
+
+    .footer-content {
+      gap: 40px;
+    }
+
+    .newsletter-form {
+      gap: 15px;
+    }
+
+    .newsletter-input-field {
+      min-width: 297px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .footer-link-list-wrapper {
+      gap: 48px;
+    }
+
+    .footer-content {
+      justify-content: space-between;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .footer-copyright-center {
+      font-size: 20px;
+    }
+
+    .subscribe-button {
+      font-size: 17px;
+    }
+
+    .footer-newsletter-wrap {
+      padding-bottom: 40px;
+    }
+
+    .footer-block-wrapper {
+      padding-top: 100px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+    }
+  }
+
+  /* ============= min-1920 ============= */
+  @media (min-width: 1920px) {
+    .footer-content {
+      gap: 78px;
+      justify-content: space-between;
+    }
+
+    .newsletter-input-field {
+      max-width: none;
+    }
+
+    .footer-newsletter-wrap {
+      padding-bottom: 45px;
+    }
+
+    .footer-subscribe-excerpt {
+      font-size: 20px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .footer-link-list-wrapper {
+      gap: 60px;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+
+    .footer-content {
+      gap: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-columns: 1fr;
+      justify-content: space-around;
+      padding-top: 30px;
+      padding-bottom: 20px;
+    }
+
+    .footer-block-wrapper {
+      padding-top: 60px;
+    }
+
+    .newsletter-input-block {
+      max-width: 400px;
+    }
+
+    .subscribe-image-block {
+      flex-shrink: 0;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .footer-link-list-wrapper {
+      gap: 20px;
+    }
+    .footer-contact-location {
+      font-size: 18px;
+    }
+    .footer-content {
+      gap: 30px;
+      grid-template-columns: 1fr 1fr;
+      padding-bottom: 30px;
+    }
+
+    .footer-link-list-block {
+      gap: 20px;
+    }
+
+    .footer-newsletter-block {
+      width: 100%;
+    }
+
+    .footer-copyright-center {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .footer-newsletter-wrap {
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-block-wrapper {
+      padding-top: 50px;
+    }
+
+    .footer-title {
+      font-size: 24px;
+    }
+
+    .newsletter-input-block {
+      max-width: 480px;
+    }
+    .footer-link-block {
+      font-size: 18px;
+    }
+    
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .copy-right-block {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .footer-link-list-wrapper {
+      flex-wrap: wrap;
+    }
+
+    .footer-content {
+      gap: 24px;
+      grid-template-columns: 1fr;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .newsletter-form {
+      flex-wrap: wrap;
+    }
+
+    .footer-link-list-block {
+      gap: 16px;
+    }
+
+    .footer-copyright-center {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .subscribe-button {
+      padding: 14px 22px;
+    }
+
+    .footer-subscribe-block {
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-input-field {
+      max-width: 290px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .footer-newsletter-wrap {
+      gap: 20px;
+    }
+
+    .footer-subscribe-excerpt {
+      max-width: 320px;
+    }
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const {
+  title,
+  description,
+  url,
+  image,
+  footerPaddingTop,
+  footerVariant
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} url={url} image={image}>
+  <slot name="head" slot="head" />
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-20 focus:top-20 focus:z-50 focus:rounded-8 focus:bg-surface-white focus:px-16 focus:py-10 focus:text-body focus:text-ink-dark"
+  >
+    Skip to content
+  </a>
+  <Header />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer paddingTop={footerPaddingTop} variant={footerVariant} />
+</BaseLayout>

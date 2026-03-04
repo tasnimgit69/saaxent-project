@@ -1,0 +1,39 @@
+---
+const {
+  badge = '',
+  title = '',
+  highlight = '',
+  titleAfter = '',
+  description = '',
+  align = 'center',
+  class: className = '',
+  titleClass = '',
+  descriptionClass = ''
+} = Astro.props;
+---
+
+<div class={`${align === 'center' ? 'text-center' : ''} ${className}`.trim()}>
+  {badge && (
+    <span class="mb-20 max-767:mb-10 inline-block rounded-19 bg-brand-primary px-20 py-4 font-sans text-body text-white">
+      {badge}
+    </span>
+  )}
+  {(title || highlight) && (
+    <h2 class={`${align === 'center' ? 'mx-auto' : ''} ${titleClass}`.trim()}>
+      {title}{' '}
+      {highlight && (
+        <span
+          class="inline-flex items-center justify-center bg-[url('/images/section-title-highlight-shape.svg')] bg-[position:50%_90%] bg-[size:100%] bg-no-repeat min-1280:bg-[position:50%_83%]"
+        >
+          {highlight}
+        </span>
+      )}
+      {titleAfter && ` ${titleAfter}`}
+    </h2>
+  )}
+  {description && (
+    <p class={`mt-20 ${align === 'center' ? `mx-auto ${descriptionClass || 'max-w-container-sm'}` : descriptionClass}`.trim()}>
+      {description}
+    </p>
+  )}
+</div>

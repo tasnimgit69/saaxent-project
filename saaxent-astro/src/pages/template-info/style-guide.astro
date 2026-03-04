@@ -1,0 +1,613 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import Container from '../../components/Container.astro';
+import {
+  styleGuideBreadcrumb,
+  styleGuideColors,
+  styleGuideTypography,
+  sidebarLinks
+} from '../../data/template-info';
+
+const loremIpsum =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.';
+---
+
+<PageLayout
+  title="Style Guide | SaaXent - SaaS Website Template"
+  description="Style guide for the SaaXent template - colors, typography, buttons, and icons."
+>
+  <BreadcrumbHero
+    badge={styleGuideBreadcrumb.badge}
+    title={styleGuideBreadcrumb.title}
+    highlight={styleGuideBreadcrumb.highlight}
+    titleAfter={styleGuideBreadcrumb.titleAfter}
+    titleClass="max-w-[500px] min-1280:max-w-[600px] min-1440:max-w-[700px] max-991:max-w-[400px]"
+  />
+
+  <section class="sg-section">
+    <Container>
+      <div class="sg-grid">
+        <!-- Sidebar -->
+        <div class="sg-sidebar reveal">
+          <div class="sg-link-wrapper">
+            <nav>
+              {sidebarLinks.map((link) => (
+                <a href={link.href} class="sg-link">
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="sg-content-wrapper reveal delay-1">
+          <!-- Colors -->
+          <div id="colors" class="sg-color-section">
+            <div class="sg-heading-wrapper">
+              <h2 class="sg-heading">Colors</h2>
+            </div>
+            <div class="sg-details-wrapper">
+              <div class="sg-color-grid">
+                {styleGuideColors.map((color) => (
+                  <div class="sg-color-card">
+                    <div class="sg-color-block" style={`background-color: ${color.hex};`}></div>
+                    <div class="sg-color-details">
+                      <div class="sg-color-name">{color.name}</div>
+                      <p class="sg-color-code">{color.hex}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Typography -->
+          <div id="typography" class="sg-typography-section">
+            <div class="sg-heading-wrapper">
+              <h2 class="sg-heading">Typography</h2>
+            </div>
+            <div class="sg-details-wrapper">
+              {styleGuideTypography.map((type) => (
+                <div class="sg-details-block">
+                  {type.tag === 'H1' && <h1 class="sg-sample-heading">{type.label}</h1>}
+                  {type.tag === 'H2' && <h2 class="sg-sample-heading">{type.label}</h2>}
+                  {type.tag === 'H3' && <h3 class="sg-sample-heading">{type.label}</h3>}
+                  <p class="sg-short-info">
+                    {type.tag === 'P' ? 'Paragraph' : type.tag === 'P-sm' ? 'Paragraph small' : type.tag} - {type.size} /{type.lineHeight} || {type.weight} || {type.font}
+                  </p>
+                  {(type.tag === 'P' || type.tag === 'P-sm') && (
+                    <p class={`sg-paragraph ${type.tag === 'P-sm' ? 'small' : ''}`}>
+                      {loremIpsum}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div id="buttons" class="sg-buttons-section">
+            <div class="sg-heading-wrapper">
+              <h2 class="sg-heading">Buttons</h2>
+            </div>
+            <div class="sg-details-wrapper">
+              <div class="sg-button-block">
+                <div class="sg-button-row">
+                  <!-- Primary button -->
+                  <a href="#" class="sg-primary-btn">
+                    <span class="sg-btn-text-block">
+                      <span>Start Free Trial</span>
+                      <span class="sg-btn-arrow">
+                        <svg width="23" height="18" viewBox="0 0 23 18" fill="none">
+                          <g clip-path="url(#clip_sg_arrow)">
+                            <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip_sg_arrow">
+                              <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </span>
+                    </span>
+                    <span class="sg-primary-btn-overlay"></span>
+                  </a>
+                  <!-- Outline button -->
+                  <a href="#" class="sg-outline-btn">
+                    <span class="sg-btn-text-block">
+                      <span>Learn More</span>
+                    </span>
+                    <span class="sg-outline-btn-overlay"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Icons -->
+          <div id="icons" class="sg-icons-section">
+            <div class="sg-heading-wrapper">
+              <h2 class="sg-heading">Icons</h2>
+            </div>
+            <div class="sg-icon-container">
+              <!-- Checkmark icon -->
+              <div class="sg-icon">
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+                  <path d="M16.7 5L7.5 14.2L3.3 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <!-- Phone icon -->
+              <div class="sg-icon">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="white">
+                  <path d="M22.3 16.9V19.9C22.3 20.5 21.8 21 21.2 21C10.5 21 1.8 12.3 1.8 1.6C1.8 1 2.3 0.5 2.9 0.5H5.9C6.5 0.5 7 1 7 1.6C7 3.2 7.3 4.7 7.8 6.1C7.9 6.4 7.8 6.8 7.6 7L5.3 9.3C6.9 12.6 9.6 15.3 12.9 16.9L15.2 14.6C15.4 14.4 15.8 14.3 16.1 14.4C17.5 14.9 19 15.2 20.6 15.2C21.2 15.2 21.8 15.8 21.8 16.4V16.9H22.3Z" />
+                </svg>
+              </div>
+
+              <!-- Email icon -->
+              <div class="sg-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="white">
+                  <path d="M5.3 5.3H26.7C28.1 5.3 29.3 6.5 29.3 7.9V24C29.3 25.4 28.1 26.7 26.7 26.7H5.3C3.9 26.7 2.7 25.4 2.7 24V7.9C2.7 6.5 3.9 5.3 5.3 5.3Z" />
+                  <path d="M29.3 8L16 17.3L2.7 8" stroke="#071e31" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <!-- Location pin icon -->
+              <div class="sg-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="white">
+                  <path d="M28 13.3C28 22.7 16 30.7 16 30.7S4 22.7 4 13.3C4 6.7 9.4 1.3 16 1.3C22.6 1.3 28 6.7 28 13.3Z" />
+                  <circle cx="16" cy="13.3" r="4" fill="#071e31" />
+                </svg>
+              </div>
+
+              <!-- Mail envelope icon -->
+              <div class="sg-icon">
+                <svg width="30" height="20" viewBox="0 0 30 20" fill="none">
+                  <rect x="0.5" y="0.5" width="29" height="19" rx="2" fill="white" fill-opacity="0.2" />
+                  <path d="M0.5 2.5L15 12L29.5 2.5" stroke="white" stroke-width="1.5" />
+                </svg>
+              </div>
+
+              <!-- Award/star badge icon -->
+              <div class="sg-icon">
+                <svg width="62" height="62" viewBox="0 0 62 62" fill="white" fill-rule="evenodd">
+                  <path d="M31 10C34.3 10 37 12.7 37 16C37 19.3 34.3 22 31 22C27.7 22 25 19.3 25 16C25 12.7 27.7 10 31 10ZM31 32C38.2 32 44 37.8 44 45V48H18V45C18 37.8 23.8 32 31 32Z" />
+                  <path d="M31 2L33.5 7L39 7.5L35 11.5L36 17L31 14.5L26 17L27 11.5L23 7.5L28.5 7L31 2Z" />
+                </svg>
+              </div>
+
+              <!-- Team/people group icon -->
+              <div class="sg-icon">
+                <svg width="62" height="62" viewBox="0 0 62 62" fill="white">
+                  <circle cx="31" cy="14" r="8" />
+                  <path d="M31 26C40.9 26 49 34.1 49 44V50H13V44C13 34.1 21.1 26 31 26Z" />
+                  <circle cx="14" cy="20" r="5" opacity="0.6" />
+                  <circle cx="48" cy="20" r="5" opacity="0.6" />
+                  <path d="M14 30C9.6 30 6 33.6 6 38V44H16V38C16 34.5 14.3 31.4 14 30Z" opacity="0.6" />
+                  <path d="M48 30C52.4 30 56 33.6 56 38V44H46V38C46 34.5 47.7 31.4 48 30Z" opacity="0.6" />
+                </svg>
+              </div>
+
+              <!-- Person icon -->
+              <div class="sg-icon">
+                <svg width="62" height="62" viewBox="0 0 62 62" fill="white">
+                  <circle cx="31" cy="16" r="10" />
+                  <path d="M31 30C42.6 30 52 39.4 52 51V56H10V51C10 39.4 19.4 30 31 30Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>
+
+<style>
+  /* ===== Section ===== */
+  .sg-section {
+    padding-bottom: 90px;
+  }
+
+  /* ===== Grid: .25fr .75fr ===== */
+  .sg-grid {
+    display: grid;
+    grid-template-columns: .25fr .75fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  /* ===== Sidebar ===== */
+  .sg-link-wrapper {
+    background-color: white;
+    border: 1px solid #0d1218;
+    border-radius: 11px;
+    position: sticky;
+    top: 220px;
+    overflow: hidden;
+  }
+
+  .sg-link {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    color: #071e31;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
+  }
+
+  .sg-link:hover {
+    background-color: #5542f6;
+    color: white;
+  }
+
+  /* ===== Content wrapper ===== */
+  .sg-content-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Section heading band ===== */
+  .sg-heading-wrapper {
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .sg-heading {
+    color: #071e31;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* ===== Details wrapper ===== */
+  .sg-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+  }
+
+  /* ===== Colors section ===== */
+  .sg-color-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 70px;
+  }
+
+  .sg-color-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 14px;
+  }
+
+  .sg-color-card {
+    border: 1px solid white;
+    padding: 10px;
+  }
+
+  .sg-color-block {
+    min-height: 100px;
+  }
+
+  .sg-color-details {
+    padding: 5px 10px;
+  }
+
+  .sg-color-name {
+    font-weight: 400;
+  }
+
+  .sg-color-code {
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  /* ===== Typography section ===== */
+  .sg-typography-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 70px;
+    padding-top: 70px;
+  }
+
+  .sg-details-block {
+    border-bottom: 1px solid white;
+    padding-bottom: 40px;
+  }
+
+  .sg-sample-heading {
+    margin-bottom: 8px;
+  }
+
+  .sg-short-info {
+    margin-bottom: 0;
+  }
+
+  .sg-paragraph {
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+
+  .sg-paragraph.small {
+    font-size: 16px;
+  }
+
+  /* ===== Buttons section ===== */
+  .sg-buttons-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 70px;
+    padding-top: 70px;
+  }
+
+  .sg-button-block {
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 40px;
+  }
+
+  .sg-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  /* ===== Icons section ===== */
+  .sg-icons-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 70px;
+    padding-top: 70px;
+  }
+
+  .sg-icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .sg-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .sg-section {
+      padding-bottom: 110px;
+    }
+
+    .sg-grid {
+      gap: 50px;
+    }
+
+    .sg-color-grid {
+      gap: 20px;
+    }
+
+    .sg-color-block {
+      min-height: 150px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .sg-section {
+      padding-bottom: 130px;
+    }
+
+    .sg-grid {
+      gap: 70px;
+    }
+
+    .sg-color-grid {
+      gap: 30px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .sg-section {
+      padding-bottom: 70px;
+    }
+
+    .sg-grid {
+      gap: 50px;
+    }
+
+    .sg-color-section {
+      row-gap: 50px;
+    }
+
+    .sg-typography-section,
+    .sg-buttons-section,
+    .sg-icons-section {
+      row-gap: 50px;
+      padding-top: 50px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .sg-section {
+      padding-bottom: 50px;
+    }
+
+    .sg-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .sg-details-block {
+      padding-bottom: 30px;
+    }
+
+    .sg-typography-section,
+    .sg-buttons-section,
+    .sg-icons-section {
+      row-gap: 30px;
+      padding-top: 30px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .sg-heading {
+      font-size: 24px;
+    }
+
+    .sg-color-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ===== Style Guide Primary Button ===== */
+  .sg-primary-btn {
+    border: 2px solid #5542f6;
+    background-color: #5542f6;
+    color: white;
+    border-radius: 40px;
+    padding: 13px 22px;
+    font-size: 24px;
+    line-height: 1.33;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sg-primary-btn:hover {
+    color: #5542f6;
+  }
+
+  .sg-primary-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: white;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .sg-primary-btn:hover .sg-primary-btn-overlay {
+    transform: translateX(0);
+  }
+
+  /* ===== Style Guide Outline Button ===== */
+  .sg-outline-btn {
+    border: 1px solid white;
+    color: white;
+    background-color: transparent;
+    border-radius: 40px;
+    padding: 13px 22px;
+    font-size: 24px;
+    line-height: 1.33;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.4s, border-color 0.4s;
+  }
+
+  .sg-outline-btn:hover {
+    border-color: #5542f6;
+    color: #5542f6;
+  }
+
+  .sg-outline-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: white;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .sg-outline-btn:hover .sg-outline-btn-overlay {
+    transform: translateX(0);
+  }
+
+  /* ===== Shared Button Text Block ===== */
+  .sg-btn-text-block {
+    z-index: 2;
+    gap: 10px;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+  }
+
+  .sg-btn-arrow {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  /* ===== Button Responsive ===== */
+  @media (max-width: 991px) {
+    .sg-primary-btn {
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 20px;
+    }
+
+    .sg-btn-text-block {
+      gap: 6px;
+    }
+
+    .sg-outline-btn {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .sg-primary-btn {
+      padding: 11px 18px;
+    }
+
+    .sg-primary-btn .sg-btn-text-block,
+    .sg-outline-btn .sg-btn-text-block {
+      font-size: 18px;
+    }
+
+    .sg-outline-btn {
+      padding: 11px 18px;
+      font-size: 20px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.sg-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>

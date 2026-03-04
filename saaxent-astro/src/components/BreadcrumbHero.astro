@@ -1,0 +1,81 @@
+---
+import Container from './Container.astro';
+
+const {
+  badge = '',
+  title = '',
+  highlight = '',
+  titleAfter = '',
+  description = '',
+  titleClass = '',
+  descriptionClass = '',
+  highlightClass = '',
+  highlightImage = '/images/title-highlight-shape.svg'
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-breadcrumb">
+  <Container>
+    <div class="relative z-[1] flex flex-col items-center text-center pt-180 pb-60 min-1280:pt-210 min-1280:pb-80 min-1440:pb-100 max-991:pt-160 max-991:pb-50 max-767:pt-140 max-767:pb-40 max-479:pt-120 max-479:pb-50">
+      {badge && (
+        <span class="reveal mb-20 max-991:mb-16 max-767:mb-10 inline-block rounded-32 bg-brand-primary px-24 py-9 text-[24px] leading-[1.33] font-normal text-white max-767:px-20 max-767:text-[20px]">
+          {badge}
+        </span>
+      )}
+      <h1 class={`reveal delay-1 text-center font-medium ${titleClass}`.trim()}>
+        {title}
+        {highlight && (
+          <>
+            {' '}
+            <span class={`breadcrumb-highlight inline-flex items-center justify-center overflow-hidden bg-[position:50%_80%] min-1280:bg-[position:50%_83%] bg-no-repeat ${highlightClass}`.trim()} style={`background-image: url('${highlightImage}');`}>
+              {highlight}
+            </span>
+          </>
+        )}
+        {titleAfter && ` ${titleAfter}`}
+      </h1>
+      {description && (
+        <p class={`reveal delay-2 mt-16 text-center ${descriptionClass}`.trim()}>{description}</p>
+      )}
+    </div>
+  </Container>
+
+  <!-- Decorative background shapes -->
+  <div class="pointer-events-none" aria-hidden="true">
+    <!-- Left grid SVG -->
+    <div class="absolute top-0 left-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[500px] max-991:max-h-[600px] max-767:max-w-[350px] max-767:max-h-[450px] max-479:max-w-[280px] max-479:max-h-[400px]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="366" height="552" viewBox="0 0 366 552" fill="none">
+        <path d="M91.1983 459.167H0L4.02713e-06 551H91.1983V459.167ZM91.1983 459.167L91.1984 367.334M91.1983 459.167L182.397 459.167L182.397 367.334H91.1984M91.1984 367.334L91.1983 275.5M91.1984 367.334L6.64194e-06 367.333L2.61481e-06 275.5H91.1983M91.1983 275.5L91.1982 183.667M91.1983 275.5L182.397 275.5L182.397 183.667H91.1982M91.1982 183.667L91.1983 91.8337M91.1982 183.667L6.64193e-06 183.667L2.61481e-06 91.8337L91.1983 91.8337M91.1983 91.8337L91.1984 3.97357e-06L182.397 0L182.397 91.8333L91.1983 91.8337ZM273.802 459.167H182.604V551H273.802V459.167ZM273.802 459.167L273.802 367.334M273.802 459.167L365 459.167V367.334H273.802M273.802 367.334L273.802 275.5M273.802 367.334L182.604 367.333V275.5H273.802M273.802 275.5L273.802 183.667M273.802 275.5L365 275.5V183.667L273.802 183.667M273.802 183.667L273.802 91.8337M273.802 183.667L182.604 183.667V91.8338L273.802 91.8337M273.802 91.8337L273.802 2.67464e-05L365 2.27728e-05V91.8333L273.802 91.8337Z" stroke="url(#paint0_linear_bc_left)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_bc_left" x1="239.02" y1="525.403" x2="14.8237" y2="29.1572" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Right grid SVG -->
+    <div class="absolute top-0 right-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[500px] max-991:max-h-[600px] max-767:max-w-[350px] max-767:max-h-[450px] max-479:max-w-[280px] max-479:max-h-[400px]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="366" height="552" viewBox="0 0 366 552" fill="none">
+        <path d="M274.802 459.167H366L366 551H274.802V459.167ZM274.802 459.167L274.802 367.334M274.802 459.167L183.603 459.167L183.603 367.334H274.802M274.802 367.334L274.802 275.5M274.802 367.334L366 367.333L366 275.5H274.802M274.802 275.5L274.802 183.667M274.802 275.5L183.603 275.5L183.603 183.667H274.802M274.802 183.667L274.802 91.8337M274.802 183.667L366 183.667L366 91.8337L274.802 91.8337M274.802 91.8337L274.802 3.97357e-06L183.603 0L183.603 91.8333L274.802 91.8337ZM92.1981 459.167H183.396V551H92.1981V459.167ZM92.1981 459.167L92.1983 367.334M92.1981 459.167L0.999984 459.167V367.334H92.1983M92.1983 367.334L92.1981 275.5M92.1983 367.334L183.396 367.333V275.5H92.1981M92.1981 275.5L92.1983 183.667M92.1981 275.5L0.999984 275.5V183.667L92.1983 183.667M92.1983 183.667L92.1981 91.8337M92.1983 183.667L183.396 183.667V91.8338L92.1981 91.8337M92.1981 91.8337L92.1983 2.67464e-05L0.999984 2.27728e-05V91.8333L92.1981 91.8337Z" stroke="url(#paint0_linear_bc_right)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_bc_right" x1="126.98" y1="525.403" x2="351.176" y2="29.1572" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 479px) {
+    .breadcrumb-highlight {
+      background-image: none !important;
+      display: inline !important;
+      overflow: visible;
+    }
+  }
+</style>

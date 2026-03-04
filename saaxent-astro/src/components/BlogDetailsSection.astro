@@ -1,0 +1,562 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+
+const { post } = Astro.props;
+---
+
+<section class="blog-details-section relative overflow-hidden pt-90 min-1280:pt-110 min-1440:pt-130 max-991:pt-70 max-767:pt-50 pb-30">
+  <Container>
+    <div class="blog-details-wrapper relative z-10">
+      <!-- Detail Main Image -->
+      <div class="blog-detail-image-block reveal">
+        {typeof post.detailImage.src !== 'string' && (
+          <Image
+            src={post.detailImage.src}
+            alt={post.detailImage.alt}
+            class="w-full h-auto"
+          />
+        )}
+      </div>
+
+      <!-- Rich Text Content -->
+      <div class="blog-post-block reveal delay-1">
+        <div class="blog-post-rich-text-block">
+          {post.content.map((block: any) => {
+            if (block.type === 'h2') return <h2>{block.text}</h2>;
+            if (block.type === 'h3') return <h3>{block.text}</h3>;
+            if (block.type === 'p') return <p>{block.text}</p>;
+            if (block.type === 'list') return (
+              <ul>
+                {block.items.map((item: string) => <li set:html={item} />)}
+              </ul>
+            );
+            if (block.type === 'figure') return (
+              <figure class="text-center"> 
+                {typeof block.src !== 'string' && (
+                  <Image src={block.src} alt={block.alt} class="blog-figure-image h-auto" />
+                )}
+              </figure>
+            );
+            if (block.type === 'blockquote') return <blockquote>{block.text}</blockquote>;
+            return null;
+          })}
+        </div>
+      </div>
+
+      <!-- Author Card -->
+      <div class="blog-author-card-block reveal delay-2">
+        <div class="blog-author-personal-info-block">
+          <div class="blog-info-wrap">
+            <div class="blog-author-image-link-wrap">
+              {typeof post.author.image.src !== 'string' && (
+                <Image
+                  src={post.author.image.src}
+                  alt={post.author.image.alt}
+                  class="blog-detail-author-image object-cover"
+                />
+              )}
+            </div>
+            <div class="blog-author-bio-data-block">
+              <div class="blog-author-bio-wrap">
+                <div>
+                  <span class="blog-detail-author-name text-white">{post.author.name}</span>
+                  <div class="blog-detail-published-date text-ink-body">{post.date}</div>
+                </div>
+                <span class="blog-detail-categories-link">{post.category}</span>
+              </div>
+              <p class="blog-detail-author-bio text-ink-body">{post.author.bio}</p>
+            </div>
+          </div>
+          <div class="blog-author-social-link-block-wrap">
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="blog-detail-social-link" aria-label="Follow on X (Twitter)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="blog-detail-social-link" aria-label="Follow on Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Section vertical lines -->
+  <div class="absolute top-0 left-0 w-full h-full flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+
+  <!-- Background gradient shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="gradient-left-top absolute rounded-full bg-brand-primary"></div>
+    <div class="gradient-left-center absolute rounded-full bg-brand-primary"></div>
+    <div class="gradient-right-top absolute rounded-full bg-brand-primary"></div>
+    <div class="gradient-right-center absolute rounded-full bg-brand-primary"></div>
+    <div class="gradient-right-bottom absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<style>
+  /* === Blog Detail Image Block === */
+  .blog-detail-image-block {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  /* === Blog Post Block === */
+  .blog-post-block {
+    margin-top: 40px;
+  }
+
+  /* === Rich Text Block — h2 === */
+  .blog-post-rich-text-block h2 {
+    color: #ffffff;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  /* === Rich Text Block — h3 === */
+  .blog-post-rich-text-block h3 {
+    color: #ffffff;
+  }
+
+  /* === Rich Text Block — blockquote === */
+  .blog-post-rich-text-block blockquote {
+    background-color: #071e31;
+    font-family: 'Outfit', sans-serif;
+    color: #ffffff;
+    text-align: center;
+    background-image: url('/images/blog-quites-banner-shape-left.png'),
+                       url('/images/blog-quites-banner-shape-center-quttaion.png');
+    background-position: 0 0, 50%;
+    background-repeat: no-repeat, no-repeat;
+    background-size: auto, auto;
+    border-left-style: none;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 32px 50px;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.27;
+  }
+
+  /* === Rich Text Block — ul === */
+  .blog-post-rich-text-block ul {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  /* === Rich Text Block — li === */
+  .blog-post-rich-text-block li {
+    line-height: 1.4;
+  }
+
+  /* === Rich Text Block — strong === */
+  .blog-post-rich-text-block :global(strong) {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* === Rich Text Block — figure === */
+  .blog-post-rich-text-block figure {
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+
+  /* === Rich Text Block — figure img === */
+  .blog-figure-image {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 24px;
+  }
+
+  /* === Author Card Block === */
+  .blog-author-card-block {
+    background-color: #071e31;
+    border-radius: 10px;
+    max-width: 95%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+  }
+
+  /* === Author Personal Info Block === */
+  .blog-author-personal-info-block {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /* === Author Info Wrap === */
+  .blog-info-wrap {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /* === Author Image Link Wrap === */
+  .blog-author-image-link-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* === Author Image === */
+  .blog-detail-author-image {
+    width: auto;
+    height: auto;
+  }
+
+  /* === Author Bio Data Block === */
+  .blog-author-bio-data-block {
+    max-width: 600px;
+  }
+
+  /* === Author Bio Wrap === */
+  .blog-author-bio-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* === Author Name === */
+  .blog-detail-author-name {
+    font-size: 22px;
+    line-height: 1.33;
+    display: block;
+  }
+
+  /* === Published Date === */
+  .blog-detail-published-date {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* === Category Badge === */
+  .blog-detail-categories-link {
+    color: #ffffff;
+    background-color: #082642;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 16px;
+    line-height: 1.62;
+    display: inline-block;
+  }
+
+  /* === Author Bio === */
+  .blog-detail-author-bio {
+    font-size: 16px;
+    line-height: 1.62;
+    margin-top: 18px;
+    margin-bottom: 0;
+  }
+
+  /* === Social Link Block Wrap === */
+  .blog-author-social-link-block-wrap {
+    display: flex;
+    flex-flow: column;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  /* === Social Link === */
+  .blog-detail-social-link {
+    background-color: #5542f6;
+    color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .blog-detail-social-link:hover {
+    background-color: #ffffff;
+    color: #5542f6;
+  }
+
+  /* === Gradient Background Shapes === */
+  .gradient-left-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 300px;
+    left: -420px;
+  }
+
+  .gradient-left-center {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -420px;
+  }
+
+  .gradient-right-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: -80px;
+    right: -300px;
+  }
+
+  .gradient-right-center {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -300px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .gradient-right-bottom {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    bottom: 240px;
+    right: -300px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .blog-post-block {
+      margin-top: 44px;
+    }
+
+    .blog-post-rich-text-block h2 {
+      margin-top: 50px;
+    }
+
+    .blog-post-rich-text-block blockquote {
+      margin-top: 50px;
+      padding-left: 65px;
+      padding-right: 65px;
+      font-size: 36px;
+    }
+
+    .blog-post-rich-text-block ul {
+      gap: 26px;
+      margin-top: 32px;
+    }
+
+    .blog-post-rich-text-block li {
+      font-size: 20px;
+    }
+
+    .blog-post-rich-text-block figure {
+      margin-top: 50px;
+    }
+
+    .blog-author-card-block {
+      max-width: 1001px;
+      margin-top: 50px;
+      padding: 32px;
+    }
+
+    .blog-author-personal-info-block {
+      gap: 24px;
+    }
+
+    .blog-info-wrap {
+      gap: 24px;
+    }
+
+    .blog-author-bio-data-block {
+      max-width: 640px;
+    }
+
+    .blog-detail-author-name {
+      font-size: 24px;
+    }
+
+    .blog-detail-author-bio {
+      margin-top: 24px;
+    }
+
+    .gradient-left-top {
+      width: 750px;
+      height: 500px;
+      top: 371px;
+      left: -450px;
+    }
+
+    .gradient-right-top {
+      width: 750px;
+      height: 500px;
+      top: -100px;
+      right: -360px;
+    }
+
+    .gradient-right-bottom {
+      width: 750px;
+      height: 500px;
+      bottom: 280px;
+      right: -360px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .blog-post-block {
+      margin-top: 54px;
+    }
+
+    .gradient-left-top {
+      width: 848px;
+      height: 628px;
+      top: 440px;
+      left: -552px;
+    }
+
+    .gradient-right-top {
+      width: 848px;
+      height: 628px;
+      top: -115px;
+      right: -424px;
+    }
+
+    .gradient-right-bottom {
+      width: 848px;
+      height: 628px;
+      bottom: 347px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .blog-post-rich-text-block h2 {
+      margin-top: 30px;
+    }
+
+    .blog-post-rich-text-block ul {
+      gap: 16px;
+    }
+
+    .blog-post-rich-text-block blockquote {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .blog-author-image-link-wrap {
+      flex: none;
+    }
+
+    .blog-detail-author-name {
+      font-size: 18px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .blog-post-block {
+      margin-top: 32px;
+    }
+
+    .blog-post-rich-text-block ul {
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .blog-post-rich-text-block figure {
+      margin-top: 30px;
+    }
+
+    .blog-post-rich-text-block blockquote {
+      margin-top: 30px;
+      padding: 24px 30px;
+      font-size: 26px;
+    }
+
+    .blog-author-card-block {
+      margin-top: 30px;
+    }
+
+    .blog-author-personal-info-block {
+      align-items: flex-start;
+    }
+
+    .blog-info-wrap {
+      flex-wrap: wrap;
+    }
+
+    .blog-detail-author-bio {
+      margin-top: 16px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .blog-detail-image-block {
+      border-radius: 20px;
+    }
+
+    .blog-figure-image {
+      border-radius: 16px;
+    }
+
+    .blog-post-rich-text-block blockquote {
+      padding: 20px;
+      font-size: 22px;
+    }
+
+    .blog-author-personal-info-block {
+      flex-wrap: wrap;
+    }
+
+    .blog-author-bio-wrap {
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .blog-author-social-link-block-wrap {
+      flex-flow: row;
+      gap: 24px;
+      margin-left: 0;
+    }
+  }
+
+  /* ============= Reduced Motion ============= */
+  @media (prefers-reduced-motion: reduce) {
+    .blog-detail-image-block,
+    .blog-post-block,
+    .blog-author-card-block {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

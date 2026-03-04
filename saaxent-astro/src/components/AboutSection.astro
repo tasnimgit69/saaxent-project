@@ -1,0 +1,356 @@
+---
+import { Image } from "astro:assets";
+import Container from "./Container.astro";
+import PrimaryButton from "./PrimaryButton.astro";
+import FunFactCounter from "./FunFactCounter.astro";
+import { aboutUs, funFacts } from "../data/home-v1";
+---
+
+<section
+  class="relative bg-surface-primary py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50"
+>
+  <Container>
+    <div class="relative z-10">
+      <!-- Fun Facts Row -->
+      <div
+        class="funfact-block flex justify-between items-stretch border-b border-solid border-border-light border-t-0 border-l-0 border-r-0 pb-50 min-1280:pb-60 min-1440:pb-70 max-991:flex-wrap max-991:pb-40 max-767:grid max-767:grid-cols-2 max-767:gap-30 max-767:pb-30 max-767:items-start max-767:justify-around max-479:flex max-479:flex-col max-479:items-center max-479:pb-20"
+      >
+        {
+          funFacts.map((fact, i) => (
+            <>
+              <FunFactCounter
+                value={fact.value}
+                suffix={fact.suffix}
+                label={fact.label}
+              />
+              {i < funFacts.length - 1 && (
+                <div
+                  class="bg-border-light self-stretch max-767:hidden"
+                  style="width: 1px;"
+                  aria-hidden="true"
+                />
+              )}
+            </>
+          ))
+        }
+      </div>
+
+      <!-- About Content Wrapper -->
+      <div
+        class="flex justify-between items-center gap-24 mt-60 min-1280:gap-46 min-1280:mt-70 min-992:gap-46 min-1440:gap-46 max-991:flex-wrap max-991:gap-40 max-991:mt-50 max-767:justify-center max-767:mt-30 max-479:gap-30"
+      >
+        <!-- Text Content -->
+        <div class="about-us-content-block">
+          <div class="mb-20 max-767:mb-14 reveal">
+            <span
+              class="inline-block rounded-19 bg-brand-primary px-20 py-4 font-sans text-sm font-medium text-white"
+            >
+              {aboutUs.badge}
+            </span>
+          </div>
+
+          <h2 class="max-w-[450px] min-1280:max-w-[557px] reveal">
+            {aboutUs.title}{" "}
+            <span
+              class="inline-flex items-center justify-center bg-[url('/images/title-highlight-shape.svg')] bg-[position:50%_80%] bg-no-repeat"
+            >
+              {aboutUs.titleHighlight}
+            </span>
+          </h2>
+
+          <p
+            class="max-w-[500px] mt-20 min-1280:max-w-[600px] min-1440:max-w-[660px] max-767:mt-14 reveal"
+          >
+            {aboutUs.description}
+          </p>
+
+          <ul class="flex flex-col gap-20 mt-40 min-1280:gap-30 reveal">
+            {
+              aboutUs.listItems.map((item) => (
+                <li class="text-[20px] text-ink-heading leading-[1.4] bg-[url('/images/list-check-mark.svg')] bg-no-repeat bg-[position:0_0] pl-40 max-991:pl-34 max-767:pl-30 max-767:bg-[position:0_2px] max-767:bg-[size:20px]">
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+
+          <div class="mt-40 min-1280:mt-44 min-1440:mt-54 max-767:mt-32 reveal">
+            <PrimaryButton
+              href={aboutUs.cta.href}
+            >
+              {aboutUs.cta.label}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23"
+                height="18"
+                viewBox="0 0 23 18"
+                fill="none"
+                class="ml-10"
+              >
+                <g clip-path="url(#clip_about_arrow)">
+                  <path
+                    d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376"
+                    stroke="currentColor"
+                    stroke-width="1.79688"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </g>
+                <defs>
+                  <clipPath id="clip_about_arrow">
+                    <rect
+                      width="17.25"
+                      height="23"
+                      fill="currentColor"
+                      transform="translate(23 0.412598) rotate(90)"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </PrimaryButton>
+          </div>
+        </div>
+
+        <!-- Banner Images -->
+        <div class="about-us-banner-block relative reveal delay-2">
+          {
+            typeof aboutUs.images.frame.src !== "string" && (
+              <Image
+                src={aboutUs.images.frame.src}
+                alt={aboutUs.images.frame.alt}
+                class="about-us-banner-frame max-w-full rounded-13 h-auto max-991:object-cover"
+              />
+            )
+          }
+          {
+            typeof aboutUs.images.overlay.src !== "string" && (
+              <Image
+                src={aboutUs.images.overlay.src}
+                alt={aboutUs.images.overlay.alt}
+                class="about-banner-overlay h-auto absolute"
+              />
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Section SVG grid shapes -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="about-left-grid absolute left-0 top-0">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="731"
+        height="1102"
+        viewBox="0 0 731 1102"
+        fill="none"
+      >
+        <path
+          d="M182.397 919.167H0L8.05425e-06 1103H182.397V919.167ZM182.397 919.167L182.397 735.334M182.397 919.167L364.793 919.167L364.793 735.334H182.397M182.397 735.334L182.397 551.5M182.397 735.334L1.32839e-05 735.333L5.22962e-06 551.5H182.397M182.397 551.5L182.396 367.667M182.397 551.5L364.793 551.5L364.793 367.667H182.396M182.396 367.667L182.397 183.834M182.396 367.667L1.32839e-05 367.667L5.22961e-06 183.834L182.397 183.834M182.397 183.834L182.397 7.95435e-06L364.793 0L364.793 183.833L182.397 183.834ZM547.604 919.167H365.207V1103H547.604V919.167ZM547.604 919.167L547.603 735.334M547.604 919.167L730 919.167V735.334H547.603M547.603 735.334L547.604 551.5M547.603 735.334L365.207 735.333V551.5H547.604M547.604 551.5L547.603 367.667M547.604 551.5L730 551.5V367.667L547.603 367.667M547.603 367.667L547.604 183.834M547.603 367.667L365.207 367.667V183.834L547.604 183.834M547.604 183.834L547.603 5.35413e-05L730 4.55869e-05V183.833L547.604 183.834Z"
+          stroke="url(#about_grid_left)"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <defs>
+          <linearGradient
+            id="about_grid_left"
+            x1="730.024"
+            y1="457.557"
+            x2="0.000141117"
+            y2="461.998"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white" stop-opacity="0"></stop>
+            <stop offset="1" stop-color="white" stop-opacity="0.05"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="about-right-grid absolute right-0 top-0">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="731"
+        height="1102"
+        viewBox="0 0 731 1102"
+        fill="none"
+      >
+        <path
+          d="M548.603 919.167H731L731 1103H548.603V919.167ZM548.603 919.167L548.603 735.334M548.603 919.167L366.207 919.167L366.207 735.334H548.603M548.603 735.334L548.603 551.5M548.603 735.334L731 735.333L731 551.5H548.603M548.603 551.5L548.604 367.667M548.603 551.5L366.207 551.5L366.207 367.667H548.604M548.604 367.667L548.603 183.834M548.604 367.667L731 367.667L731 183.834L548.603 183.834M548.603 183.834L548.603 7.95435e-06L366.207 0L366.207 183.833L548.603 183.834ZM183.396 919.167H365.793V1103H183.396V919.167ZM183.396 919.167L183.397 735.334M183.396 919.167L0.999968 919.167V735.334H183.397M183.397 735.334L183.396 551.5M183.397 735.334L365.793 735.333V551.5H183.396M183.396 551.5L183.397 367.667M183.396 551.5L0.999968 551.5V367.667L183.397 367.667M183.397 367.667L183.396 183.834M183.397 367.667L365.793 367.667V183.834L183.396 183.834M183.396 183.834L183.397 5.35413e-05L0.999968 4.55869e-05V183.833L183.396 183.834Z"
+          stroke="url(#about_grid_right)"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <defs>
+          <linearGradient
+            id="about_grid_right"
+            x1="0.976403"
+            y1="457.557"
+            x2="731"
+            y2="461.998"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white" stop-opacity="0"></stop>
+            <stop offset="1" stop-color="white" stop-opacity="0.05"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Gradient blur shapes -->
+    <div class="about-gradient-left absolute rounded-full bg-brand-primary">
+    </div>
+    <div class="about-gradient-right absolute rounded-full bg-brand-primary">
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Banner overlay image positioning */
+  .about-banner-overlay {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: 0;
+    top: auto;
+    right: 25px;
+    bottom: 37px;
+    left: auto;
+  }
+
+  /* SVG grid shapes */
+  .about-left-grid,
+  .about-right-grid {
+    max-width: 500px;
+    max-height: 600px;
+  }
+
+  /* Gradient blur shapes */
+  .about-gradient-left {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 60px;
+    right: auto;
+    bottom: auto;
+    left: -320px;
+  }
+
+  .about-gradient-right {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: -300px;
+    right: -300px;
+    bottom: auto;
+    left: auto;
+  }
+
+  @media (min-width: 1280px) {
+    .about-left-grid,
+    .about-right-grid {
+      max-width: 600px;
+      max-height: 700px;
+    }
+
+    .about-gradient-left {
+      width: 750px;
+      height: 500px;
+      top: 100px;
+      left: -350px;
+    }
+
+    .about-gradient-right {
+      width: 750px;
+      height: 500px;
+      top: -390px;
+      right: -390px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .about-left-grid,
+    .about-right-grid {
+      max-width: none;
+      max-height: none;
+    }
+
+    .about-gradient-left {
+      width: 848px;
+      height: 628px;
+      left: -442px;
+    }
+
+    .about-gradient-right {
+      width: 848px;
+      height: 628px;
+      top: -481px;
+      right: -424px;
+    }
+  }
+
+  @media (max-width: 1365px) {
+    .about-banner-overlay {
+      max-width: 75%;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .about-left-grid {
+      max-width: 500px;
+      max-height: 500px;
+    }
+    .about-right-grid {
+      max-width: 400px;
+      max-height: 500px;
+      top: auto;
+      bottom: 0;
+    }
+
+    .about-gradient-left {
+      width: 400px;
+      height: 300px;
+    }
+
+    .about-gradient-right {
+      width: 400px;
+      height: 300px;
+      right: -200px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .about-gradient-left {
+      width: 500px;
+      height: 300px;
+    }
+
+    .about-gradient-right {
+      width: 500px;
+      height: 350px;
+      top: -250px;
+    }
+    .about-banner-overlay {
+      max-width: 75%;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .about-left-grid {
+      max-width: 200px;
+      max-height: 300px;
+    }
+    .about-right-grid {
+      max-width: 200px;
+      max-height: 300px;
+    }
+
+    .about-gradient-left {
+      width: 400px;
+      height: 200px;
+    }
+
+    .about-gradient-right {
+      width: 400px;
+    }
+  }
+</style>

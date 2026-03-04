@@ -1,0 +1,25 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import AllIntegrationsGrid from '../components/AllIntegrationsGrid.astro';
+import OurValuesSection from '../components/OurValuesSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { integrationBreadcrumb } from '../data/integrations';
+---
+
+<PageLayout
+  title="Integration | SaaXent - SaaS Website Template"
+  description="Seamless integration with your favorite tools. Connect SaaXent with popular platforms."
+>
+  <BreadcrumbHero
+    badge={integrationBreadcrumb.badge}
+    title={integrationBreadcrumb.title}
+    highlight={integrationBreadcrumb.highlight}
+    titleAfter={integrationBreadcrumb.titleAfter}
+    titleClass="max-w-[600px] min-1280:max-w-[800px] min-1440:max-w-[900px] max-991:max-w-[800px]"
+    highlightClass="bg-[size:100%]"
+  />
+  <AllIntegrationsGrid />
+  <OurValuesSection />
+  <CtaSection />
+</PageLayout>

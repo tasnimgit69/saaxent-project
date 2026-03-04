@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+
+const {
+  name,
+  role,
+  image,
+  href = '#'
+} = Astro.props;
+---
+
+<div class="team-member-wrap relative overflow-hidden rounded-20 bg-surface-dark-teal flex justify-between items-stretch">
+  {image && typeof image.src !== 'string' && (
+    <Image
+      src={image.src}
+      alt={image.alt}
+      class="team-member-image w-full h-auto"
+    />
+  )}
+  <div class="team-info-hover flex flex-col items-center justify-center w-full absolute left-0 right-0">
+    <a href={href} class="text-white no-underline hover:underline inline-block">
+      <h3 class="team-member-name mt-0 mb-0 text-[inherit]">{name}</h3>
+    </a>
+    <div class="team-member-role">{role}</div>
+  </div>
+</div>
+
+<style>
+  /* === Card wrapper === */
+  .team-member-wrap {
+    box-sizing: border-box;
+  }
+
+  /* === Hover info block === */
+  .team-info-hover {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: #07263f99;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    bottom: 20px;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 500ms ease, opacity 400ms ease;
+  }
+
+  .team-member-wrap:hover .team-info-hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* === Member name === */
+  .team-member-name {
+    font-weight: 500;
+  }
+
+</style>

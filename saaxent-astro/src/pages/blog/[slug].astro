@@ -1,0 +1,47 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import BlogDetailsSection from '../../components/BlogDetailsSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { blogDetailPosts } from '../../data/blog-details';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return blogDetailPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+const firstParagraph = post.content?.find((block: any) => block.type === 'p');
+const excerpt = firstParagraph?.text?.slice(0, 160) || post.title;
+
+const postImage = post.detailImage?.src;
+const ogImageUrl = postImage && typeof postImage !== 'string' ? `${site.url}${postImage.src}` : '';
+
+const blogPostSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: excerpt,
+  url: `${site.url}/blog/${post.slug}`,
+  datePublished: post.date,
+  dateModified: post.date,
+  ...(ogImageUrl && { image: ogImageUrl }),
+  author: { '@type': 'Organization', name: site.name },
+  publisher: { '@type': 'Organization', name: site.name }
+};
+---
+
+<PageLayout
+  title={`${post.title} | ${site.name}`}
+  description={excerpt}
+  url={`${site.url}/blog/${post.slug}`}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
+  <BreadcrumbHero badge="Blog Details" title={post.title} titleClass="max-w-[900px]" />
+  <BlogDetailsSection post={post} />
+  <CtaSection />
+</PageLayout>

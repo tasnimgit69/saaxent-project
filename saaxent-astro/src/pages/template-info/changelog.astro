@@ -1,0 +1,139 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import Container from '../../components/Container.astro';
+import { changelogBreadcrumb, changelogEntries } from '../../data/template-info';
+---
+
+<PageLayout
+  title="Changelog | SaaXent - SaaS Website Template"
+  description="Changelog of SaaXent Template"
+>
+  <BreadcrumbHero
+    badge={changelogBreadcrumb.badge}
+    title={changelogBreadcrumb.title}
+    highlight={changelogBreadcrumb.highlight}
+    titleAfter={changelogBreadcrumb.titleAfter}
+    titleClass="max-w-[500px] min-1280:max-w-[600px] min-1440:max-w-[700px] max-991:max-w-[400px]"
+  />
+
+  <section class="changelog-section">
+    <Container>
+      <div class="changelog-wrapper">
+        {changelogEntries.map((entry) => (
+          <div class="changelog-block">
+            <div class="changelog-content reveal">
+              <h2 class="changelog-title mb-0 text-[24px] leading-[1.22] font-medium text-[#071e31] max-991:text-[24px] max-479:text-[20px]">Version: {entry.version}</h2>
+              <div class="changelog-subtitle text-center font-medium text-[#071e31] max-767:text-[18px]">{entry.description}</div>
+              <div class="changelog-meta">
+                <div class="changelog-badge text-white">
+                  {entry.label}
+                </div>
+                <div class="changelog-date font-medium text-[#071e31]">{entry.date}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+</PageLayout>
+
+<style>
+  /* ===== Section ===== */
+  .changelog-section {
+    padding-bottom: 90px;
+  }
+
+  /* ===== Wrapper ===== */
+  .changelog-wrapper {
+    align-items: center;
+  }
+
+  /* ===== Content card ===== */
+  .changelog-content {
+    background-color: white;
+    border: 1px solid #0d1218;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+  }
+
+  /* ===== Subtitle ===== */
+  .changelog-subtitle {
+    margin-top: 15px;
+  }
+
+  /* ===== Meta row (badge + date) ===== */
+  .changelog-meta {
+    gap: 10px;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+  }
+
+  /* ===== Badge ===== */
+  .changelog-badge {
+    background-color: #5542f6;
+    padding: 8px 15px;
+    display: inline-block;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .changelog-section {
+      padding-bottom: 110px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .changelog-section {
+      padding-bottom: 130px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .changelog-section {
+      padding-bottom: 70px;
+    }
+
+    .changelog-meta {
+      gap: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .changelog-section {
+      padding-bottom: 50px;
+    }
+
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .changelog-content {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .changelog-meta {
+      display: block;
+    }
+
+    .changelog-badge {
+      margin-bottom: 10px;
+    }
+  }
+</style>

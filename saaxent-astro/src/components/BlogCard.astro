@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+
+const {
+  title,
+  image,
+  author,
+  date,
+  category,
+  href = '#'
+} = Astro.props;
+---
+
+<article class="blog-item-block" data-blog-card>
+  <!-- Blog Image -->
+  <a href={href} class="blog-image-link-block block rounded-20 overflow-hidden blog-card-reveal">
+    {image && typeof image.src !== 'string' && (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        class="blog-image w-full h-auto object-cover rounded-20 transition-transform duration-300 hover:scale-105"
+      />
+    )}
+  </a>
+
+  <!-- Blog Title -->
+  <a href={href} class="blog-title-link inline-block text-white no-underline transition-colors duration-300 hover:text-brand-primary blog-card-slide">
+    <h3 class="blog-name mb-0 mt-0 text-[inherit]">{title}</h3>
+  </a>
+
+  <!-- Horizontal Divider -->
+  <div class="horizontal-divider-blog-item blog-card-divider"></div>
+
+  <!-- Blog Card Footer -->
+  <div class="blog-card-footer-block flex justify-between items-center blog-card-slide">
+    <!-- Author Block -->
+    <div class="blog-author-block flex items-center">
+      {author?.image && typeof author.image.src !== 'string' && (
+        <a href={author.href || '#'} class="blog-author-image-link-block inline-block rounded-26 overflow-hidden">
+          <Image
+            src={author.image.src}
+            alt={author.image.alt}
+            class="blog-author-image object-cover rounded-26"
+            width={53}
+            height={53}
+          />
+        </a>
+      )}
+      <div class="blog-author-info">
+        <a href={author?.href || '#'} class="blog-author-name text-white no-underline transition-colors duration-300 hover:text-brand-primary">{author?.name}</a>
+        <div class="blog-post-date text-white">{date}</div>
+      </div>
+    </div>
+
+    <!-- Category Tag -->
+    {category && (
+      <a href={category.href || '#'} class="blog-categories-link-block inline-block text-white no-underline bg-surface-navy-mid rounded-6 transition-colors duration-300 hover:bg-brand-primary">
+        <div>{category.label || category}</div>
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  /* === Scroll-into-view animations === */
+  .blog-card-reveal {
+    opacity: 0;
+    transform: scale(0.75);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .blog-card-slide {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .blog-card-divider {
+    width: 0;
+    transition: width 0.6s ease;
+  }
+
+  /* Visible states */
+  .blog-card-reveal.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .blog-card-slide.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .blog-card-divider.is-visible {
+    width: auto;
+  }
+
+  /* Stagger delays */
+  .blog-title-link.blog-card-slide {
+    transition-delay: 0.15s;
+  }
+
+  .blog-card-divider {
+    transition-delay: 0.3s;
+  }
+
+  .blog-card-footer-block.blog-card-slide {
+    transition-delay: 0.45s;
+  }
+
+  /* === Blog Title Link === */
+  .blog-title-link {
+    max-width: 400px;
+    margin-top: 20px;
+  }
+
+  /* === Horizontal Divider === */
+  .horizontal-divider-blog-item {
+    background-color: #6b6b6b;
+    height: 1px;
+    margin-top: 22px;
+    margin-bottom: 22px;
+  }
+
+  /* === Author Block === */
+  .blog-author-block {
+    gap: 14px;
+  }
+
+  /* === Author Name === */
+  .blog-author-name {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  /* === Post Date === */
+  .blog-post-date {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* === Categories Link === */
+  .blog-categories-link-block {
+    padding: 7px 12px;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .blog-name {
+      font-size: 44px;
+    }
+
+    .blog-title-link {
+      max-width: 520px;
+      margin-top: 24px;
+    }
+
+    .horizontal-divider-blog-item {
+      margin-top: 32px;
+      margin-bottom: 32px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .blog-author-name,
+    .blog-post-date {
+      font-size: 18px;
+    }
+
+    .blog-name {
+      font-size: 32px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .blog-title-link {
+      margin-top: 14px;
+    }
+
+    .horizontal-divider-blog-item {
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    .blog-card-footer-block {
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .blog-name {
+      font-size: 30px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .blog-name {
+      font-size: 22px;
+    }
+  }
+
+  /* ============= Reduced Motion ============= */
+  @media (prefers-reduced-motion: reduce) {
+    .blog-card-reveal,
+    .blog-card-slide,
+    .blog-card-divider {
+      opacity: 1;
+      transform: none;
+      width: auto;
+      transition: none;
+    }
+  }
+</style>

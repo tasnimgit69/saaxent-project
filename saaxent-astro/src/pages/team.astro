@@ -1,0 +1,22 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import TeamSection from '../components/TeamSection.astro';
+import OurValuesSection from '../components/OurValuesSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<PageLayout
+  title="Team | SaaXent - SaaS Website Template"
+  description="Meet the experts driving SaaXent's vision and the innovators behind your business success."
+>
+  <BreadcrumbHero
+    badge="Team"
+    title="The"
+    highlight="Innovators"
+    titleAfter="Behind Your Business Success"
+  />
+  <TeamSection />
+  <OurValuesSection />
+  <CtaSection />
+</PageLayout>

@@ -1,0 +1,53 @@
+{
+  "name": "saaxent",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "SaaXent — A modern dark SaaS website template built with Astro 5 and Tailwind CSS v3. 43 pages, fully responsive, SEO-optimized, and accessible.",
+  "author": {
+    "name": "Aslam Hasib",
+    "email": "hello@hasthemes.com",
+    "url": "https://hasthemes.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/AH-Developer/saaxent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AH-Developer/saaxent"
+  },
+  "bugs": {
+    "url": "https://github.com/AH-Developer/saaxent/issues",
+    "email": "support@hasthemes.com"
+  },
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "astro-component",
+    "withastro",
+    "tailwindcss",
+    "saas",
+    "template",
+    "landing-page",
+    "dark-theme",
+    "responsive",
+    "seo"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "autoprefixer": "^10.4.24",
+    "tailwindcss": "^3.4.19"
+  }
+}

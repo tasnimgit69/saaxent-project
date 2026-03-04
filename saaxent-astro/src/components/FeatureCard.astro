@@ -1,0 +1,463 @@
+---
+import { Image } from 'astro:assets';
+
+const {
+  tag = '',
+  title = '',
+  description = '',
+  image,
+  chart,
+  href = '#',
+  variant = 'standard',
+  standardIndex = 0
+} = Astro.props;
+
+const isFeatured = variant === 'featured';
+const isV2 = !isFeatured && standardIndex === 0;
+const isV3 = !isFeatured && standardIndex === 1;
+---
+
+{isFeatured ? (
+  <!-- Featured card (V1) -->
+  <div class="featured-card relative overflow-hidden rounded-20 bg-surface-primary pt-32 px-60 pb-60 min-1280:pt-40 min-1280:px-70 min-1280:pb-60 min-1440:pt-48 min-1440:px-78 min-1440:pb-96 max-767:px-30 max-479:px-16 mb-32 min-1440:mb-40 max-991:mb-26 max-767:mb-20">
+    <!-- SVG grid shapes -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="left-grid-shape absolute left-0 top-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="332" height="500" viewBox="0 0 332 500" fill="none">
+          <path d="M82.7031 416.667H0L3.652e-06 500H82.7031V416.667ZM82.7031 416.667L82.7032 333.334M82.7031 416.667L165.406 416.667L165.406 333.334H82.7032M82.7032 333.334L82.7031 250M82.7032 333.334L6.02323e-06 333.333L2.37124e-06 250H82.7031M82.7031 250L82.7031 166.667M82.7031 250L165.406 250L165.406 166.667H82.7031M82.7031 166.667L82.7031 83.3337M82.7031 166.667L6.02323e-06 166.667L2.37124e-06 83.3337L82.7031 83.3337M82.7031 83.3337L82.7032 3.60578e-06L165.406 0L165.406 83.3333L82.7031 83.3337ZM248.297 416.667H165.594V500H248.297V416.667ZM248.297 416.667L248.297 333.334M248.297 416.667L331 416.667V333.334H248.297M248.297 333.334L248.297 250M248.297 333.334L165.594 333.333V250H248.297M248.297 250L248.297 166.667M248.297 250L331 250V166.667L248.297 166.667M248.297 166.667L248.297 83.3337M248.297 166.667L165.594 166.667V83.3337L248.297 83.3337M248.297 83.3337L248.297 2.42708e-05L331 2.0665e-05V83.3333L248.297 83.3337Z" stroke="url(#grid_left_v1)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="grid_left_v1" x1="331.011" y1="207.415" x2="7.023e-05" y2="209.429" gradientUnits="userSpaceOnUse">
+              <stop stop-color="white" stop-opacity="0" />
+              <stop offset="1" stop-color="white" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="right-grid-shape absolute right-0 top-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="332" height="500" viewBox="0 0 332 500" fill="none">
+          <path d="M249.297 416.667H332L332 500H249.297V416.667ZM249.297 416.667L249.297 333.334M249.297 416.667L166.594 416.667L166.594 333.334H249.297M249.297 333.334L249.297 250M249.297 333.334L332 333.333L332 250H249.297M249.297 250L249.297 166.667M249.297 250L166.594 250L166.594 166.667H249.297M249.297 166.667L249.297 83.3337M249.297 166.667L332 166.667L332 83.3337L249.297 83.3337M249.297 83.3337L249.297 3.60578e-06L166.594 0L166.594 83.3333L249.297 83.3337ZM83.7029 416.667H166.406V500H83.7029V416.667ZM83.7029 416.667L83.7031 333.334M83.7029 416.667L1.00001 416.667V333.334H83.7031M83.7031 333.334L83.7029 250M83.7031 333.334L166.406 333.333V250H83.7029M83.7029 250L83.7031 166.667M83.7029 250L1.00001 250V166.667L83.7031 166.667M83.7031 166.667L83.7029 83.3337M83.7031 166.667L166.406 166.667V83.3337L83.7029 83.3337M83.7029 83.3337L83.7031 2.42708e-05L1.00001 2.0665e-05V83.3333L83.7029 83.3337Z" stroke="url(#grid_right_v1)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="grid_right_v1" x1="0.9893" y1="207.415" x2="332" y2="209.429" gradientUnits="userSpaceOnUse">
+              <stop stop-color="white" stop-opacity="0" />
+              <stop offset="1" stop-color="white" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content grid -->
+    <div class="featured-grid relative z-10 grid grid-cols-2 gap-100 items-center max-991:grid-cols-1 max-991:gap-20 max-991:place-items-center">
+      <!-- Text content -->
+      <div class="max-w-400 min-1280:max-w-485 max-991:max-w-none">
+        {tag && (
+          <div class="mb-16 text-brand-primary">{tag}</div>
+        )}
+        <h3 class="text-ink-heading max-479:text-lg">{title}</h3>
+        <p class="mt-18 mb-0">{description}</p>
+        <div class="mt-24 min-1440:mt-32 max-991:mt-20 max-767:mt-16">
+          <a
+            href={href}
+            class="featured-btn inline-flex items-center rounded-40 border-2 border-solid border-brand-primary bg-brand-primary px-22 py-10 text-white no-underline relative overflow-hidden min-1280:px-24 min-1280:py-12 max-767:px-18 max-767:py-8 hover:text-brand-primary"
+          >
+            <span class="relative z-[2] flex items-center gap-10 max-767:gap-6">
+              <span>Learn More</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <g clip-path="url(#clip_feat_arrow)">
+                  <path d="M16.5 9L10.875 3.375M16.5 9L10.875 14.625M16.5 9L6.65625 9M1.5 9L3.84375 9" stroke="currentColor" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip_feat_arrow">
+                    <rect width="18" height="18" fill="currentColor" transform="translate(18) rotate(90)" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </span>
+            <span class="featured-btn-overlay"></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Banner image -->
+      <div class="featured-banner-block self-start justify-self-end relative max-991:self-center 991-479:justify-self-center max-479:flex max-479:flex-col max-479:items-center max-479:mx-auto">
+        {image && typeof image.src !== 'string' && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            class="featured-banner-image h-auto min-1280:max-w-full max-991:max-w-400 max-479:max-w-240"
+          />
+        )}
+        {chart && typeof chart.src !== 'string' && (
+          <Image
+            src={chart.src}
+            alt={chart.alt}
+            class="featured-chart-image h-auto absolute max-w-220 shadow-chart"
+          />
+        )}
+      </div>
+    </div>
+  </div>
+) : (
+  <!-- Standard card (V2/V3) -->
+  <div class="standard-card relative overflow-hidden rounded-20 bg-surface-primary p-30 min-1280:pt-40 min-1280:pb-50 min-1440:px-40 max-767:px-20 max-479:px-16">
+    <!-- SVG grid shapes -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="std-left-grid absolute left-0 top-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="260" height="391" viewBox="0 0 260 391" fill="none">
+          <path d="M64.7133 325H0L2.8576e-06 390H64.7133V325ZM64.7133 325L64.7134 260M64.7133 325L129.427 325L129.427 260H64.7134M64.7134 260L64.7133 195M64.7134 260L4.71304e-06 260L1.85544e-06 195H64.7133M64.7133 195L64.7133 130M64.7133 195L129.427 195L129.427 130L64.7133 130M64.7133 130L64.7133 65.0003M64.7133 130L4.71304e-06 130L1.85544e-06 65.0003L64.7133 65.0003M64.7133 65.0003L64.7134 2.81251e-06L129.427 0L129.427 65L64.7133 65.0003ZM194.287 325L129.574 325V390L194.287 390V325ZM194.287 325L194.287 260M194.287 325L259 325V260H194.287M194.287 260L194.287 195M194.287 260L129.574 260V195H194.287M194.287 195L194.287 130M194.287 195L259 195L259 130L194.287 130M194.287 130L194.287 65.0003M194.287 130L129.574 130L129.574 65.0003L194.287 65.0003M194.287 65.0003L194.287 1.89312e-05L259 1.61187e-05V65L194.287 65.0003Z" stroke="url(#grid_std_left)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="grid_std_left" x1="228.5" y1="163.347" x2="-82" y2="163.368" gradientUnits="userSpaceOnUse">
+              <stop stop-color="white" stop-opacity="0" />
+              <stop offset="1" stop-color="white" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="std-bottom-grid absolute bottom-0 left-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="260" height="391" viewBox="0 0 260 391" fill="none">
+          <path d="M64.7133 326H0L2.8576e-06 391H64.7133V326ZM64.7133 326L64.7134 261M64.7133 326L129.427 326L129.427 261H64.7134M64.7134 261L64.7133 196M64.7134 261L4.71304e-06 261L1.85544e-06 196H64.7133M64.7133 196L64.7133 131M64.7133 196L129.427 196L129.427 131L64.7133 131M64.7133 131L64.7133 66.0003M64.7133 131L4.71304e-06 131L1.85544e-06 66.0003L64.7133 66.0003M64.7133 66.0003L64.7134 1L129.427 1L129.427 66L64.7133 66.0003ZM194.287 326L129.574 326V391L194.287 391V326ZM194.287 326L194.287 261M194.287 326L259 326V261H194.287M194.287 261L194.287 196M194.287 261L129.574 261V196H194.287M194.287 196L194.287 131M194.287 196L259 196L259 131L194.287 131M194.287 131L194.287 66.0003M194.287 131L129.574 131L129.574 66.0003L194.287 66.0003M194.287 66.0003L194.287 1.00002L259 1.00002V66L194.287 66.0003Z" stroke="url(#grid_std_bottom)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="grid_std_bottom" x1="228.5" y1="164.347" x2="-82" y2="164.368" gradientUnits="userSpaceOnUse">
+              <stop stop-color="white" stop-opacity="0" />
+              <stop offset="1" stop-color="white" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Card content -->
+    <div class="relative z-10 flex flex-col max-479:items-center">
+      <!-- Text content -->
+      <div>
+        {tag && (
+          <div class="mb-16 text-brand-primary">{tag}</div>
+        )}
+        <h3 class="text-ink-heading max-479:text-lg">{title}</h3>
+        <p class="mt-18 mb-0">{description}</p>
+      </div>
+
+      <!-- Banner image -->
+      <div class={`relative ${isV2 ? 'mt-32 mb-40 ml-auto min-1280:mt-44 min-1280:mb-50 max-991:mr-auto max-479:flex max-479:flex-col max-479:mr-auto' : 'mt-32 mb-40 mr-auto min-1280:mt-44 min-1280:mb-85 max-991:mx-auto max-479:flex max-479:flex-col max-479:items-center max-479:mb-60 max-479:mx-auto'}`}>
+        {image && typeof image.src !== 'string' && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            class={`h-auto ${isV2 ? 'max-w-360 min-1280:max-w-full max-991:max-w-none max-767:max-w-350 max-479:max-w-250' : 'max-w-350 min-1280:max-w-full max-991:max-w-none max-767:max-w-350 max-479:max-w-260'}`}
+          />
+        )}
+        {chart && typeof chart.src !== 'string' && (
+          <Image
+            src={chart.src}
+            alt={chart.alt}
+            class={`h-auto rounded-10 shadow-chart ${isV2 ? 'std-chart-v2 absolute max-w-180 min-1280:max-w-190 max-991:max-w-none max-767:max-w-160 max-479:max-w-130' : 'std-chart-v3 absolute max-w-180 min-1440:max-w-full max-991:max-w-none max-767:max-w-160 max-479:max-w-140'}`}
+          />
+        )}
+      </div>
+
+      <!-- Button -->
+      <div class="flex">
+        <a
+          href={href}
+          class="std-btn inline-flex items-center rounded-40 border border-solid border-white px-22 py-13 text-white no-underline relative overflow-hidden transition-colors duration-[400ms] hover:border-brand-primary hover:text-brand-primary min-1280:px-28 max-991:text-body max-767:px-20 max-479:px-18 max-479:py-11"
+        >
+          <span class="relative z-[2] flex items-center gap-6">
+            <span>Learn More</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+              <g clip-path="url(#clip_outline_arrow)">
+                <path d="M16.5 9.8584L10.875 4.2334M16.5 9.8584L10.875 15.4834M16.5 9.8584L6.65625 9.8584M1.5 9.8584L3.84375 9.8584" stroke="currentColor" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip_outline_arrow">
+                  <rect width="18" height="18" fill="currentColor" transform="translate(18 0.858398) rotate(90)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="std-btn-overlay"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  /* Featured card grid shapes */
+  .left-grid-shape {
+    max-width: 500px;
+    max-height: 600px;
+  }
+  .right-grid-shape {
+    max-width: 500px;
+    max-height: 600px;
+  }
+
+  @media (min-width: 1280px) {
+    .left-grid-shape,
+    .right-grid-shape {
+      max-width: 600px;
+      max-height: 700px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .left-grid-shape,
+    .right-grid-shape {
+      max-width: none;
+      max-height: none;
+    }
+  }
+  @media (max-width: 991px) {
+    .left-grid-shape {
+      max-width: 500px;
+      max-height: 500px;
+    }
+    .right-grid-shape {
+      max-width: 400px;
+      max-height: 500px;
+      top: auto;
+      bottom: 0;
+    }
+  }
+  @media (max-width: 479px) {
+    .right-grid-shape {
+      max-width: 200px;
+      max-height: 300px;
+    }
+  }
+
+  /* Standard card grid shapes */
+  .std-left-grid {
+    max-width: 500px;
+    max-height: 600px;
+  }
+  .std-bottom-grid {
+    max-width: 500px;
+    max-height: 600px;
+  }
+  @media (max-width: 479px) {
+    .std-bottom-grid {
+      max-width: 260px;
+      max-height: 300px;
+    }
+  }
+
+  /* Featured chart floating animation */
+  @keyframes featured-chart-float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-20px, -20px);
+    }
+  }
+
+  /* Featured chart positioning */
+  .featured-chart-image {
+    bottom: -40px;
+    left: -100px;
+    animation: featured-chart-float 3s ease-in-out infinite;
+  }
+  @media (min-width: 1280px) {
+    .featured-chart-image {
+      max-width: 264px;
+      bottom: -50px;
+      left: -160px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .featured-chart-image {
+      bottom: -80px;
+      left: -200px;
+    }
+  }
+  @media (max-width: 991px) {
+    .featured-chart-image {
+      max-width: 250px;
+      left: -180px;
+    }
+  }
+  @media (max-width: 767px) {
+    .featured-chart-image {
+      max-width: 220px;
+      left: -80px;
+    }
+  }
+  @media (max-width: 479px) {
+    .featured-chart-image {
+      max-width: 160px;
+      margin-top: 20px;
+      bottom: -40px;
+      left: 0;
+    }
+  }
+
+  /* V2 chart floating animation */
+  @keyframes std-chart-v2-float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-10px, -10px);
+    }
+  }
+
+  /* V2 chart positioning (left overlay) */
+  .std-chart-v2 {
+    top: 0;
+    bottom: 0;
+    left: -30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    animation: std-chart-v2-float 3s ease-in-out infinite;
+  }
+  @media (min-width: 1280px) {
+    .std-chart-v2 {
+      left: -60px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .std-chart-v2 {
+      left: -82px;
+    }
+  }
+  @media (max-width: 991px) {
+    .std-chart-v2 {
+      top: auto;
+    }
+  }
+  @media (max-width: 767px) {
+    .std-chart-v2 {
+      left: -20px;
+    }
+  }
+  
+
+  /* V3 chart floating animation */
+  @keyframes std-chart-v3-float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-15px, -15px);
+    }
+  }
+
+  /* V3 chart positioning (right-bottom overlay) */
+  .std-chart-v3 {
+    bottom: -37px;
+    right: -60px;
+    left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    animation: std-chart-v3-float 3s ease-in-out infinite;
+  }
+  @media (min-width: 1280px) {
+    .std-chart-v3 {
+      right: -80px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .std-chart-v3 {
+      right: -111px;
+    }
+  }
+  @media (max-width: 991px) {
+    .std-chart-v3 {
+      max-width: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .std-chart-v3 {
+      max-width: 160px;
+      right: -10px;
+    }
+  }
+  @media (max-width: 479px) {
+    .std-chart-v3 {
+      max-width: 140px;
+      margin-top: 16px;
+      right: 0;
+    }
+  }
+
+  /* Featured button overlay (white sweep — slides IN from left on hover) */
+  .featured-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+  .featured-btn:hover .featured-btn-overlay {
+    transform: translateX(0);
+  }
+
+  /* Featured button font-size */
+  .featured-btn {
+    font-size: 24px;
+    line-height: 1.33;
+  }
+   @media (max-width: 1199px) {
+    .featured-btn {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 991px) {
+    .featured-btn {
+      font-size: 22px;
+    }
+  }
+  @media (max-width: 767px) {
+    .featured-btn {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 479px) {
+    .featured-btn {
+      font-size: 18px;
+    }
+  }
+
+  /* Outline button overlay (white sweep — slides IN from left on hover) */
+  .std-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: transparent;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease, background-color 0.5s ease;
+  }
+  .std-btn:hover .std-btn-overlay {
+    transform: translateX(0);
+    background-color: #fff;
+  }
+
+  /* Standard button font-size */
+  .std-btn {
+    font-size: 24px;
+    line-height: 1.33;
+  }
+   @media (max-width: 1199px) {
+    .std-btn {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 991px) {
+    .std-btn {
+      font-size: 18px;
+    }
+  }
+  @media (max-width: 767px) {
+    .std-btn {
+      font-size: 18px;
+    }
+  }
+  @media (max-width: 479px) {
+    .std-btn {
+      padding: 11px 18px;
+    }
+  }
+</style>

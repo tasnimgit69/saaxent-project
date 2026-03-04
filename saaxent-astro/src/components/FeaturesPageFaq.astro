@@ -1,0 +1,234 @@
+---
+import Container from './Container.astro';
+import FaqItem from './FaqItem.astro';
+import { featuresFaq } from '../data/features-page';
+---
+
+<section class="relative overflow-hidden bg-surface-primary py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="relative z-[1]">
+      <!-- Section Title Block -->
+      <div class="flex flex-col items-center">
+        <span class="mb-20 max-767:mb-14 inline-block rounded-19 border border-solid border-white px-20 py-3 text-body text-white reveal">
+          FAQ
+        </span>
+        <h2 class="text-center reveal delay-2">Frequently Asked Questions</h2>
+        <p class="fpf-excerpt mt-20 max-767:mt-14 text-center reveal delay-4">
+          Got questions about SaaXent? We've got you covered! Below are some of the most commonly asked questions to help you understand our services better.
+        </p>
+      </div>
+
+      <!-- FAQ Accordion Wrapper -->
+      <div class="fpf-wrapper">
+        <div class="fpf-content-wrap rounded-20 border border-solid border-border-light reveal delay-6">
+          <div class="fpf-content-inner">
+            {featuresFaq.map((item, i) => (
+              <FaqItem
+                question={item.question}
+                answer={item.answer}
+                isLast={i === featuresFaq.length - 1}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Gradient blur shapes -->
+  <div class="pointer-events-none" aria-hidden="true">
+    <div class="fpf-gradient-left absolute bg-brand-primary rounded-full"></div>
+    <div class="fpf-gradient-right absolute bg-brand-primary rounded-full"></div>
+  </div>
+
+  <!-- SVG grid patterns -->
+  <div class="pointer-events-none" aria-hidden="true">
+    <!-- Left grid SVG -->
+    <div class="absolute top-0 left-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[500px] max-991:max-h-[500px] max-767:max-w-[300px] max-767:max-h-[400px] max-479:max-w-[200px] max-479:max-h-[300px]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="726" height="1098" viewBox="0 0 726 1098" fill="none">
+        <path d="M181.147 183.667H0L7.99909e-06 1.00006H181.147V183.667ZM181.147 183.667L181.147 366.333M181.147 183.667L362.295 183.666L362.295 366.333H181.147M181.147 366.333L181.147 549M181.147 366.333L1.31929e-05 366.334L5.1938e-06 549H181.147M181.147 549L181.147 731.666M181.147 549L362.294 549L362.294 731.666H181.147M181.147 731.666L181.147 914.333M181.147 731.666L1.31929e-05 731.666L5.1938e-06 914.333L181.147 914.333M181.147 914.333L181.147 1097L362.295 1097L362.295 914.333L181.147 914.333ZM543.853 183.667H362.706V1.00006H543.853V183.667ZM543.853 183.667L543.853 366.333M543.853 183.667L725 183.666V366.333H543.853M543.853 366.333L543.853 549M543.853 366.333L362.706 366.334V549H543.853M543.853 549L543.853 731.666M543.853 549L725 549V731.666L543.853 731.666M543.853 731.666L543.853 914.333M543.853 731.666L362.706 731.666V914.333L543.853 914.333M543.853 914.333L543.853 1097L725 1097V914.333L543.853 914.333Z" stroke="url(#paint0_linear_faq_left)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_faq_left" x1="725.023" y1="642.347" x2="0.00011299" y2="637.938" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Right grid SVG -->
+    <div class="absolute top-0 right-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[400px] max-991:max-h-[500px] max-991:top-auto max-991:bottom-0 max-767:max-w-[300px] max-767:max-h-[400px] max-479:max-w-[200px] max-479:max-h-[300px] max-479:top-auto max-479:bottom-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="726" height="1098" viewBox="0 0 726 1098" fill="none">
+        <path d="M544.853 183.667H726L726 1.00006H544.853V183.667ZM544.853 183.667L544.853 366.333M544.853 183.667L363.705 183.666L363.705 366.333H544.853M544.853 366.333L544.853 549M544.853 366.333L726 366.334L726 549H544.853M544.853 549L544.853 731.666M544.853 549L363.706 549L363.706 731.666H544.853M544.853 731.666L544.853 914.333M544.853 731.666L726 731.666L726 914.333L544.853 914.333M544.853 914.333L544.853 1097L363.705 1097L363.705 914.333L544.853 914.333ZM182.147 183.667H363.294V1.00006H182.147V183.667ZM182.147 183.667L182.147 366.333M182.147 183.667L1 183.666V366.333H182.147M182.147 366.333L182.147 549M182.147 366.333L363.294 366.334V549H182.147M182.147 549L182.147 731.666M182.147 549L1 549V731.666L182.147 731.666M182.147 731.666L182.147 914.333M182.147 731.666L363.294 731.666V914.333L182.147 914.333M182.147 914.333L182.147 1097L1 1097V914.333L182.147 914.333Z" stroke="url(#paint0_linear_faq_right)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_faq_right" x1="0.976564" y1="642.347" x2="726" y2="637.938" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-faq-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const container = btn.closest('.faq-accordion-container');
+      const body = container?.querySelector('[data-faq-body]') as HTMLElement | null;
+      const barY = container?.querySelector('[data-faq-bar-y]') as HTMLElement | null;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      if (body) {
+        if (isOpen) {
+          // Close: set explicit height, force reflow, then animate to 0
+          body.style.height = body.scrollHeight + 'px';
+          void body.offsetHeight;
+          body.style.height = '0px';
+          btn.setAttribute('aria-expanded', 'false');
+          if (barY) barY.style.transform = 'rotateX(0deg)';
+        } else {
+          // Open: animate height to scrollHeight
+          body.style.height = body.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+          if (barY) barY.style.transform = 'rotateX(90deg)';
+
+          // After transition, set to auto for dynamic content
+          const onEnd = () => {
+            body.style.height = 'auto';
+            body.removeEventListener('transitionend', onEnd);
+          };
+          body.addEventListener('transitionend', onEnd);
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Excerpt */
+  .fpf-excerpt {
+    max-width: 650px;
+  }
+
+  /* FAQ wrapper margin-top */
+  .fpf-wrapper {
+    margin-top: 40px;
+  }
+
+  /* Content wrapper inner padding */
+  .fpf-content-inner {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* Gradient blur shapes */
+  .fpf-gradient-left {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 500px;
+    top: -100px;
+    left: -300px;
+  }
+
+  .fpf-gradient-right {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 500px;
+    bottom: 75px;
+    right: -300px;
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .fpf-wrapper {
+      margin-top: 44px;
+    }
+
+    .fpf-content-inner {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    .fpf-gradient-left {
+      width: 700px;
+      height: 500px;
+      top: -140px;
+      left: -350px;
+    }
+
+    .fpf-gradient-right {
+      width: 700px;
+      height: 500px;
+      bottom: 100px;
+      right: -380px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .fpf-wrapper {
+      margin-top: 54px;
+    }
+
+    .fpf-content-inner {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    .fpf-gradient-left {
+      width: 848px;
+      height: 628px;
+      top: -195px;
+      left: -424px;
+    }
+
+    .fpf-gradient-right {
+      width: 848px;
+      height: 628px;
+      bottom: 120px;
+      right: -424px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .fpf-content-inner {
+      max-width: 700px;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .fpf-wrapper {
+      margin-top: 32px;
+    }
+
+    .fpf-content-inner {
+      padding-left: 24px;
+      padding-right: 24px;
+      max-width: 540px;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    .fpf-content-inner {
+      padding-left: 14px;
+      padding-right: 14px;
+      max-width: none;
+    }
+  }
+</style>

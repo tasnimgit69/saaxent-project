@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/resolveImage';
+
+const img404 = resolveImage('/images/404.png');
+---
+
+<BaseLayout title="404 - Page Not Found | SaaXent">
+  <div class="utility-page-wrap">
+    <div class="utility-page-content">
+      {typeof img404 !== 'string' && (
+        <Image
+          src={img404}
+          alt="404 - Page Not Found"
+          class="utility-page-image"
+          width={550}
+          height={400}
+        />
+      )}
+      <h1 class="utility-page-title">Oops... Page Not Found!</h1>
+      <div class="utility-page-text">The page you are looking for doesn't exist or has been moved</div>
+      <div class="utility-button-wrap">
+        <a href="/" class="primary-button-link inline-flex items-center no-underline relative overflow-hidden">
+          <span class="button-text-block relative z-[2] flex items-center">
+            <span>Back To Home</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none" class="flex items-center justify-center">
+              <g clip-path="url(#clip_404_arrow)">
+                <path d="M16.5 9.8584L10.875 4.2334M16.5 9.8584L10.875 15.4834M16.5 9.8584L6.65625 9.8584M1.5 9.8584L3.84375 9.8584" stroke="currentColor" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+              <defs>
+                <clipPath id="clip_404_arrow">
+                  <rect width="18" height="18" fill="currentColor" transform="translate(18 0.858398) rotate(90)"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <span class="primary-button-overlay"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ===== Full-viewport wrapper ===== */
+  .utility-page-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  /* ===== Content card ===== */
+  .utility-page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  /* ===== 404 image ===== */
+  .utility-page-image {
+    max-width: 550px;
+    height: auto;
+  }
+
+  /* ===== Title ===== */
+  .utility-page-title {
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  /* ===== Description text ===== */
+  .utility-page-text {
+    color: gainsboro;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  /* ===== Button ===== */
+  .primary-button-link {
+    border: 2px solid #5542f6;
+    background-color: #5542f6;
+    color: white;
+    border-radius: 40px;
+    padding: 13px 22px;
+    font-size: 24px;
+    line-height: 1.33;
+    transition: color 0.5s;
+  }
+
+  .primary-button-link:hover {
+    color: #5542f6;
+  }
+
+  .button-text-block {
+    gap: 10px;
+  }
+
+  .primary-button-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: white;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .primary-button-link:hover .primary-button-overlay {
+    transform: translateX(0);
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .utility-page-image {
+      max-width: 600px;
+    }
+
+    .utility-page-text {
+      margin-top: 20px;
+    }
+
+    .primary-button-link {
+      padding: 15px 28px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .utility-page-title {
+      margin-top: 20px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .utility-page-image {
+      max-width: 80%;
+    }
+
+    .utility-page-title {
+      margin-top: 16px;
+    }
+
+    .utility-page-text {
+      max-width: 80%;
+      font-size: 18px;
+    }
+
+    .primary-button-link {
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 20px;
+    }
+
+    .button-text-block {
+      gap: 6px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .utility-page-content {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .primary-button-link {
+      padding: 11px 18px;
+      font-size: 18px;
+    }
+  }
+</style>

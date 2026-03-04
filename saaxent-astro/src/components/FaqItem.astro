@@ -1,0 +1,173 @@
+---
+const {
+  question,
+  answer,
+  isLast = false
+} = Astro.props;
+---
+
+<div class="faq-accordion-container relative z-[1]">
+  <div class={`faq-accordion-item${isLast ? ' faq-no-border' : ''}`}>
+    <button
+      class="faq-toggle w-full text-left cursor-pointer border-none bg-transparent p-0"
+      aria-expanded="false"
+      data-faq-toggle
+    >
+      <div class="faq-question-title">{question}</div>
+      <div class="faq-icon-block flex-none flex justify-center items-center rounded-full border border-solid border-white">
+        <div class="relative flex flex-col justify-center items-center w-12 h-12">
+          <div class="faq-bar-y bg-white rounded-3" data-faq-bar-y></div>
+          <div class="faq-bar-x absolute bg-white rounded-3" style="inset: 0; margin: auto;"></div>
+        </div>
+      </div>
+    </button>
+    <div class="faq-body overflow-hidden" style="height: 0px;" data-faq-body>
+      <p class="faq-answer-text mb-0">{answer}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Accordion item wrapper */
+  .faq-accordion-item {
+    border-bottom: 1px solid #fff;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .faq-accordion-item.faq-no-border {
+    border-bottom: none;
+  }
+
+  /* Toggle button (flex row) */
+  .faq-toggle {
+    z-index: 1;
+    gap: 30px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Question title */
+  .faq-question-title {
+    font-family: Outfit, sans-serif;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.28;
+  }
+
+  /* Icon circle */
+  .faq-icon-block {
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Vertical bar (animates rotateX on open) */
+  .faq-bar-y {
+    width: 2px;
+    height: 12px;
+    transition: transform 500ms ease;
+  }
+
+  /* Horizontal bar (always visible) */
+  .faq-bar-x {
+    width: 12px;
+    height: 2px;
+  }
+
+  /* Answer body */
+  .faq-body {
+    transition: height 500ms ease;
+  }
+
+  /* Answer text */
+  .faq-answer-text {
+    max-width: 800px;
+    margin-top: 16px;
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .faq-accordion-item {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .faq-question-title {
+      font-size: 28px;
+    }
+
+    .faq-answer-text {
+      max-width: 1000px;
+      margin-top: 15px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .faq-accordion-item {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .faq-answer-text {
+      max-width: 1050px;
+      margin-top: 24px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .faq-toggle {
+      gap: 15px;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .faq-accordion-item {
+      padding-top: 24px;
+      padding-bottom: 20px;
+    }
+
+    .faq-toggle {
+      align-items: flex-start;
+    }
+
+    .faq-question-title {
+      font-size: 20px;
+    }
+
+    .faq-answer-text {
+      margin-top: 12px;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    .faq-accordion-item {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .faq-toggle {
+      gap: 5px;
+    }
+
+    .faq-question-title {
+      margin-right: 0;
+    }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import HeroV2 from '../components/HeroV2.astro';
+import AboutV2Section from '../components/AboutV2Section.astro';
+import FeaturesShowcase from '../components/FeaturesShowcase.astro';
+import TeamSection from '../components/TeamSection.astro';
+import BlogSection from '../components/BlogSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+
+<PageLayout
+  title="SaaXent - Home V2"
+  description="Streamlining the business process with SaaXent's innovative SaaS solutions."
+>
+  <HeroV2 />
+  <AboutV2Section />
+  <FeaturesShowcase />
+  <TeamSection limit={3} />
+  <BlogSection limit={2} variant="home" />
+  <CtaSection />
+</PageLayout>

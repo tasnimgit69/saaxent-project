@@ -1,0 +1,24 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import BreadcrumbHero from '../components/BreadcrumbHero.astro';
+import PricingSection from '../components/PricingSection.astro';
+import PricingComparisonTable from '../components/PricingComparisonTable.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { pricingBreadcrumb } from '../data/pricing-page';
+---
+
+<PageLayout
+  title="Pricing | SaaXent - SaaS Website Template"
+  description="Flexible pricing plans to suit every business. Choose the perfect plan for your needs."
+>
+  <BreadcrumbHero
+    badge={pricingBreadcrumb.badge}
+    title={pricingBreadcrumb.title}
+    highlight={pricingBreadcrumb.highlight}
+    titleAfter={pricingBreadcrumb.titleAfter}
+    titleClass="max-w-[600px] min-1280:max-w-[800px] min-1440:max-w-[900px] max-479:max-w-none"
+  />
+  <PricingSection showTitle={false} />
+  <PricingComparisonTable />
+  <CtaSection />
+</PageLayout>

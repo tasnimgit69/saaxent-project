@@ -1,0 +1,353 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import { ourVision } from '../data/about';
+---
+
+<section class="ov-section relative overflow-hidden pb-90 min-1280:pb-110 min-1440:pb-130 max-991:pb-70 max-767:pb-50">
+  <Container>
+    <div class="ov-wrapper">
+      <!-- Left: Banner Block -->
+      <div class="ov-banner-block relative box-border reveal-grow">
+        <!-- Main Banner Image -->
+        {typeof ourVision.images.banner.src !== 'string' && (
+          <Image
+            src={ourVision.images.banner.src}
+            alt={ourVision.images.banner.alt}
+            class="ov-banner-image h-auto rounded-16 reveal-bottom delay-2"
+          />
+        )}
+
+        <!-- Chart 1: Invoice Card (absolute, top-right) -->
+        {typeof ourVision.images.invoiceCard.src !== 'string' && (
+          <Image
+            src={ourVision.images.invoiceCard.src}
+            alt={ourVision.images.invoiceCard.alt}
+            class="ov-chart1 absolute h-auto rounded-12 shadow-card ov-chart-reveal reveal delay-3"
+          />
+        )}
+
+        <!-- Chart 2: Amount Card (absolute, below chart1) -->
+        {typeof ourVision.images.amountCard.src !== 'string' && (
+          <Image
+            src={ourVision.images.amountCard.src}
+            alt={ourVision.images.amountCard.alt}
+            class="ov-chart2 absolute h-auto rounded-12 shadow-card ov-chart-reveal reveal delay-4"
+          />
+        )}
+      </div>
+
+      <!-- Right: Content Block -->
+      <div class="ov-content-block">
+        <!-- Badge (outline style) -->
+        <span class="mb-20 inline-block rounded-19 border border-solid border-white px-20 py-3 text-body text-white reveal max-767:mb-14">
+          {ourVision.badge}
+        </span>
+
+        <!-- Title -->
+        <h2 class="ov-title reveal delay-2">{ourVision.title}</h2>
+
+        <!-- Description -->
+        <p class="ov-description mt-20 max-767:mt-14 reveal delay-4">{ourVision.description}</p>
+
+        <!-- Vision Items List -->
+        <div class="ov-list-wrapper relative">
+          {ourVision.items.map((item, i) => (
+            <div class={`ov-list-item relative z-[1] flex items-start reveal delay-${i + 3}`}>
+              <div class="ov-check-border relative z-[1] flex-none flex justify-center items-center rounded-full border border-solid border-white bg-surface-primary">
+                <div class="ov-check-inner rounded-10 bg-brand-primary"></div>
+              </div>
+              <div>
+                <div class="ov-item-title text-white font-medium">{item.title}</div>
+                <p class="ov-item-excerpt mb-0">{item.description}</p>
+              </div>
+            </div>
+          ))}
+          <!-- Vertical dashed border line -->
+          <div class="ov-dashed-line absolute"></div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  /* ============================================================
+     WRAPPER
+     ============================================================ */
+  .ov-wrapper {
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+
+  .ov-content-block {
+  }
+
+  /* ============================================================
+     TITLE
+     ============================================================ */
+  .ov-title {
+    max-width: 400px;
+  }
+
+  /* ============================================================
+     DESCRIPTION
+     ============================================================ */
+  .ov-description {
+    max-width: 400px;
+  }
+
+  /* ============================================================
+     VISION LIST
+     ============================================================ */
+  .ov-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .ov-list-item {
+    gap: 14px;
+  }
+
+  /* Check mark circle border (outer) */
+  .ov-check-border {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Check mark inner box */
+  .ov-check-inner {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Item title */
+  .ov-item-title {
+    font-size: 24px;
+    line-height: 1.28;
+    margin-bottom: 10px;
+  }
+
+  /* Item excerpt */
+  .ov-item-excerpt {
+    font-size: 16px;
+    line-height: 1.62;
+    max-width: 350px;
+  }
+
+  /* Vertical dashed line connecting checkmarks */
+  .ov-dashed-line {
+    border-left: 1px dashed #ffffff;
+    height: 60%;
+    margin-top: 7px;
+    top: 0;
+    left: 16px;
+  }
+
+  /* ============================================================
+     BANNER BLOCK
+     ============================================================ */
+  .ov-banner-block {
+    background-color: #162242;
+    border-radius: 18px;
+    width: 440px;
+    height: 420px;
+    padding: 50px 30px 32px 32px;
+    position: relative;
+  }
+
+  /* Main banner image */
+  .ov-banner-image {
+    max-width: 100%;
+  }
+
+  /* Chart 1: Invoice Card */
+  .ov-chart1 {
+    max-width: 280px;
+    top: 30px;
+    right: -50px;
+  }
+
+  /* Chart 2: Amount Card */
+  .ov-chart2 {
+    max-width: 260px;
+    top: 140px;
+    right: -30px;
+  }
+
+  /* Override reveal animation for chart cards — slide from right instead of bottom */
+  .ov-chart-reveal {
+    transform: translateX(80px);
+  }
+
+  .ov-chart-reveal.is-visible {
+    transform: translateX(0);
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .ov-title {
+      max-width: 450px;
+    }
+
+    .ov-description {
+      max-width: 450px;
+    }
+
+    .ov-list-wrapper {
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .ov-list-item {
+      gap: 16px;
+    }
+
+    .ov-item-excerpt {
+      max-width: 450px;
+    }
+
+    .ov-banner-block {
+      width: 520px;
+      height: 500px;
+    }
+
+    .ov-chart1 {
+      max-width: 290px;
+    }
+
+    .ov-chart2 {
+      max-width: 280px;
+      top: 150px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .ov-description {
+      max-width: 557px;
+    }
+
+    .ov-banner-block {
+      width: 577px;
+      height: 546px;
+      padding: 72px 46px 46px;
+    }
+
+    .ov-banner-image {
+      max-width: 100%;
+    }
+
+    .ov-chart1 {
+      max-width: 100%;
+      top: 47px;
+      right: -73px;
+    }
+
+    .ov-chart2 {
+      max-width: 100%;
+      top: 170px;
+      right: -46px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .ov-banner-block {
+      order: 2;
+    }
+
+    .ov-wrapper {
+      gap: 40px;
+    }
+
+    .ov-description {
+      max-width: none;
+    }
+
+    .ov-item-excerpt {
+      max-width: 500px;
+    }
+
+    .ov-list-wrapper {
+      margin-top: 26px;
+    }
+
+    .ov-banner-block {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .ov-list-wrapper {
+      margin-top: 20px;
+    }
+
+    .ov-banner-block {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .ov-banner-image {
+      max-width: 320px;
+    }
+
+    .ov-chart1 {
+      max-width: 240px;
+      right: 10px;
+    }
+
+    .ov-chart2 {
+      max-width: 240px;
+      top: auto;
+      bottom: 20px;
+      right: 10px;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    .ov-banner-block {
+      height: 380px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .ov-banner-image {
+      max-width: 240px;
+      margin-top: 25px;
+    }
+
+    .ov-chart1 {
+      max-width: 200px;
+    }
+
+    .ov-chart2 {
+      max-width: 220px;
+    }
+
+    .ov-list-wrapper {
+      max-width: 360px;
+    }
+
+    .ov-dashed-line {
+      height: 51%;
+    }
+  }
+</style>

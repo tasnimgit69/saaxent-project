@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { resolveImage } from '../utils/resolveImage';
+
+const img401 = resolveImage('/images/Password.png');
+---
+
+<BaseLayout title="Password Protected | SaaXent">
+  <div class="utility-page-wrap">
+    <div class="utility-page-content">
+      <form class="utility-page-form" data-password-form>
+        {typeof img401 !== 'string' && (
+          <Image
+            src={img401}
+            alt="Password Protected Banner"
+            class="banner-image"
+            width={520}
+            height={400}
+          />
+        )}
+
+        <div class="utility-info-wrap">
+          <h1 class="utility-page-title">Password Protected Page</h1>
+
+          <label class="utility-input-label" for="pass">
+            Password
+          </label>
+
+          <input
+            id="pass"
+            name="pass"
+            type="password"
+            placeholder="Enter your password"
+            maxlength={256}
+            autofocus
+            class="utility-input-field"
+          />
+
+          <input
+            type="submit"
+            value="Submit"
+            class="utility-submit-button"
+          />
+        </div>
+
+        <div class="utility-error-message" data-password-error>
+          Incorrect password. Please try again.
+        </div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ===== Full-viewport wrapper ===== */
+  .utility-page-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  /* ===== Content container ===== */
+  .utility-page-content {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+  }
+
+  /* ===== Form layout ===== */
+  .utility-page-form {
+    width: 100%;
+    gap: 40px;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+
+  /* ===== Banner image ===== */
+  .banner-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+  /* ===== Title ===== */
+  .utility-page-title {
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* ===== Label ===== */
+  .utility-input-label {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    display: block;
+  }
+
+  /* ===== Password input ===== */
+  .utility-input-field {
+    border: 0.5px solid #071e31;
+    background-color: white;
+    color: #071e31;
+    border-radius: 6px;
+    min-height: 61px;
+    margin-bottom: 0;
+    padding: 16px;
+    font-size: 18px;
+    line-height: 1.2;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .utility-input-field:focus {
+    border-color: #5542f6;
+    outline: none;
+  }
+
+  .utility-input-field::placeholder {
+    color: #6b6a70;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* ===== Submit button ===== */
+  .utility-submit-button {
+    background-color: #5542f6;
+    color: white;
+    border-radius: 40px;
+    padding: 14px 28px;
+    font-size: 22px;
+    line-height: 1.33;
+    font-weight: 500;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 180px;
+    margin-top: 18px;
+    transition: color 0.3s, background-color 0.3s;
+  }
+
+  .utility-submit-button:hover {
+    background-color: white;
+    color: #5542f6;
+  }
+
+  /* ===== Error message ===== */
+  .utility-error-message {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffdede;
+    color: #031422;
+    font-size: 16px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .utility-submit-button {
+      margin-top: 24px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .banner-image {
+      max-width: 420px;
+    }
+
+    .utility-info-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .utility-submit-button {
+      margin-top: 16px;
+    }
+
+    .utility-input-field {
+      min-height: 60px;
+    }
+    .utility-submit-button {
+      padding: 12px 10px;
+      font-size: 20px;
+      max-width: 140px;
+    }
+
+    
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .banner-image {
+      max-width: 280px;
+    }
+
+    .utility-info-wrap {
+      max-width: 300px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+</style>
+
+<script>
+  const errorEl = document.querySelector('[data-password-error]');
+  if (/[?&]e=1(&|$)/.test(window.location.search) && errorEl) {
+    (errorEl as HTMLElement).style.display = 'block';
+  }
+</script>

@@ -1,0 +1,446 @@
+---
+import { Image } from "astro:assets";
+import Container from "./Container.astro";
+import { nav } from "../data/nav";
+import logoSrc from "../assets/images/saaxent-logo.png";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header
+  class="absolute inset-x-0 top-0 z-1000 pt-40 min-1280:pt-60 max-991:pt-20"
+>
+  <Container>
+    <div
+      class="flex items-center justify-between gap-80 min-1920:gap-[170px]"
+    >
+      {/* Logo */}
+      <a href="/" class="relative z-[3] flex-shrink-0">
+        <Image
+          src={logoSrc}
+          alt="SaaXent Logo"
+          loading="eager"
+          class="h-auto min-w-[190px] max-479:w-[150px] max-479:min-w-[150px]"
+        />
+      </a>
+
+      {/* Desktop Navigation */}
+      <nav class="hidden flex-1 min-992:block">
+        <ul class="flex justify-center items-center gap-18 lg:gap-20 xl:gap-32 min-1440:gap-50">
+          {
+            nav.items.map((item) => {
+              if (item.type === "link") {
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      aria-current={currentPath === item.href.replace(/\/$/, '') ? 'page' : undefined}
+                      class="text-nav tracking-nav font-normal text-white no-underline transition-colors duration-300 hover:text-brand-blue min-1440:text-[20px]"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              }
+
+              if (item.type === "dropdown") {
+                return (
+                  <li class="relative">
+                    <button
+                      class="flex items-center gap-5 border-none bg-transparent text-nav tracking-nav font-normal text-white transition-colors duration-300 hover:text-brand-blue min-1440:text-[20px] cursor-pointer"
+                      type="button"
+                      aria-expanded="false"
+                      data-desktop-dropdown
+                    >
+                      {item.label}
+                      <svg
+                        class="w-[17px] h-[17px] transition-transform duration-300"
+                        viewBox="0 0 17 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M8.50916 6.99999C8.44358 7.00079 8.37856 6.98786 8.31828 6.96202C8.25801 6.93619 8.2038 6.89803 8.15916 6.84999L3.65916 2.34999C3.45916 2.14999 3.45916 1.83999 3.65916 1.63999C3.85916 1.43999 4.16916 1.43999 4.36916 1.63999L8.51916 5.78999L12.6592 1.64999C12.8592 1.44999 13.1692 1.44999 13.3692 1.64999C13.5692 1.84999 13.5692 2.15999 13.3692 2.35999L8.86915 6.85999C8.76916 6.95999 8.63916 7.00999 8.51916 7.00999L8.50916 6.99999Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    {/* Simple dropdown */}
+                    <div
+                      class="invisible absolute left-[-60px] top-full z-[99] opacity-0 translate-y-[10px] transition-all duration-300"
+                      data-desktop-dropdown-menu
+                    >
+                      <div class="mt-16 flex flex-col gap-12 rounded-12 border border-solid border-border-dark bg-surface-nav-dropdown w-[200px] box-border p-[15px_30px] min-1440:py-20 overflow-hidden">
+                        {item.children.map((child) => (
+                          <a
+                            href={child.href}
+                            class="text-body text-surface-primary no-underline transition-[color,transform] duration-300 hover:text-brand-primary hover:translate-x-[5px]"
+                          >
+                            {child.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
+
+              if (item.type === "mega") {
+                return (
+                  <li class="relative">
+                    <button
+                      class="flex items-center gap-5 border-none bg-transparent text-nav tracking-nav font-normal text-white transition-colors duration-300 hover:text-brand-blue min-1440:text-[20px] cursor-pointer"
+                      type="button"
+                      aria-expanded="false"
+                      data-desktop-dropdown
+                    >
+                      {item.label}
+                      <svg
+                        class="w-[17px] h-[17px] transition-transform duration-300"
+                        viewBox="0 0 17 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M8.50916 6.99999C8.44358 7.00079 8.37856 6.98786 8.31828 6.96202C8.25801 6.93619 8.2038 6.89803 8.15916 6.84999L3.65916 2.34999C3.45916 2.14999 3.45916 1.83999 3.65916 1.63999C3.85916 1.43999 4.16916 1.43999 4.36916 1.63999L8.51916 5.78999L12.6592 1.64999C12.8592 1.44999 13.1692 1.44999 13.3692 1.64999C13.5692 1.84999 13.5692 2.15999 13.3692 2.35999L8.86915 6.85999C8.76916 6.95999 8.63916 7.00999 8.51916 7.00999L8.50916 6.99999Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    {/* Mega dropdown */}
+                    <div
+                      class="invisible absolute left-[-240px] top-full z-[999] opacity-0 translate-y-[10px] transition-all duration-300"
+                      data-desktop-dropdown-menu
+                    >
+                      <div class="mt-16 flex gap-30 rounded-12 border border-solid border-border-dark bg-white w-[400px] p-[20px_30px] min-1440:pb-20 overflow-hidden">
+                        {item.columns.map((col) => (
+                          <div class="flex flex-col gap-12">
+                            {col.sections.map((section, sectionIdx) => (
+                              <div class={sectionIdx > 0 ? "mt-10" : ""}>
+                                <div class="text-brand-primary whitespace-nowrap mb-10 text-nav font-medium min-1440:text-[20px]">
+                                  {section.heading}
+                                </div>
+                                <div class="flex flex-col gap-12">
+                                  {section.links.map((link) => (
+                                    <a
+                                      href={link.href}
+                                      class="text-body text-surface-primary no-underline whitespace-nowrap transition-[color,transform] duration-300 hover:text-brand-primary hover:translate-x-[5px]"
+                                    >
+                                      {link.label}
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
+            })
+          }
+        </ul>
+      </nav>
+
+      {/* CTA Button — outside nav */}
+      <div class="hidden min-992:flex flex-shrink-0">
+        <a
+          href={nav.primaryCta.href}
+          class="inline-flex items-center justify-center border border-solid border-white text-white rounded-40 px-20 py-10 text-lg font-normal no-underline relative overflow-hidden transition-[color,border-color] duration-[600ms] hover:border-brand-primary hover:text-brand-primary before:content-[''] before:absolute before:inset-0 before:bg-white before:rounded-[100px] before:-translate-x-full before:transition-transform before:duration-[600ms] hover:before:translate-x-0"
+        >
+          <span class="relative z-[1]">{nav.primaryCta.label}</span>
+        </a>
+      </div>
+
+      {/* Hamburger Menu Button */}
+      <button
+        class="hidden max-991:flex items-center justify-center border border-solid border-white bg-transparent rounded-4 p-12 text-white transition-colors duration-300 max-479:p-[8px_10px] cursor-pointer"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        data-nav-toggle
+      >
+        <svg
+          class="w-[30px] h-[30px] max-479:w-[26px] max-479:h-[26px]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </Container>
+
+  {/* Mobile nav overlay */}
+  <div
+    class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 min-992:hidden"
+    data-nav-overlay
+  >
+  </div>
+
+  {/* Mobile nav panel — slides from LEFT */}
+  <div
+    class="fixed left-0 top-0 z-50 flex h-screen min-w-[300px] max-479:min-w-[260px] -translate-x-full flex-col bg-surface-primary px-20 pt-20 pb-0 shadow-responsive transition-transform duration-300 min-992:hidden overflow-y-auto"
+    data-nav-panel
+  >
+    {/* Mobile Logo + Close */}
+    <div class="mb-16 flex items-center justify-between">
+      <a href="/">
+        <Image
+          src={logoSrc}
+          alt="SaaXent Logo"
+          loading="eager"
+          class="h-auto min-w-[190px] max-479:w-[150px] max-479:min-w-[150px]"
+        />
+      </a>
+      <button class="p-8 border-none bg-transparent text-white cursor-pointer" aria-label="Close menu" data-nav-close>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    {/* Mobile Nav Items */}
+    <ul class="flex flex-col gap-16 list-none p-0 m-0 mt-30">
+      {
+        nav.items.map((item) => {
+          if (item.type === "link") {
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-nav tracking-nav text-white no-underline transition-colors duration-300 hover:text-brand-blue"
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          }
+
+          if (item.type === "dropdown") {
+            return (
+              <li>
+                <button
+                  class="flex w-full items-center justify-between border-none bg-transparent text-nav tracking-nav text-white cursor-pointer"
+                  type="button"
+                  aria-expanded="false"
+                  data-mobile-dropdown
+                >
+                  {item.label}
+                  <svg
+                    class="w-[12px] h-[12px] transition-transform duration-300"
+                    viewBox="0 0 17 8"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.50916 6.99999C8.44358 7.00079 8.37856 6.98786 8.31828 6.96202C8.25801 6.93619 8.2038 6.89803 8.15916 6.84999L3.65916 2.34999C3.45916 2.14999 3.45916 1.83999 3.65916 1.63999C3.85916 1.43999 4.16916 1.43999 4.36916 1.63999L8.51916 5.78999L12.6592 1.64999C12.8592 1.44999 13.1692 1.44999 13.3692 1.64999C13.5692 1.84999 13.5692 2.15999 13.3692 2.35999L8.86915 6.85999C8.76916 6.95999 8.63916 7.00999 8.51916 7.00999L8.50916 6.99999Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+                <div class="hidden" data-mobile-dropdown-menu>
+                  <div class="mt-10 max-h-[150px] overflow-auto rounded-12 border border-solid border-border-dark bg-surface-nav-dropdown p-20">
+                    <div class="flex flex-col gap-12">
+                      {item.children.map((child) => (
+                        <a
+                          href={child.href}
+                          class="text-body text-surface-primary no-underline transition-[color,transform] duration-300 hover:text-brand-primary hover:translate-x-[5px]"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          }
+
+          if (item.type === "mega") {
+            return (
+              <li>
+                <button
+                  class="flex w-full items-center justify-between border-none bg-transparent text-nav tracking-nav text-white cursor-pointer"
+                  type="button"
+                  aria-expanded="false"
+                  data-mobile-dropdown
+                >
+                  {item.label}
+                  <svg
+                    class="w-[12px] h-[12px] transition-transform duration-300"
+                    viewBox="0 0 17 8"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.50916 6.99999C8.44358 7.00079 8.37856 6.98786 8.31828 6.96202C8.25801 6.93619 8.2038 6.89803 8.15916 6.84999L3.65916 2.34999C3.45916 2.14999 3.45916 1.83999 3.65916 1.63999C3.85916 1.43999 4.16916 1.43999 4.36916 1.63999L8.51916 5.78999L12.6592 1.64999C12.8592 1.44999 13.1692 1.44999 13.3692 1.64999C13.5692 1.84999 13.5692 2.15999 13.3692 2.35999L8.86915 6.85999C8.76916 6.95999 8.63916 7.00999 8.51916 7.00999L8.50916 6.99999Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+                <div class="hidden" data-mobile-dropdown-menu>
+                  <div class="mt-10 mb-10 max-h-[350px] overflow-auto rounded-12 border border-solid border-border-dark bg-white p-20 max-479:px-15 max-479:pr-10">
+                    <div class="flex flex-col">
+                      {item.columns.map((col, colIdx) =>
+                        col.sections.map((section, sIdx) => (
+                          <div
+                            class={
+                              colIdx > 0 || sIdx > 0
+                                ? "mt-20 max-479:mt-16"
+                                : ""
+                            }
+                          >
+                            <div class="text-brand-primary whitespace-nowrap mb-10 text-nav font-medium">
+                              {section.heading}
+                            </div>
+                            <div class="flex flex-col gap-12 max-767:gap-10">
+                              {section.links.map((link) => (
+                                <a
+                                  href={link.href}
+                                  class="text-body text-surface-primary no-underline transition-[color,transform] duration-300 hover:text-brand-primary hover:translate-x-[5px]"
+                                >
+                                  {link.label}
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        )),
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          }
+        })
+      }
+
+      {/* Mobile CTA Button */}
+      <li class="mt-10">
+        <a
+          href={nav.primaryCta.href}
+          class="inline-flex items-center justify-center border border-solid border-white text-white rounded-40 px-20 py-10 text-lg no-underline relative overflow-hidden transition-[color,border-color] duration-[400ms] hover:border-brand-primary hover:text-brand-primary before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full before:transition-transform before:duration-[400ms] hover:before:translate-x-0"
+        >
+          <span class="relative z-[1]">{nav.primaryCta.label}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-nav-toggle]");
+  const close = document.querySelector("[data-nav-close]");
+  const overlay = document.querySelector("[data-nav-overlay]");
+  const panel = document.querySelector("[data-nav-panel]");
+
+  function openNav() {
+    panel?.classList.add("nav-open");
+    overlay?.classList.add("nav-overlay-visible");
+    toggle?.classList.add("border-brand-primary", "bg-brand-primary");
+    toggle?.classList.remove("border-white", "bg-transparent");
+    toggle?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeNav() {
+    panel?.classList.remove("nav-open");
+    overlay?.classList.remove("nav-overlay-visible");
+    toggle?.classList.remove("border-brand-primary", "bg-brand-primary");
+    toggle?.classList.add("border-white", "bg-transparent");
+    toggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  toggle?.addEventListener("click", openNav);
+  close?.addEventListener("click", closeNav);
+  overlay?.addEventListener("click", closeNav);
+
+  // Desktop dropdown toggles (click-based)
+  document.querySelectorAll("[data-desktop-dropdown]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const menu = btn.nextElementSibling as HTMLElement | null;
+      const arrow = btn.querySelector("svg");
+      const isOpen = menu?.classList.contains("visible");
+
+      // Close all other desktop dropdowns first
+      document
+        .querySelectorAll("[data-desktop-dropdown]")
+        .forEach((otherBtn) => {
+          if (otherBtn !== btn) {
+            const otherMenu = otherBtn.nextElementSibling as HTMLElement | null;
+            const otherArrow = otherBtn.querySelector("svg");
+            otherMenu?.classList.remove(
+              "visible",
+              "opacity-100",
+              "translate-y-0",
+            );
+            otherMenu?.classList.add(
+              "invisible",
+              "opacity-0",
+              "translate-y-[10px]",
+            );
+            otherArrow?.classList.remove("rotate-180");
+            otherBtn.setAttribute("aria-expanded", "false");
+          }
+        });
+
+      if (isOpen) {
+        menu?.classList.remove("visible", "opacity-100", "translate-y-0");
+        menu?.classList.add("invisible", "opacity-0", "translate-y-[10px]");
+        arrow?.classList.remove("rotate-180");
+        btn.setAttribute("aria-expanded", "false");
+      } else {
+        menu?.classList.remove("invisible", "opacity-0", "translate-y-[10px]");
+        menu?.classList.add("visible", "opacity-100", "translate-y-0");
+        arrow?.classList.add("rotate-180");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  // Close desktop dropdowns on outside click
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (
+      !target.closest("[data-desktop-dropdown]") &&
+      !target.closest("[data-desktop-dropdown-menu]")
+    ) {
+      document.querySelectorAll("[data-desktop-dropdown]").forEach((btn) => {
+        const menu = btn.nextElementSibling as HTMLElement | null;
+        const arrow = btn.querySelector("svg");
+        menu?.classList.remove("visible", "opacity-100", "translate-y-0");
+        menu?.classList.add("invisible", "opacity-0", "translate-y-[10px]");
+        arrow?.classList.remove("rotate-180");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    }
+  });
+
+  // Mobile dropdown toggles
+  document.querySelectorAll("[data-mobile-dropdown]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const menu = btn.nextElementSibling as HTMLElement | null;
+      const arrow = btn.querySelector("svg");
+      const isOpen = menu?.classList.contains("block");
+      if (menu) {
+        menu.classList.toggle("hidden");
+        menu.classList.toggle("block");
+      }
+      if (arrow) {
+        arrow.classList.toggle("rotate-180");
+      }
+      btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    });
+  });
+</script>

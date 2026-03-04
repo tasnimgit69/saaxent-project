@@ -1,0 +1,459 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import { whatWeDo } from '../data/about';
+---
+
+<section class="what-we-do-section relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="relative z-[1]">
+      <div class="wwd-wrapper flex justify-between items-center relative">
+        <!-- Left: Content Block -->
+        <div class="what-we-do-content-block reveal">
+          <!-- Badge (outline style) -->
+          <span class="mb-20 inline-block rounded-19 border border-solid border-white px-20 py-3 text-body text-white">
+            {whatWeDo.badge}
+          </span>
+
+          <!-- Title -->
+          <h2 class="wwd-title">{whatWeDo.title}</h2>
+
+          <!-- Excerpt -->
+          <p class="wwd-excerpt mt-20">{whatWeDo.description}</p>
+
+          <!-- Goals List -->
+          <div class="wwd-goals-list relative mt-40 flex flex-col">
+            {whatWeDo.goals.map((goal, i) => (
+              <div class={`wwd-goal-item relative z-[1] flex items-start reveal delay-${i + 1}`}>
+                <div class="wwd-check-border relative z-[1] flex-none flex justify-center items-center rounded-full border border-solid border-white bg-surface-primary">
+                  <div class="wwd-check-inner rounded-10 bg-brand-primary"></div>
+                </div>
+                <div>
+                  <div class="wwd-goal-title text-white font-medium">{goal.title}</div>
+                  <p class="wwd-goal-excerpt mb-0">{goal.description}</p>
+                </div>
+              </div>
+            ))}
+            <!-- Vertical dashed border line -->
+            <div class="wwd-dashed-line absolute"></div>
+          </div>
+        </div>
+
+        <!-- Right: Banner Block -->
+        <div class="wwd-banner-block relative z-[1] flex flex-col reveal-grow delay-2">
+          <!-- Top row: two images + checkmark overlay -->
+          <div class="wwd-banner-top-wrap flex items-start relative">
+            {typeof whatWeDo.images.businessCard.src !== 'string' && (
+              <Image
+                src={whatWeDo.images.businessCard.src}
+                alt={whatWeDo.images.businessCard.alt}
+                class="wwd-banner-one h-auto rounded-28"
+              />
+            )}
+            {typeof whatWeDo.images.progressCard.src !== 'string' && (
+              <Image
+                src={whatWeDo.images.progressCard.src}
+                alt={whatWeDo.images.progressCard.alt}
+                class="wwd-banner-two h-auto rounded-28"
+              />
+            )}
+            <!-- Checkmark overlay circle -->
+            <div class="wwd-checkmark-overlay absolute flex justify-center items-center rounded-full bg-brand-primary shadow-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="38" height="29" viewBox="0 0 38 29" fill="none">
+                <path d="M3.29053 15.2987L14.7871 26.5558L35.0752 2.71729" stroke="white" stroke-width="4.65882" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Bottom row: third image -->
+          <div class="flex items-start">
+            {typeof whatWeDo.images.exportGraph.src !== 'string' && (
+              <Image
+                src={whatWeDo.images.exportGraph.src}
+                alt={whatWeDo.images.exportGraph.alt}
+                class="wwd-banner-three w-full h-auto rounded-28"
+              />
+            )}
+          </div>
+        </div>
+
+        <!-- Center background blur -->
+        <div class="wwd-center-shadow absolute bg-brand-primary rounded-full"></div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Background decorative shapes -->
+  <div class="pointer-events-none" aria-hidden="true">
+    <div class="wwd-bg-left absolute bg-brand-primary rounded-full"></div>
+    <div class="wwd-bg-right absolute bg-brand-primary rounded-full"></div>
+  </div>
+
+  <!-- Section line decoratives -->
+  <div class="absolute inset-0 flex justify-between pointer-events-none" aria-hidden="true">
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+    <div class="wwd-line"></div>
+  </div>
+</section>
+
+<style>
+  /* ============================================================
+     SECTION LINES
+     ============================================================ */
+  .wwd-line {
+    opacity: 0.03;
+    background-color: #dcdcdc;
+    width: 0.5px;
+    height: 100%;
+  }
+
+  /* ============================================================
+     MAIN WRAPPER (flex row: content + banner)
+     ============================================================ */
+  .wwd-wrapper {
+    gap: 40px;
+  }
+
+  /* ============================================================
+     TITLE
+     ============================================================ */
+  .wwd-title {
+    width: 500px;
+  }
+
+  /* ============================================================
+     EXCERPT
+     ============================================================ */
+  .wwd-excerpt {
+    max-width: 500px;
+  }
+
+  /* ============================================================
+     GOALS LIST
+     ============================================================ */
+  .wwd-goals-list {
+    gap: 24px;
+  }
+
+  .wwd-goal-item {
+    gap: 14px;
+  }
+
+  /* Check mark circle border (outer) */
+  .wwd-check-border {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Check mark inner box */
+  .wwd-check-inner {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Goal title */
+  .wwd-goal-title {
+    font-size: 24px;
+    line-height: 1.28;
+    margin-bottom: 10px;
+  }
+
+  /* Goal excerpt */
+  .wwd-goal-excerpt {
+    font-size: 16px;
+    line-height: 1.62;
+    max-width: 405px;
+  }
+
+  /* Vertical dashed line connecting checkmarks */
+  .wwd-dashed-line {
+    border-left: 1px dashed #ffffff;
+    height: 73%;
+    margin-top: 10px;
+    top: 0;
+    left: 16px;
+  }
+
+  /* ============================================================
+     BANNER BLOCK (right side)
+     ============================================================ */
+  .wwd-banner-block {
+    gap: 20px;
+  }
+
+  .wwd-banner-top-wrap {
+    gap: 20px;
+  }
+
+  .wwd-banner-one {
+    height: auto;
+  }
+
+  .wwd-banner-two {
+    height: auto;
+  }
+
+  /* Checkmark overlay circle */
+  .wwd-checkmark-overlay {
+    width: 80px;
+    height: 80px;
+    top: -30px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     CENTER BACKGROUND SHADOW
+     ============================================================ */
+  .wwd-center-shadow {
+    opacity: 0.6;
+    filter: blur(500px);
+    width: 300px;
+    height: 300px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================================
+     BACKGROUND GRADIENT SHAPES
+     ============================================================ */
+  .wwd-bg-left {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    bottom: 10%;
+    left: -25%;
+  }
+
+  .wwd-bg-right {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 15%;
+    right: -300px;
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .wwd-wrapper {
+      gap: 45px;
+      justify-content: flex-start;
+    }
+
+    .wwd-title {
+      width: auto;
+      max-width: 550px;
+    }
+
+    .wwd-excerpt {
+      max-width: 510px;
+    }
+
+    .wwd-goals-list {
+      gap: 32px;
+    }
+
+    .wwd-goal-item {
+      gap: 16px;
+    }
+
+    .wwd-banner-block {
+      gap: 26px;
+    }
+
+    .wwd-banner-top-wrap {
+      gap: 26px;
+    }
+
+
+    .wwd-checkmark-overlay {
+      width: 107px;
+      height: 107px;
+      top: -43px;
+    }
+
+    .wwd-center-shadow {
+      width: 340px;
+      height: 340px;
+    }
+
+    .wwd-bg-left {
+      width: 700px;
+      height: 500px;
+      left: -350px;
+      bottom: auto;
+    }
+
+    .wwd-bg-right {
+      width: 700px;
+      height: 500px;
+      right: -380px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .wwd-wrapper {
+      gap: 68px;
+    }
+
+    .wwd-title {
+      max-width: 575px;
+    }
+
+    .wwd-excerpt {
+      max-width: 557px;
+    }
+
+    .wwd-banner-block {
+      gap: 37px;
+    }
+
+    .wwd-banner-top-wrap {
+      gap: 37px;
+    }
+
+    .wwd-banner-one,
+    .wwd-banner-two {
+      max-width: 100%;
+    }
+
+    .wwd-center-shadow {
+      width: 386px;
+      height: 386px;
+    }
+
+    .wwd-bg-left {
+      width: 848px;
+      height: 628px;
+      left: -424px;
+    }
+
+    .wwd-bg-right {
+      width: 848px;
+      height: 628px;
+      right: -424px;
+    }
+  }
+
+  @media only screen and (min-width: 992px) and (max-width: 1279px) {
+    .wwd-banner-one {
+      max-width: 193px;
+    }
+    .wwd-banner-two {
+      max-width: 155px;
+    }
+}
+
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .wwd-wrapper {
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .wwd-title {
+      width: auto;
+    }
+
+    .wwd-excerpt {
+      max-width: none;
+    }
+
+    .wwd-goal-excerpt {
+      max-width: 500px;
+    }
+
+    .wwd-banner-block {
+      margin-right: auto;
+    }
+
+    .wwd-banner-one {
+      max-width: 100%;
+    }
+    .wwd-banner-two {
+      max-width: 100%;
+    }
+
+    .wwd-bg-left {
+      width: 450px;
+      height: 300px;
+    }
+
+    .wwd-bg-right {
+      width: 450px;
+      height: 350px;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+
+   
+
+  @media (max-width: 767px) {
+    .wwd-wrapper {
+      gap: 50px;
+    }
+
+    .wwd-banner-block {
+      max-width: 450px;
+      left: 0;
+      right: 0;
+    }
+
+    .wwd-banner-top-wrap {
+      gap: 18px;
+    }
+    
+    .wwd-bg-left {
+      width: 350px;
+      height: 250px;
+    }
+
+    .wwd-bg-right {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    
+    .wwd-banner-one {
+      max-width: 150px;
+    }
+    .wwd-banner-two {
+      max-width: 120px;
+    }
+    
+  }
+</style>

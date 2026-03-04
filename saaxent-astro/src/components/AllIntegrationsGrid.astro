@@ -1,0 +1,195 @@
+---
+import Container from './Container.astro';
+import IntegrationCard from './IntegrationCard.astro';
+import { integrationItems } from '../data/integrations';
+---
+
+<section class="relative overflow-hidden aig-section">
+  <Container>
+    <div class="relative z-[1]">
+      <div class="aig-grid">
+        {integrationItems.map((item, i) => (
+          <div class={`reveal delay-${Math.min(i + 1, 6)}`}>
+            <IntegrationCard
+              name={item.name}
+              type={item.type}
+              description={item.description}
+              icon={item.icon}
+              href={item.href}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+
+  <!-- Section vertical lines (14 lines) -->
+  <div class="absolute top-0 left-0 w-full h-full flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+
+  <!-- Gradient decorative shapes -->
+  <div class="pointer-events-none" aria-hidden="true">
+    <div class="aig-gradient-left absolute rounded-full bg-brand-primary"></div>
+    <div class="aig-gradient-right-top absolute rounded-full bg-brand-primary"></div>
+    <div class="aig-gradient-right-bottom absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<style>
+  /* Section padding */
+  .aig-section {
+    padding-top: 70px;
+    padding-bottom: 90px;
+  }
+
+  /* Grid: 2 columns at base */
+  .aig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 115px;
+  }
+
+  /* Gradient left */
+  .aig-gradient-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    margin-top: auto;
+    margin-bottom: auto;
+    top: 0;
+    bottom: 0;
+    left: -420px;
+  }
+
+  /* Gradient right top */
+  .aig-gradient-right-top {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 70px;
+    right: -300px;
+  }
+
+  /* Gradient right bottom */
+  .aig-gradient-right-bottom {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: auto;
+    bottom: 60px;
+    right: -300px;
+  }
+
+  /* ============================================================
+     min-1280
+     ============================================================ */
+  @media (min-width: 1280px) {
+    .aig-section {
+      padding-top: 90px;
+      padding-bottom: 110px;
+    }
+
+    .aig-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .aig-gradient-left {
+      width: 750px;
+      height: 500px;
+      bottom: 100px;
+      left: -450px;
+    }
+
+    .aig-gradient-right-top {
+      width: 750px;
+      height: 500px;
+      top: 80px;
+      right: -360px;
+    }
+
+    .aig-gradient-right-bottom {
+      width: 750px;
+      height: 500px;
+      top: auto;
+      right: -360px;
+    }
+  }
+
+  /* ============================================================
+     min-1440
+     ============================================================ */
+  @media (min-width: 1440px) {
+    .aig-section {
+      padding-top: 100px;
+      padding-bottom: 130px;
+    }
+
+    .aig-gradient-left {
+      width: 848px;
+      height: 628px;
+      bottom: 120px;
+      left: -552px;
+    }
+
+    .aig-gradient-right-top {
+      width: 848px;
+      height: 628px;
+      top: 111px;
+      right: -424px;
+    }
+
+    .aig-gradient-right-bottom {
+      width: 848px;
+      height: 628px;
+      bottom: 80px;
+      right: -424px;
+    }
+  }
+
+  /* ============================================================
+     max-991
+     ============================================================ */
+  @media (max-width: 991px) {
+    .aig-section {
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+
+    .aig-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: 90px;
+    }
+  }
+
+  /* ============================================================
+     max-767
+     ============================================================ */
+  @media (max-width: 767px) {
+    .aig-section {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .aig-grid {
+      grid-row-gap: 90px;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================================
+     max-479
+     ============================================================ */
+  @media (max-width: 479px) {
+    
+    .aig-grid {
+      grid-row-gap: 90px;
+    }
+  }
+</style>

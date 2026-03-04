@@ -1,0 +1,45 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BreadcrumbHero from '../../components/BreadcrumbHero.astro';
+import IntegrationDetailsSection from '../../components/IntegrationDetailsSection.astro';
+import MoreIntegrationsSection from '../../components/MoreIntegrationsSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { integrationDetailItems } from '../../data/integration-details';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return integrationDetailItems.map((item) => ({
+    params: { slug: item.slug },
+    props: { item }
+  }));
+}
+
+const { item } = Astro.props;
+
+const integrationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${item.name} Integration`,
+  description: `Connect ${site.name} with ${item.name} - ${item.type}`,
+  url: `${site.url}/integration/${item.slug}`,
+  provider: { '@type': 'Organization', name: site.name }
+};
+---
+
+<PageLayout
+  title={`${item.name} Integration | ${site.name}`}
+  description={`Connect ${site.name} with ${item.name} - ${item.type}`}
+  url={`${site.url}/integration/${item.slug}`}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(integrationSchema)} />
+  <BreadcrumbHero
+    badge="Integration Details"
+    title="Seamless"
+    highlight="Integration"
+    titleAfter="with Your Favorite Tools"
+    titleClass="max-w-[600px] min-1280:max-w-[800px] min-1440:max-w-[900px]"
+  />
+  <IntegrationDetailsSection item={item} />
+  <MoreIntegrationsSection excludeSlug={item.slug} />
+  <CtaSection />
+</PageLayout>

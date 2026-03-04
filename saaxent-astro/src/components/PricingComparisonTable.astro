@@ -1,0 +1,427 @@
+---
+import Container from './Container.astro';
+import { comparisonTable } from '../data/pricing-page';
+
+const { columns, features, cta } = comparisonTable;
+const checks = ['starter', 'professional', 'enterprise'] as const;
+---
+
+<section class="relative overflow-hidden bg-surface-primary py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <!-- Section vertical lines -->
+  <div class="absolute top-0 left-0 w-full h-full flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+
+  <Container>
+    <div class="relative z-10">
+      <div class="pricing-table-scroll-wrap reveal">
+        <div class="pricing-table-wrapper">
+          <div class="compare-pricing-plan-table">
+            <!-- Header Row -->
+            <div class="compare-pricing-plan-row header-row">
+              <div class="compare-pricing-plan-header">
+                <h2 class="compare-plan-table-title mt-0 mb-0 font-medium text-ink-heading">{comparisonTable.title}</h2>
+              </div>
+              {columns.map((col, i) => (
+                <div class={`pricing-plan-header-cell ${i === columns.length - 1 ? 'last-header' : ''}`}>
+                  <div class="plan-name-block">
+                    <span class="price-plan-name">{col.name}</span>
+                  </div>
+                  <div class="pricing-plan-price-text">
+                    {col.price}<span class="price-plan-duration">{col.period}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Feature Rows -->
+            {features.map((feature) => (
+              <div class="compare-pricing-plan-row feature-row">
+                <div class="compare-pricing-plan-column-block first-col">
+                  <span class="compare-plan-including-feature-name">{feature.name}</span>
+                </div>
+                {checks.map((key) => (
+                  <div class="compare-pricing-plan-column-block">
+                    {feature[key] && (
+                      <div class="plan-check-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="21" viewBox="0 0 28 21" fill="none">
+                          <path d="M27.1194 1.07877C26.9375 0.895378 26.7211 0.749815 26.4827 0.650479C26.2443 0.551143 25.9885 0.5 25.7302 0.5C25.4719 0.5 25.2162 0.551143 24.9777 0.650479C24.7393 0.749815 24.5229 0.895378 24.341 1.07877L9.76402 15.6753L3.63973 9.53146C3.45087 9.34903 3.22793 9.20558 2.98363 9.1093C2.73933 9.01303 2.47847 8.96582 2.21592 8.97036C1.95338 8.9749 1.6943 9.03111 1.45348 9.13578C1.21266 9.24045 0.994815 9.39152 0.812381 9.58038C0.629946 9.76924 0.486497 9.99218 0.390223 10.2365C0.293948 10.4808 0.246733 10.7416 0.251276 11.0042C0.255818 11.2667 0.312028 11.5258 0.416696 11.7666C0.521363 12.0074 0.672439 12.2253 0.861297 12.4077L8.3748 19.9212C8.5567 20.1046 8.7731 20.2502 9.01154 20.3495C9.24997 20.4489 9.50572 20.5 9.76402 20.5C10.0223 20.5 10.2781 20.4489 10.5165 20.3495C10.7549 20.2502 10.9713 20.1046 11.1532 19.9212L27.1194 3.95503C27.318 3.77181 27.4765 3.54943 27.5849 3.30192C27.6934 3.05441 27.7493 2.78712 27.7493 2.5169C27.7493 2.24669 27.6934 1.9794 27.5849 1.73189C27.4765 1.48437 27.318 1.262 27.1194 1.07877Z" fill="white"></path>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+
+            <!-- Button Row -->
+            <div class="compare-pricing-plan-row button-row">
+              <div class="compare-pricing-plan-column-block first-col button-block border-bl"></div>
+              {columns.map((_, i) => (
+                <div class={`compare-pricing-plan-column-block button-block ${i === columns.length - 1 ? 'border-br' : ''}`}>
+                  <a href={cta.href} class="pricing-plan-button-link inline-flex items-center border border-solid border-white text-white rounded-40 relative overflow-hidden no-underline">
+                    <span class="relative z-[2] flex items-center gap-10">
+                      <span>{cta.label}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none">
+                        <g clip-path={`url(#clip_plan_btn_${i})`}>
+                          <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                        <defs>
+                          <clipPath id={`clip_plan_btn_${i}`}>
+                            <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)"></rect>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                    <span class="pricing-plan-btn-overlay"></span>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Gradient decorative shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="table-gradient-left absolute rounded-full bg-brand-primary"></div>
+    <div class="table-gradient-right absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<style>
+  /* ===== Scroll wrapper (mobile horizontal scroll) ===== */
+  .pricing-table-scroll-wrap {
+    overflow: visible;
+  }
+
+  /* ===== Table wrapper ===== */
+  .pricing-table-wrapper {
+    width: 100%;
+  }
+
+  /* ===== Grid rows ===== */
+  .compare-pricing-plan-row {
+    display: grid;
+    grid-template-columns: 1.75fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    place-items: stretch stretch;
+  }
+
+  /* ===== Header row ===== */
+  .compare-pricing-plan-row.header-row {
+    height: 130px;
+  }
+
+  /* ===== Header left cell ("Feature Plan") ===== */
+  .compare-pricing-plan-header {
+    border: 0.5px solid white;
+    border-top-left-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  .compare-plan-table-title {
+    font-family: Outfit, sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.27;
+  }
+
+  /* ===== Plan header cells ===== */
+  .pricing-plan-header-cell {
+    border: 0.5px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .pricing-plan-header-cell.last-header {
+    border-top-right-radius: 20px;
+  }
+
+  .plan-name-block {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .price-plan-name {
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .pricing-plan-price-text {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.27;
+  }
+
+  .price-plan-duration {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.62;
+  }
+
+  /* ===== Feature row cells ===== */
+  .compare-pricing-plan-column-block {
+    border: 0.5px solid white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .compare-pricing-plan-column-block.first-col {
+    justify-content: flex-start;
+  }
+
+  .compare-plan-including-feature-name {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: gainsboro;
+  }
+
+  .plan-check-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ===== Button row cells ===== */
+  .compare-pricing-plan-column-block.button-block {
+    padding: 40px 0;
+    justify-content: center;
+  }
+
+  .compare-pricing-plan-column-block.border-bl {
+    border-bottom-left-radius: 20px;
+  }
+
+  .compare-pricing-plan-column-block.border-br {
+    border-bottom-right-radius: 20px;
+  }
+
+  /* ===== Get Plan button ===== */
+  .pricing-plan-button-link {
+    padding: 13px 22px;
+    font-size: 24px;
+    line-height: 1.33;
+    font-weight: 400;
+    transition: border-color 0.5s, color 0.5s;
+  }
+
+  .pricing-plan-button-link:hover {
+    border-color: #5542f6;
+    color: #ffffff;
+  }
+
+  .pricing-plan-btn-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: #5542f6;
+    border-radius: 40px;
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .pricing-plan-button-link:hover .pricing-plan-btn-overlay {
+    transform: translateX(0);
+  }
+
+  /* ===== Gradient shapes ===== */
+  .table-gradient-left {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    bottom: 0;
+    left: -300px;
+  }
+
+  .table-gradient-right {
+    opacity: 0.3;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 0;
+    right: -300px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .compare-pricing-plan-row.header-row {
+      height: 150px;
+    }
+
+    .compare-pricing-plan-header {
+      padding-top: 36px;
+      padding-bottom: 36px;
+      padding-right: 30px;
+    }
+
+    .compare-plan-table-title {
+      font-size: 36px;
+    }
+
+    .pricing-plan-price-text {
+      font-size: 32px;
+    }
+
+    .compare-pricing-plan-column-block {
+      padding-top: 26px;
+      padding-bottom: 26px;
+    }
+
+    .compare-pricing-plan-column-block.button-block {
+      padding: 50px 0;
+    }
+
+    .plan-name-block {
+      margin-bottom: 14px;
+    }
+
+    .pricing-plan-button-link {
+      padding: 17px 28px;
+    }
+
+    .table-gradient-left {
+      width: 680px;
+      height: 550px;
+      left: -340px;
+    }
+
+    .table-gradient-right {
+      width: 680px;
+      height: 550px;
+      right: -340px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .compare-pricing-plan-column-block {
+      padding: 32px 40px;
+    }
+
+    .pricing-plan-price-text {
+      font-size: 36px;
+    }
+
+    .compare-pricing-plan-header {
+      padding: 44px 40px 40px;
+    }
+
+    .table-gradient-left {
+      width: 848px;
+      height: 628px;
+      left: -424px;
+    }
+
+    .table-gradient-right {
+      width: 848px;
+      height: 628px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .pricing-table-scroll-wrap {
+      overflow-x: auto;
+    }
+
+    .pricing-table-wrapper {
+      width: 820px;
+    }
+
+    .compare-pricing-plan-row.header-row {
+      height: 120px;
+    }
+
+    .compare-pricing-plan-column-block {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .plan-name-block {
+      gap: 0;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    .table-gradient-left {
+      width: 300px;
+      height: 250px;
+      left: -150px;
+    }
+
+    .table-gradient-right {
+      width: 300px;
+      height: 250px;
+      right: -150px;
+    }
+    .pricing-plan-button-link {
+      font-size: 20px;
+      padding: 10px 16px;
+    }
+    .pricing-plan-header-cell {
+      overflow: hidden;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .compare-pricing-plan-row.header-row {
+      height: 100px;
+    }
+    
+    .compare-pricing-plan-header {
+      padding: 20px;
+    }
+
+    .compare-pricing-plan-column-block {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .pricing-plan-price-text {
+      font-size: 32px;
+    }
+
+    .pricing-plan-button-link {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .compare-pricing-plan-column-block {
+      padding: 12px 16px;
+    }
+
+    .compare-pricing-plan-column-block.button-block {
+      padding-top: 20px;
+    }
+  }
+</style>

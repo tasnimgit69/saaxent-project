@@ -1,0 +1,245 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+import TeamCard from './TeamCard.astro';
+import { teamSection } from '../data/home-v2';
+import { teamMembers } from '../data/team';
+
+const { showCta = true, limit, bgClass = 'bg-surface-primary', sectionClass = '' } = Astro.props;
+const members = limit ? teamMembers.slice(0, limit) : teamMembers;
+---
+
+<section class={`team-section ${bgClass} relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50 ${sectionClass}`.trim()}>
+  <Container>
+    <div class="relative z-[1]">
+      <!-- Section Title -->
+      <div class="flex flex-col items-center reveal">
+        <SectionTitle
+          badge={teamSection.badge}
+          title={teamSection.title}
+          highlight={teamSection.titleHighlight}
+          titleAfter={teamSection.titleAfter}
+          description={teamSection.description}
+          titleClass="max-w-[500px] min-1280:max-w-[600px] max-767:max-w-[400px]"
+          descriptionClass="max-w-[585px]"
+        />
+      </div>
+
+      <!-- Team grid -->
+      <div class="team-member-block">
+        <div class="team-collection-list">
+          {members.map((member, i) => (
+            <div class={`reveal delay-${i + 1}`} style="min-width:0">
+              <TeamCard {...member} />
+            </div>
+          ))}
+        </div>
+
+        {showCta && teamSection.cta && (
+          <div class="team-btn-wrap flex items-center justify-center reveal delay-4">
+            <a
+              href={teamSection.cta.href}
+              class="team-inline-primary inline-flex items-center justify-center border-2 border-solid border-brand-primary bg-brand-primary text-white rounded-40 px-22 py-13 text-h4 font-normal no-underline relative overflow-hidden transition-colors duration-[400ms] hover:text-brand-primary before:content-[''] before:absolute before:inset-0 before:bg-white before:rounded-40 before:-translate-x-full before:transition-transform before:duration-[400ms] hover:before:translate-x-0 min-1280:px-28 min-1280:py-15 min-1440:py-16 max-991:text-[22px] max-767:px-20 max-767:text-[20px] max-479:px-18 max-479:py-11 max-479:text-[18px]"
+            >
+              <span class="relative z-[2] flex items-center justify-center gap-10 max-767:gap-6">
+                <span>{teamSection.cta.label}</span>
+                <span class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none">
+                    <g clip-path="url(#clip0_team_cta)">
+                      <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_team_cta">
+                        <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </Container>
+
+  <!-- Decorative background shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Left grid SVG -->
+    <div class="absolute top-0 left-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[500px] max-991:max-h-[500px] max-767:max-w-[300px] max-767:max-h-[400px] max-479:max-w-[200px] max-479:max-h-[300px]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="771" height="1164" viewBox="0 0 771 1164" fill="none">
+        <path d="M192.391 194H0L8.49558e-06 -8.48321e-06H192.391V194ZM192.391 194L192.391 387.999M192.391 194L384.782 194L384.782 387.999H192.391M192.391 387.999L192.391 582M192.391 387.999L1.40118e-05 388L5.51617e-06 582H192.391M192.391 582L192.391 776M192.391 582L384.782 582L384.782 776H192.391M192.391 776L192.391 969.999M192.391 776L1.40118e-05 775.999L5.51617e-06 969.999L192.391 969.999M192.391 969.999L192.391 1164L384.782 1164L384.782 970L192.391 969.999ZM577.609 194H385.219V-8.48321e-06H577.609V194ZM577.609 194L577.609 387.999M577.609 194L770 194V387.999H577.609M577.609 387.999L577.61 582M577.609 387.999L385.219 388V582H577.61M577.61 582L577.609 776M577.61 582L770 582V776L577.609 776M577.609 776L577.61 969.999M577.609 776L385.219 775.999V969.999L577.61 969.999M577.61 969.999L577.609 1164L770 1164V970L577.61 969.999Z" stroke="url(#paint0_linear_team_left)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_team_left" x1="770.025" y1="681.138" x2="0.000121353" y2="676.456" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Right grid SVG -->
+    <div class="absolute top-0 right-0 max-w-[500px] max-h-[600px] min-1280:max-w-[600px] min-1280:max-h-[700px] min-1440:max-w-none min-1440:max-h-none max-991:max-w-[400px] max-991:max-h-[500px] max-991:top-auto max-991:bottom-0 max-767:max-w-[300px] max-767:max-h-[400px] max-479:max-w-[200px] max-479:max-h-[300px] max-479:top-auto max-479:bottom-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="771" height="1164" viewBox="0 0 771 1164" fill="none">
+        <path d="M578.609 970H771L771 1164H578.609V970ZM578.609 970L578.609 776.001M578.609 970L386.218 970L386.218 776.001H578.609M578.609 776.001L578.609 582M578.609 776.001L771 776L771 582H578.609M578.609 582L578.609 388M578.609 582L386.218 582L386.218 388H578.609M578.609 388L578.609 194.001M578.609 388L771 388.001L771 194.001L578.609 194.001M578.609 194.001L578.609 8.39426e-06L386.218 0L386.218 194L578.609 194.001ZM193.391 970H385.781V1164H193.391V970ZM193.391 970L193.391 776.001M193.391 970L1 970V776.001H193.391M193.391 776.001L193.39 582M193.391 776.001L385.781 776V582H193.39M193.39 582L193.391 388M193.39 582L1 582V388L193.391 388M193.391 388L193.39 194.001M193.391 388L385.781 388.001V194.001L193.39 194.001M193.39 194.001L193.391 5.65023e-05L1 4.81081e-05V194L193.39 194.001Z" stroke="url(#paint0_linear_team_right)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_team_right" x1="0.97511" y1="482.862" x2="771" y2="487.544" gradientUnits="userSpaceOnUse">
+            <stop stop-color="white" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.05" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Gradient blur left -->
+    <div class="team-gradient-left absolute bg-brand-primary rounded-[848px]"></div>
+
+    <!-- Gradient blur right -->
+    <div class="team-gradient-right absolute bg-brand-primary rounded-[848px]"></div>
+  </div>
+
+</section>
+
+<style>
+  /* === Team collection grid === */
+  .team-collection-list {
+    gap: 20px;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: 1fr;
+    place-items: start center;
+    margin-top: 40px;
+    display: grid;
+  }
+
+  /* === CTA button wrapper === */
+  .team-btn-wrap {
+    margin-top: 60px;
+  }
+
+  /* === Gradient shapes === */
+  .team-gradient-left {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    top: 60px;
+    left: -320px;
+  }
+
+  .team-gradient-right {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 450px;
+    bottom: 60px;
+    right: -300px;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .team-collection-list {
+      margin-top: 44px;
+    }
+
+    .team-gradient-left {
+      width: 750px;
+      height: 500px;
+      top: 100px;
+      left: -350px;
+    }
+
+    .team-gradient-right {
+      width: 750px;
+      height: 500px;
+      bottom: 100px;
+      right: -390px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .team-collection-list {
+      gap: 30px;
+      margin-top: 54px;
+    }
+
+    .team-btn-wrap {
+      margin-top: 80px;
+    }
+
+    .team-gradient-left {
+      width: 848px;
+      height: 628px;
+      left: -442px;
+    }
+
+    .team-gradient-right {
+      width: 848px;
+      height: 628px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .team-collection-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .team-btn-wrap {
+      margin-top: 50px;
+    }
+
+    .team-gradient-left,
+    .team-gradient-right {
+      width: 500px;
+      height: 400px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .team-collection-list {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 32px;
+    }
+
+    .team-btn-wrap {
+      margin-top: 40px;
+    }
+
+    .team-gradient-left {
+      width: 420px;
+      height: 300px;
+    }
+
+    .team-gradient-right {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .team-btn-wrap {
+      margin-top: 30px;
+    }
+
+    .team-gradient-left {
+      width: 400px;
+      height: 200px;
+    }
+
+    .team-gradient-right {
+      width: 380px;
+      height: 200px;
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .team-inline-primary {
+      font-size: 20px;
+    }
+  }
+</style>

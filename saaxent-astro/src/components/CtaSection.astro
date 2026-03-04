@@ -1,0 +1,396 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import PrimaryButton from './PrimaryButton.astro';
+import { cta } from '../data/cta';
+---
+
+<section class="relative overflow-hidden py-90 min-1280:py-110 min-1440:py-130 max-991:py-70 max-767:py-50">
+  <Container>
+    <div class="cta-wrapper relative z-10 overflow-hidden rounded-24 bg-surface-primary">
+      <!-- Decorative block shape SVGs -->
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="left-block-shape">
+          <svg xmlns="http://www.w3.org/2000/svg" width="277" height="418" viewBox="0 0 277 418" fill="none">
+            <path d="M68.9609 348.333H0L3.04517e-06 418H68.9609V348.333ZM68.9609 348.333L68.961 278.667M68.9609 348.333L137.922 348.333L137.922 278.667H68.961M68.961 278.667L68.9609 209M68.961 278.667L5.0224e-06 278.667L1.97723e-06 209H68.9609M68.9609 209L68.9609 139.333M68.9609 209L137.922 209L137.922 139.333H68.9609M68.9609 139.333L68.9609 69.667M68.9609 139.333L5.02239e-06 139.334L1.97722e-06 69.667L68.9609 69.667M68.9609 69.667L68.961 3.01443e-06L137.922 0L137.922 69.6666L68.9609 69.667ZM207.039 348.333H138.078V418H207.039V348.333ZM207.039 348.333L207.039 278.667M207.039 348.333L276 348.333V278.667H207.039M207.039 278.667L207.039 209M207.039 278.667L138.078 278.667V209H207.039M207.039 209L207.039 139.333M207.039 209L276 209V139.333L207.039 139.333M207.039 139.333L207.039 69.667M207.039 139.333L138.078 139.334V69.667L207.039 69.667M207.039 69.667L207.039 2.02903e-05L276 1.72759e-05V69.6667L207.039 69.667Z" stroke="url(#paint_cta_left)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="paint_cta_left" x1="276.009" y1="173.399" x2="5.73606e-06" y2="175.074" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white" stop-opacity="0.05"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="right-block-shape">
+          <svg xmlns="http://www.w3.org/2000/svg" width="277" height="418" viewBox="0 0 277 418" fill="none">
+            <path d="M208.039 348.333H277L277 418H208.039V348.333ZM208.039 348.333L208.039 278.667M208.039 348.333L139.078 348.333L139.078 278.667H208.039M208.039 278.667L208.039 209M208.039 278.667L277 278.667L277 209H208.039M208.039 209L208.039 139.333M208.039 209L139.078 209L139.078 139.333H208.039M208.039 139.333L208.039 69.667M208.039 139.333L277 139.334L277 69.667L208.039 69.667M208.039 69.667L208.039 3.01443e-06L139.078 0L139.078 69.6666L208.039 69.667ZM69.9608 348.333H138.922V418H69.9608V348.333ZM69.9608 348.333L69.9609 278.667M69.9608 348.333L1.00001 348.333V278.667H69.9609M69.9609 278.667L69.9607 209M69.9609 278.667L138.922 278.667V209H69.9607M69.9607 209L69.9609 139.333M69.9607 209L1.00001 209V139.333L69.9609 139.333M69.9609 139.333L69.9607 69.667M69.9609 139.333L138.922 139.334V69.667L69.9607 69.667M69.9607 69.667L69.9609 2.02903e-05L1.00001 1.72759e-05V69.6667L69.9607 69.667Z" stroke="url(#paint_cta_right)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="paint_cta_right" x1="0.991078" y1="173.399" x2="277" y2="175.074" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white" stop-opacity="0.05"/></linearGradient></defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- CTA Block (content + banner) -->
+      <div class="cta-block relative z-[2] flex justify-between gap-15 reveal">
+        <!-- Text content -->
+        <div class="cta-content-block">
+          <h2 class="cta-title mt-0 mb-0">{cta.title}</h2>
+          <p class="cta-excerpt mb-0">{cta.description}</p>
+          <div class="cta-btn-wrap">
+            <PrimaryButton href={cta.cta.href}>
+              {cta.cta.label}
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18" fill="none" class="ml-10">
+                <g clip-path="url(#clip_cta_arrow)">
+                  <path d="M21.0834 9.0376L13.8959 1.8501M21.0834 9.0376L13.8959 16.2251M21.0834 9.0376L8.50525 9.0376M1.91671 9.0376L4.9115 9.0376" stroke="currentColor" stroke-width="1.79688" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip_cta_arrow">
+                    <rect width="17.25" height="23" fill="currentColor" transform="translate(23 0.412598) rotate(90)" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </PrimaryButton>
+          </div>
+        </div>
+
+        <!-- Banner images -->
+        <div class="cta-banner-block relative my-auto max-991:mx-auto">
+          {typeof cta.images.banner.src !== 'string' && (
+            <Image
+              src={cta.images.banner.src}
+              alt={cta.images.banner.alt}
+              class="cta-banner-image h-auto"
+            />
+          )}
+          {typeof cta.images.expenses.src !== 'string' && (
+            <Image
+              src={cta.images.expenses.src}
+              alt={cta.images.expenses.alt}
+              class="cta-expenses-image absolute h-auto"
+              width={88}
+            />
+          )}
+          {typeof cta.images.bgCard.src !== 'string' && (
+            <Image
+              src={cta.images.bgCard.src}
+              alt={cta.images.bgCard.alt}
+              class="cta-bg-card absolute h-auto"
+              width={171}
+            />
+          )}
+        </div>
+      </div>
+
+      <!-- Center blur glow -->
+      <div class="cta-center-blur absolute rounded-full bg-brand-primary" aria-hidden="true"></div>
+    </div>
+  </Container>
+
+  <!-- Section vertical lines -->
+  <div class="absolute top-0 left-0 w-full h-full flex justify-between pointer-events-none" aria-hidden="true">
+    {Array.from({ length: 14 }).map(() => (
+      <div class="opacity-[0.03] bg-[#dcdcdc] h-full" style="width: 0.5px;"></div>
+    ))}
+  </div>
+
+  <!-- Gradient decorative shapes -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="cta-gradient-left absolute rounded-full bg-brand-primary"></div>
+    <div class="cta-gradient-right absolute rounded-full bg-brand-primary"></div>
+  </div>
+</section>
+
+<style>
+  /* === CTA Wrapper === */
+  .cta-wrapper {
+    padding: 50px 50px 62px 40px;
+  }
+
+  /* === CTA Block === */
+  .cta-block {
+    /* flex justify-between already applied via Tailwind */
+  }
+
+  /* === CTA Title === */
+  .cta-title {
+    max-width: 520px;
+    font-size: 38px;
+    line-height: 1.22;
+    font-weight: 500;
+  }
+
+  /* === CTA Excerpt === */
+  .cta-excerpt {
+    max-width: 446px;
+    margin-top: 10px;
+  }
+
+  /* === Button Wrapper === */
+  .cta-btn-wrap {
+    margin-top: 32px;
+  }
+
+  /* === Banner Image === */
+  .cta-banner-image {
+    max-width: 300px;
+    margin-right: 40px;
+  }
+
+  /* === Expenses Card (floating) === */
+  .cta-expenses-image {
+    inset: auto 10px -25px auto;
+    animation: cta-expenses-float 4s ease infinite;
+  }
+
+  /* === BG Card (behind banner) === */
+  .cta-bg-card {
+    z-index: -1;
+    inset: -20px 0% auto auto;
+    animation: cta-bg-card-float 4s ease infinite;
+  }
+
+  /* === Loop Animations === */
+  @keyframes cta-expenses-float {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-20px); }
+  }
+
+  @keyframes cta-bg-card-float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(10px, -10px); }
+  }
+
+  /* Disable animations on small screens */
+  @media (max-width: 767px) {
+    .cta-expenses-image,
+    .cta-bg-card {
+      animation: none;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-expenses-image,
+    .cta-bg-card {
+      animation: none;
+    }
+  }
+
+  /* === Center Blur Glow === */
+  .cta-center-blur {
+    z-index: 1;
+    opacity: 0.5;
+    filter: blur(250px);
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    inset: 0 0 0 80px;
+  }
+
+  /* === Block Shape SVGs === */
+  .left-block-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .right-block-shape {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  /* ============= max-991 (block shapes) ============= */
+  @media (max-width: 991px) {
+    .left-block-shape {
+      max-width: 200px;
+      max-height: 300px;
+    }
+
+    .right-block-shape {
+      max-width: 200px;
+      max-height: 300px;
+      top: auto;
+      bottom: 0;
+    }
+  }
+
+  /* ============= max-479 (block shapes) ============= */
+  @media (max-width: 479px) {
+    .left-block-shape {
+      max-width: 150px;
+      max-height: 200px;
+    }
+
+    .right-block-shape {
+      max-width: 150px;
+      max-height: 200px;
+    }
+  }
+
+  /* === Gradient Shapes === */
+  .cta-gradient-left {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    inset: auto auto -132px -320px;
+  }
+
+  .cta-gradient-right {
+    opacity: 0.4;
+    filter: blur(800px);
+    width: 500px;
+    height: 350px;
+    position: absolute;
+    inset: auto -300px 15% auto;
+  }
+
+  /* ============= min-1280 ============= */
+  @media (min-width: 1280px) {
+    .cta-wrapper {
+      padding: 60px 70px 70px 60px;
+    }
+
+    .cta-title {
+      max-width: 600px;
+      font-size: 42px;
+    }
+
+    .cta-excerpt {
+      margin-top: 16px;
+    }
+
+    .cta-banner-image {
+      max-width: 100%;
+      margin-right: 60px;
+    }
+
+    .cta-bg-card {
+      top: -35px;
+    }
+
+    .cta-center-blur {
+      width: 160px;
+      height: 160px;
+      left: 100px;
+    }
+
+    .cta-gradient-left {
+      width: 750px;
+      height: 500px;
+      left: -350px;
+    }
+
+    .cta-gradient-right {
+      width: 750px;
+      height: 500px;
+      right: -390px;
+    }
+  }
+
+  /* ============= min-1440 ============= */
+  @media (min-width: 1440px) {
+    .cta-wrapper {
+      padding: 70px 80px 82px 70px;
+    }
+
+    .cta-title {
+      font-size: 44px;
+    }
+
+    .cta-banner-image {
+      margin-right: 76px;
+    }
+
+    .cta-expenses-image {
+      right: 40px;
+    }
+
+    .cta-center-blur {
+      width: 181px;
+      height: 181px;
+      left: 180px;
+    }
+
+    .cta-gradient-left {
+      width: 848px;
+      height: 500px;
+      left: -442px;
+    }
+
+    .cta-gradient-right {
+      width: 848px;
+      right: -424px;
+    }
+  }
+
+  /* ============= max-991 ============= */
+  @media (max-width: 991px) {
+    .cta-wrapper {
+      padding-left: 20px;
+      padding-right: 30px;
+    }
+
+    .cta-block {
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .cta-excerpt {
+      max-width: 550px;
+    }
+
+    .cta-banner-image {
+      max-width: 100%;
+    }
+
+    .cta-bg-card {
+      top: -40px;
+      right: -50px;
+    }
+
+    .cta-gradient-left,
+    .cta-gradient-right {
+      width: 500px;
+      height: 400px;
+    }
+  }
+
+  /* ============= max-767 ============= */
+  @media (max-width: 767px) {
+    .cta-wrapper {
+      padding: 40px 20px 50px;
+    }
+
+    .cta-title {
+      font-size: 32px;
+    }
+
+    .cta-btn-wrap {
+      margin-top: 20px;
+    }
+
+    .cta-expenses-image,
+    .cta-bg-card {
+      right: 0;
+    }
+
+    .cta-gradient-left,
+    .cta-gradient-right {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  /* ============= max-479 ============= */
+  @media (max-width: 479px) {
+    .cta-title {
+      font-size: 30px;
+    }
+
+    .cta-banner-image {
+      margin-right: 0;
+    }
+
+    .cta-bg-card {
+      margin-top: 10px;
+      right: -10px;
+    }
+  }
+</style>

@@ -1,0 +1,15 @@
+---
+const {
+  as = 'div',
+  class: className = '',
+  ...rest
+} = Astro.props;
+const Tag = as;
+---
+
+<Tag
+  class={`box-border mx-auto w-full max-w-container max-991:max-w-container-md max-767:max-w-container-sm min-1280:max-w-container-lg min-1440:max-w-container-xl px-15 ${className}`.trim()}
+  {...rest}
+>
+  <slot />
+</Tag>
