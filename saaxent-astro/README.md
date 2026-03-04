@@ -1,4 +1,4 @@
-# SaaXent — Astro Template for SaaS
+# SaaXent — Modern Dark SaaS Astro Template
 
 A modern, dark-themed SaaS website template built with **Astro 5** and **Tailwind CSS v3**. Includes 43 pre-built pages, fully responsive design, SEO optimization, and accessibility features.
 
