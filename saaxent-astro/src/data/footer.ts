@@ -39,9 +39,9 @@ export const footer = {
         [
           { label: '404 Not Found', href: '/404' },
           { label: 'Password Protected', href: '/401' },
-          { label: 'Style Guide', href: '#' },
-          { label: 'Licenses', href: '#' },
-          { label: 'Changelog', href: '#' }
+          { label: 'Style Guide', href: '/template-info/style-guide' },
+          { label: 'Licenses', href: '/template-info/licenses' },
+          { label: 'Changelog', href: '/template-info/changelog' }
         ]
       ]
     },

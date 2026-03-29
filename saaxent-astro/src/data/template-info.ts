@@ -9,7 +9,7 @@ export const changelogEntries = [
   {
     version: '1.0',
     label: 'Initial released',
-    date: 'August 27, 2024',
+    date: 'March 27, 2026',
     description: 'The template has been released!'
   }
 ];
